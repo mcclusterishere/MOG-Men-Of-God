@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "feature_family": "mirror-time-and-bible",
+  "branch": "claude/mog-asset-integration-v2",
+  "assets": [
+    {"file":"assets/mirror-time.svg","label":"Mirror Time parent identity","concept":"mirror-time","tier":"control","status":"canonical-new","use":["Mirror Time hub","private practice summary"],"never":["Bible","rank","Talents","generic decoration"]},
+    {"file":"assets/mirror-prayer.svg","label":"Mirror Time Prayer glyph","concept":"mirror-prayer","tier":"micro","status":"canonical-new","use":["live Prayer session","Prayer micro-control"],"never":["generic Christian decoration","Bible replacement"]},
+    {"file":"assets/mirror-forgive.svg","label":"Forgive Yourself mirror glyph","concept":"self-forgiveness","tier":"micro","status":"canonical-new","use":["Forgive Yourself entry","live forgiveness session"],"never":["relationship forgiveness badge","social proof"]},
+    {"file":"assets/mirror-mantra.svg","label":"Mirror Time Mantras glyph","concept":"mantras","tier":"micro","status":"canonical-new","use":["Mantras entry","mantra category experience"],"never":["Feed quote decoration","Bible"]},
+    {"file":"assets/bible-study.svg","label":"Bible / Scripture reader glyph","concept":"bible-study","tier":"micro","status":"canonical-new","use":["Today's Word","Bible reader header"],"never":["generic book icon outside Scripture","Prayer replacement"]}
+  ],
+  "privacy_rule": "Mirror Time assets identify a private practice. Their presence must never imply that camera footage or audio is recorded or posted."
+}
