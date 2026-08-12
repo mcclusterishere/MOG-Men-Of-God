@@ -1,5 +1,5 @@
 {
-  "version": "0.1.2-staging",
+  "version": "0.1.3-staging",
   "brand": "Men of God",
   "tagline": "One brotherhood. Many churches. One God.",
   "core_values": ["Faith", "Discipline", "Brotherhood"],
@@ -22,7 +22,7 @@
     {"name":"streak","target":"glyphs/streak.png","status":"approved"},
     {"name":"rank","target":"glyphs/rank.png","status":"approved"},
     {"name":"verified","target":"glyphs/verified.png","runtime_files":["assets/badge-verified-128.webp","assets/badge-verified-256.webp"],"micro_runtime_file":"assets/verified.svg","status":"approved-user-confirmed","note":"The existing scalloped blackened-steel and antique-gold seal with the dimensional gold checkmark and MOG crest is VERIFIED. 128/256 are badge size variants; verified.svg remains the compact inline verified treatment. Never repurpose the badge as generic success/completion, rank, creator, challenge, or Faith art."},
-    {"name":"talents","target":"glyphs/talents.png","status":"approved"}
+    {"name":"talents","target":"glyphs/talents.png","runtime_file":"assets/badge-creator-256.webp","micro_runtime_file":"assets/talent.svg","status":"approved-user-confirmed","note":"The existing circular MOG crest containing headphones, studio microphone, paint brush, camera lens and piano keys is TALENTS. The historical filename badge-creator-256.webp and old creator/founder interpretation are incorrect. talent.svg remains the compact inline/micro Talents mark for balances, rewards and ledger UI. Do not recreate Talents while this asset exists."}
   ],
   "mask_contract": {
     "folder": "material-masks/<asset-name>/",
