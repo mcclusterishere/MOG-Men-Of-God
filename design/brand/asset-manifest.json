@@ -1,5 +1,5 @@
 {
-  "version": "0.1.1-staging",
+  "version": "0.1.2-staging",
   "brand": "Men of God",
   "tagline": "One brotherhood. Many churches. One God.",
   "core_values": ["Faith", "Discipline", "Brotherhood"],
@@ -21,7 +21,7 @@
     {"name":"challenge","target":"glyphs/challenge.png","status":"approved"},
     {"name":"streak","target":"glyphs/streak.png","status":"approved"},
     {"name":"rank","target":"glyphs/rank.png","status":"approved"},
-    {"name":"verified","target":"glyphs/verified.png","status":"approved"},
+    {"name":"verified","target":"glyphs/verified.png","runtime_files":["assets/badge-verified-128.webp","assets/badge-verified-256.webp"],"micro_runtime_file":"assets/verified.svg","status":"approved-user-confirmed","note":"The existing scalloped blackened-steel and antique-gold seal with the dimensional gold checkmark and MOG crest is VERIFIED. 128/256 are badge size variants; verified.svg remains the compact inline verified treatment. Never repurpose the badge as generic success/completion, rank, creator, challenge, or Faith art."},
     {"name":"talents","target":"glyphs/talents.png","status":"approved"}
   ],
   "mask_contract": {
