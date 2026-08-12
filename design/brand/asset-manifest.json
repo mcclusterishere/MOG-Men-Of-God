@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-staging",
+  "version": "0.1.1-staging",
   "brand": "Men of God",
   "tagline": "One brotherhood. Many churches. One God.",
   "core_values": ["Faith", "Discipline", "Brotherhood"],
@@ -11,7 +11,7 @@
     {"name":"app-icon","target":"identity/app-icon.png","status":"approved"}
   ],
   "glyphs": [
-    {"name":"faith","target":"glyphs/faith.png","status":"approved"},
+    {"name":"faith","target":"glyphs/faith.png","runtime_file":"assets/emblem-shield-128.webp","status":"approved-user-confirmed","note":"This existing forged MOG shield/monogram with central cross and gold north-star/compass point is FAITH. Historical filename/old secondary-emblem label are incorrect. Do not recreate Faith while this asset exists."},
     {"name":"discipline","target":"glyphs/discipline.png","status":"approved"},
     {"name":"brotherhood","target":"glyphs/brotherhood.png","status":"approved","note":"Use the final darker-hands version."},
     {"name":"legacy","target":"glyphs/legacy.png","status":"approved","note":"Forged signet ring. Do not replace with lion/hourglass/globe composition."},
@@ -30,6 +30,7 @@
     "semantic_channels_on_demand": ["cracks-mask.png", "engraving-mask.png", "cross-mask.png", "glyph-mask.png", "rim-mask.png", "flame-mask.png", "chevrons-mask.png"]
   },
   "rules": [
+    "User-confirmed semantic corrections override historical filenames and older inferred labels.",
     "Do not substitute generic icons or emoji for approved glyphs.",
     "Do not animate whole rasters when the intended animation belongs to one material channel.",
     "Preserve source masters; place all derived files in separate staging/derivative paths.",
