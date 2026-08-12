@@ -73,6 +73,31 @@ img { display: block; }
 svg { fill: currentColor; }
 
 /* ============================================================
+   Splash
+   ============================================================ */
+.splash {
+  position: fixed;
+  z-index: 200;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  transition: opacity .5s var(--ease);
+}
+.splash img {
+  width: 100%;
+  max-width: min(var(--shell), 88vw);
+  max-height: 84dvh;
+  object-fit: contain;
+  animation: splashIn .45s var(--ease) both;
+}
+@keyframes splashIn {
+  from { opacity: .25; transform: scale(1.06); }
+  to { opacity: 1; transform: none; }
+}
+.splash.gone { opacity: 0; pointer-events: none; }
+
+/* ============================================================
    Shell
    ============================================================ */
 .app {
@@ -207,6 +232,7 @@ p { margin: 0; letter-spacing: -.01em; }
    Scripture
    ============================================================ */
 .verse {
+  position: relative;
   overflow: hidden;
   background:
     radial-gradient(90% 120% at 100% 0, rgba(169, 127, 44, .16) 0, transparent 62%),
@@ -215,6 +241,19 @@ p { margin: 0; letter-spacing: -.01em; }
   border-radius: var(--r-xl);
   padding: 22px;
 }
+.verseArt {
+  position: absolute;
+  right: -34px;
+  bottom: -30px;
+  width: 190px;
+  opacity: .34;
+  pointer-events: none;
+  mask-image: radial-gradient(72% 72% at 62% 42%, #000 42%, transparent 78%);
+  -webkit-mask-image: radial-gradient(72% 72% at 62% 42%, #000 42%, transparent 78%);
+}
+.verse > *:not(.verseArt) { position: relative; }
+.verse blockquote, .verse cite { max-width: 74%; display: block; }
+
 .verse header {
   display: flex; align-items: center; gap: 8px;
   font-size: 10px; font-weight: 700; letter-spacing: .18em;
@@ -496,8 +535,8 @@ p { margin: 0; letter-spacing: -.01em; }
   opacity: .95;
   filter: drop-shadow(0 24px 50px rgba(0, 0, 0, .7));
 }
-.watermark { position: absolute; z-index: 1; left: 18px; top: 18px; opacity: .5; }
-.watermark img { width: 48px; height: 48px; border-radius: 14px; }
+.watermark { position: absolute; z-index: 1; left: 16px; top: 16px; opacity: .65; }
+.watermark img { width: 58px; height: 58px; }
 .videoCopy {
   position: absolute;
   z-index: 1;
@@ -588,6 +627,29 @@ p { margin: 0; letter-spacing: -.01em; }
   color: var(--gold);
 }
 
+.timeCard {
+  position: relative;
+  overflow: hidden;
+  margin-top: var(--gap);
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(80% 110% at 100% 40%, rgba(255, 138, 61, .14) 0, transparent 62%),
+    linear-gradient(180deg, var(--raised), var(--surface));
+}
+.timeCard .heroArt { right: -24px; top: 50%; translate: 0 -50%; width: 150px; opacity: .85; }
+.timeCard h3 {
+  position: relative;
+  max-width: 62%;
+  margin: 12px 0 6px;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -.04em;
+}
+.timeCard h3 span { color: var(--gold); }
+.timeCard p { position: relative; max-width: 62%; color: var(--ink-2); font-size: 14px; }
+
 .taskList { margin-top: var(--gap); }
 .task {
   display: flex;
@@ -642,7 +704,17 @@ p { margin: 0; letter-spacing: -.01em; }
     radial-gradient(80% 100% at 100% 0, rgba(169, 127, 44, .18) 0, transparent 60%),
     linear-gradient(180deg, var(--raised), var(--surface));
 }
-.chapterMark { position: absolute; right: 16px; top: 16px; width: 62px; opacity: .35; }
+.chapterMark {
+  position: absolute;
+  right: 6px;
+  top: 12px;
+  width: 138px;
+  opacity: .5;
+  pointer-events: none;
+}
+.chapter > *:not(.chapterMark) { position: relative; }
+.chapter h2 { max-width: 56%; }
+.chapter p { max-width: 64%; }
 .chapter h2 { font-size: 34px; font-weight: 820; letter-spacing: -.05em; margin: 6px 0 4px; }
 .chapter p { color: var(--ink-2); font-size: 14px; }
 .chapter .btn { margin-top: 18px; }
@@ -730,6 +802,30 @@ p { margin: 0; letter-spacing: -.01em; }
 }
 .rankChip img { width: 24px; height: 24px; }
 
+.covenantCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: var(--gap);
+  padding: 14px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(70% 130% at 0 50%, rgba(230, 196, 106, .12) 0, transparent 62%),
+    linear-gradient(180deg, var(--raised-2), var(--surface));
+}
+.covenantCard img { width: 52px; height: 52px; flex: none; }
+.covenantCard .grow { flex: 1; min-width: 0; }
+.covenantCard b {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold-lit);
+}
+.covenantCard small { display: block; margin-top: 3px; font-size: 13px; color: var(--ink-3); }
+
 .creatorCard {
   display: flex;
   align-items: center;
@@ -803,11 +899,21 @@ p { margin: 0; letter-spacing: -.01em; }
 .tabs button.selected { background: var(--raised-2); color: var(--ink); }
 
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
-.grid i {
+.grid i, .grid .cell {
+  display: grid;
+  place-items: center;
   height: 168px;
   border-radius: var(--r-sm);
-  background: linear-gradient(145deg, #241f16, #0d0d0c);
+  background: linear-gradient(145deg, #1b1811, #0d0d0c);
   border: 1px solid var(--line);
+  overflow: hidden;
+}
+.grid .cell img { width: 100%; height: 100%; object-fit: cover; }
+.grid .cell.empty img {
+  width: 56px; height: 56px;
+  object-fit: contain;
+  opacity: .16;
+  filter: grayscale(1);
 }
 
 /* ============================================================
@@ -841,7 +947,7 @@ p { margin: 0; letter-spacing: -.01em; }
   background: linear-gradient(180deg, var(--raised-2), var(--surface));
 }
 .installTop { display: flex; align-items: center; gap: 12px; }
-.installCard img { width: 40px; height: 40px; border-radius: 12px; flex: none; }
+.installCard .lockup { width: 168px; height: auto; margin-bottom: 2px; }
 .installCard .grow { flex: 1; min-width: 0; }
 .installCard b { display: block; font-size: 14px; font-weight: 750; }
 .installCard small { display: block; margin-top: 2px; font-size: 12px; color: var(--ink-3); }

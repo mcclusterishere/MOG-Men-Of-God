@@ -9,8 +9,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Men of God">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="apple-touch-icon" href="assets/mog-mark.svg">
-<link rel="icon" href="assets/mog-mark.svg">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" href="assets/app-icon-192.png">
+<link rel="icon" type="image/svg+xml" href="assets/mog-mark.svg">
 <link rel="manifest" href="manifest.webmanifest">
 <title>Men of God</title>
 <link rel="stylesheet" href="styles.css">
@@ -36,13 +37,17 @@
   <symbol id="i-send" viewBox="0 0 24 24"><path d="M3 11.4 21 3l-8.4 18-2.3-7.3z"/></symbol>
 </defs></svg>
 
+<div id="splash" class="splash">
+  <img src="assets/lockup-stacked-960.webp" alt="Men of God">
+</div>
+
 <main class="app">
 
   <!-- ============================ TODAY ============================ -->
   <section id="today" class="screen active">
     <header class="bar">
       <div class="brandLock">
-        <img src="assets/mog-mark.svg" alt="">
+        <img src="assets/emblem-shield-128.webp" alt="">
         <div class="grow">
           <small class="eyebrow">Men of God</small>
           <h1 id="greeting">Good evening, Brother.</h1>
@@ -52,8 +57,8 @@
     </header>
 
     <div id="installCard" class="installCard">
+      <img class="lockup" src="assets/lockup-horizontal-720.webp" alt="Men of God">
       <div class="installTop">
-        <img src="assets/mog-mark.svg" alt="">
         <div class="grow">
           <b>Keep the Brotherhood close.</b>
           <small>Install for the full-screen experience.</small>
@@ -66,7 +71,8 @@
     </div>
 
     <section class="verse">
-      <header><img src="assets/mog-mark.svg" alt="">TODAY'S WORD</header>
+      <img class="verseArt" src="assets/art-prayer-512.webp" alt="" width="200" height="200">
+      <header><img src="assets/emblem-shield-128.webp" alt="">TODAY'S WORD</header>
       <blockquote>“As iron sharpens iron, so one person sharpens another.”</blockquote>
       <cite>PROVERBS 27:17</cite>
     </section>
@@ -147,7 +153,7 @@
 
     <div id="feedList">
       <article class="videoPost feedItem" data-type="all">
-        <div class="watermark"><img src="assets/mog-mark.svg" alt=""></div>
+        <div class="watermark"><img src="assets/mark-gold-256.webp" alt=""></div>
         <img class="videoArt" src="assets/badge-rank-512.webp" alt="" width="300" height="300">
         <div class="videoCopy">
           <span class="chip">Weekly challenge</span>
@@ -199,6 +205,13 @@
       <span class="weekLabel" id="weekProgressText">4 OF 7 DAYS</span>
     </article>
 
+    <article class="timeCard">
+      <img class="heroArt" src="assets/art-hourglass-512.webp" alt="" width="180" height="180">
+      <span class="chip">Redeem the time</span>
+      <h3><span id="hoursLeft">—</span> left today.</h3>
+      <p>Close the day finished, not started.</p>
+    </article>
+
     <div class="taskList">
       <article class="task" data-reward="25">
         <div class="grow">
@@ -238,7 +251,7 @@
     </header>
 
     <article class="chapter">
-      <img class="chapterMark" src="assets/mog-mark.svg" alt="">
+      <img class="chapterMark" src="assets/crest-brotherhood-512.webp" alt="">
       <span class="chip">Your chapter</span>
       <h2>Atlanta</h2>
       <p>Founding Chapter · 128 brothers</p>
@@ -306,6 +319,14 @@
       </div>
     </div>
 
+    <div class="covenantCard">
+      <img src="assets/art-ring-256.webp" alt="">
+      <div class="grow">
+        <b>Founding Brother</b>
+        <small>Covenant sealed · <span id="covenantSince">—</span></small>
+      </div>
+    </div>
+
     <button class="creatorCard" id="platformLink">
       <img src="assets/badge-creator-256.webp" alt="">
       <div class="grow">
@@ -336,6 +357,22 @@
       <button class="trophy locked" data-trophy="Chain Breaker">
         <img src="assets/crest-breakthrough-256.webp" alt="">
         <span>Chain<br>Breaker</span>
+      </button>
+      <button class="trophy locked" data-trophy="Man of Prayer">
+        <img src="assets/art-prayer-256.webp" alt="">
+        <span>Man of<br>Prayer</span>
+      </button>
+      <button class="trophy locked" data-trophy="Covenant Ring">
+        <img src="assets/art-ring-256.webp" alt="">
+        <span>Covenant<br>Ring</span>
+      </button>
+      <button class="trophy locked" data-trophy="Brotherhood">
+        <img src="assets/crest-brotherhood-256.webp" alt="">
+        <span>Brother<br>hood</span>
+      </button>
+      <button class="trophy locked" data-trophy="Redeem the Time">
+        <img src="assets/art-hourglass-256.webp" alt="">
+        <span>Redeem<br>the Time</span>
       </button>
     </div>
 

@@ -3,7 +3,7 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 const DEFAULT_PROFILE = {
   name: 'Brother', chapter: 'Founding Chapter', role: '', platform: '',
-  talents: 0, streak: 0, proofs: 0
+  talents: 0, streak: 0, proofs: 0, replies: 0, since: new Date().getFullYear()
 };
 
 const state = {
@@ -120,8 +120,21 @@ function renderProfile() {
   $('#platformTitle').textContent = p.platform ? 'Visit my platform' : 'Add my platform';
   $('#platformMeta').textContent = p.platform || 'Music, media, ministry — show what you build.';
 
+  $('#covenantSince').textContent = p.since;
+
   renderWeek();
   renderTrophies();
+  renderProofGrid();
+}
+
+/* Proof grid falls back to a ghosted mark until there is work to show. */
+function renderProofGrid() {
+  const shots = state.posts.filter(x => x.media && !x.media.startsWith('data:video')).slice(0, 6);
+  const cells = shots.map(x => `<div class="cell"><img src="${x.media}" alt="Proof"></div>`);
+  while (cells.length < 4) {
+    cells.push('<div class="cell empty"><img src="assets/mark-silver-256.webp" alt=""></div>');
+  }
+  $('#profileGrid').innerHTML = cells.join('');
 }
 
 $('#platformLink').addEventListener('click', () => {
@@ -169,7 +182,11 @@ function renderTrophies() {
     'Verified Brother': p.proofs >= 1,
     'Rank: Builder': p.talents >= 750,
     '7 Days of Iron': p.streak >= 7,
-    'Chain Breaker': state.completed.length >= 3
+    'Chain Breaker': state.completed.length >= 3,
+    'Man of Prayer': p.streak >= 3,
+    'Covenant Ring': p.name !== 'Brother',
+    'Brotherhood': p.replies >= 1,
+    'Redeem the Time': state.completed.length >= 5
   };
   $$('.trophy').forEach(t => t.classList.toggle('locked', !earned[t.dataset.trophy]));
 }
@@ -193,6 +210,18 @@ function renderWeek() {
 /* ------------------------------------------------------------------
    Challenges
    ------------------------------------------------------------------ */
+function renderHoursLeft() {
+  const now = new Date();
+  const midnight = new Date(now);
+  midnight.setHours(24, 0, 0, 0);
+  const mins = Math.round((midnight - now) / 60000);
+  const h = Math.floor(mins / 60);
+  $('#hoursLeft').textContent = h >= 1
+    ? `${h} hour${h === 1 ? '' : 's'}`
+    : `${mins} minute${mins === 1 ? '' : 's'}`;
+}
+setInterval(renderHoursLeft, 60000);
+
 $$('.task').forEach(task => {
   const key = $('h3', task).textContent;
   if (state.completed.includes(key)) task.classList.add('done');
@@ -353,8 +382,10 @@ $('#sendReply').addEventListener('click', () => {
   if (p) {
     p.comments = p.comments || [];
     p.comments.push({ name: state.profile.name, text });
+    state.profile.replies += 1;
     save();
     renderPosts();
+    renderTrophies();
   }
   input.value = '';
   renderComments();
@@ -427,9 +458,18 @@ if ('serviceWorker' in navigator) {
 /* ------------------------------------------------------------------
    Boot
    ------------------------------------------------------------------ */
+function dismissSplash() {
+  const splash = $('#splash');
+  splash.classList.add('gone');
+  setTimeout(() => splash.remove(), 600);
+}
+
 setupInstall();
+renderHoursLeft();
 renderPosts();
 renderProfile();
 wireActions();
 positionThumb();
-if (!localStorage.getItem('mogProfile')) setTimeout(openProfileEditor, 700);
+
+setTimeout(dismissSplash, 1250);
+if (!localStorage.getItem('mogProfile')) setTimeout(openProfileEditor, 2100);
