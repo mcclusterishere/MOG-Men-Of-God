@@ -1,0 +1,370 @@
+{
+  "version": "1.0.0",
+  "branch": "claude/mog-asset-integration-v2",
+  "asset_source_branch": "claude/app-design-mobbin-overhaul-8vyyd3",
+  "purpose": "Authoritative runtime labeling for every currently uploaded MOG asset. This file decides what each asset means, where it may appear, what size tier it belongs to, and what it must never be used for.",
+  "global_rules": [
+    "The screenshots/art direction are a reskin reference, not permission to redesign product structure.",
+    "Use canonical MOG assets for MOG-owned concepts. Generic SVGs are allowed only for mechanical actions such as close, share, back, camera, edit, search, and add.",
+    "Do not use a hero raster as a tiny navigation glyph.",
+    "Do not use an asset merely because it looks visually compatible. Its semantic label in this registry controls use.",
+    "Do not pulse an entire raster. Animate only named material channels or a dedicated derived mask.",
+    "If a required semantic glyph is missing at runtime, leave a documented placeholder and source the approved glyph. Do not invent a substitute.",
+    "Legacy is the forged signet ring. Hourglass artwork is explicitly forbidden as Legacy.",
+    "App icons are PWA/install identity only and must never be used as ordinary in-app icons."
+  ],
+  "tiers": {
+    "system": "PWA/browser/install identity. Not normal in-app content.",
+    "micro": "16-28px inline glyph or status mark.",
+    "control": "32-72px branded glyph/badge used inside an existing control or compact card.",
+    "hero": "96px+ rendered art used sparingly for a principal section or ceremonial moment.",
+    "lockup": "Brand wordmark/identity composition, not a button icon."
+  },
+  "assets": [
+    {
+      "file": "assets/app-icon-192.png",
+      "label": "MOG PWA app icon 192",
+      "concept": "app-identity",
+      "tier": "system",
+      "status": "approved-runtime",
+      "use": ["manifest icon", "browser/PWA install identity"],
+      "never": ["bottom navigation", "card decoration", "profile badge", "generic MOG icon"],
+      "motion": "none"
+    },
+    {
+      "file": "assets/app-icon-512.png",
+      "label": "MOG PWA app icon 512",
+      "concept": "app-identity",
+      "tier": "system",
+      "status": "approved-runtime",
+      "use": ["manifest icon", "high-resolution install identity"],
+      "never": ["bottom navigation", "card decoration", "profile badge", "generic MOG icon"],
+      "motion": "none"
+    },
+    {
+      "file": "assets/app-icon-maskable-512.png",
+      "label": "MOG maskable PWA icon",
+      "concept": "app-identity",
+      "tier": "system",
+      "status": "approved-runtime",
+      "use": ["maskable manifest icon on supported launchers"],
+      "never": ["in-app UI", "watermark", "navigation"],
+      "motion": "none"
+    },
+    {
+      "file": "assets/apple-touch-icon.png",
+      "label": "MOG Apple touch icon",
+      "concept": "app-identity",
+      "tier": "system",
+      "status": "approved-runtime",
+      "use": ["iOS home-screen install identity"],
+      "never": ["in-app UI", "navigation", "card art"],
+      "motion": "none"
+    },
+    {
+      "file": "assets/art-hourglass-256.webp",
+      "label": "Hourglass concept art 256",
+      "concept": "unused-experimental",
+      "tier": "control",
+      "status": "quarantined",
+      "use": [],
+      "never": ["Legacy", "rank", "streak", "Today navigation", "ceremonial identity"],
+      "reason": "Legacy is canonically the forged signet ring. This asset remains only as historical concept art.",
+      "motion": "none"
+    },
+    {
+      "file": "assets/art-hourglass-512.webp",
+      "label": "Hourglass concept art 512",
+      "concept": "unused-experimental",
+      "tier": "hero",
+      "status": "quarantined",
+      "use": [],
+      "never": ["Legacy", "rank", "streak", "Today navigation", "ceremonial identity"],
+      "reason": "Legacy is canonically the forged signet ring. This asset remains only as historical concept art.",
+      "motion": "none"
+    },
+    {
+      "file": "assets/art-prayer-256.webp",
+      "label": "Prayer artwork 256",
+      "concept": "prayer",
+      "tier": "control",
+      "status": "approved-runtime",
+      "use": ["prayer card art", "compact devotional/prayer module"],
+      "never": ["generic Today icon", "Faith replacement", "Brothers navigation", "challenge icon"],
+      "motion": "If animated, use derived gold/specular/prayer-detail masks; base stays still."
+    },
+    {
+      "file": "assets/art-prayer-512.webp",
+      "label": "Prayer artwork 512",
+      "concept": "prayer",
+      "tier": "hero",
+      "status": "approved-runtime",
+      "use": ["principal prayer/devotional hero", "Today Word module only when prayer is actually the content"],
+      "never": ["generic section background", "Feed filler art", "Challenge hero"],
+      "motion": "Specular/gold channel only; do not breathe the whole raster."
+    },
+    {
+      "file": "assets/art-ring-256.webp",
+      "label": "Legacy forged signet ring",
+      "concept": "legacy",
+      "tier": "control",
+      "status": "canonical",
+      "use": ["Legacy status", "heritage/long-term impact", "ceremonial founder/legacy moment"],
+      "never": ["generic rank", "Talents", "Challenges", "Feed decoration"],
+      "motion": "Rim/specular sweep or future GLB rotation only; do not replace with hourglass/lion/globe."
+    },
+    {
+      "file": "assets/badge-creator-256.webp",
+      "label": "Creator/founding badge",
+      "concept": "creator-founder-status",
+      "tier": "control",
+      "status": "conditional",
+      "use": ["Only if the product exposes an explicit creator/founder status that this badge represents"],
+      "never": ["generic rank", "verified", "Brothers nav", "decorative card filler"],
+      "reason": "Do not surface until the matching product state is explicitly defined.",
+      "motion": "One restrained gold/specular reveal on award; otherwise static."
+    },
+    {
+      "file": "assets/badge-rank-128.webp",
+      "label": "Rank badge micro/control 128",
+      "concept": "rank",
+      "tier": "micro",
+      "status": "approved-runtime",
+      "use": ["rank stat", "compact member rank indicator"],
+      "never": ["Feed hero artwork", "verification", "challenge art", "generic gold decoration"],
+      "motion": "Chevrons/rim may illuminate sequentially using semantic masks."
+    },
+    {
+      "file": "assets/badge-rank-256.webp",
+      "label": "Rank badge control 256",
+      "concept": "rank",
+      "tier": "control",
+      "status": "approved-runtime",
+      "use": ["profile rank module", "rank-up sheet", "member status card"],
+      "never": ["Feed background", "challenge hero", "verification"],
+      "motion": "Sequential chevron/gold activation; stable base."
+    },
+    {
+      "file": "assets/badge-rank-512.webp",
+      "label": "Rank badge ceremonial 512",
+      "concept": "rank",
+      "tier": "hero",
+      "status": "approved-runtime",
+      "use": ["rare rank-up ceremony", "principal profile rank hero"],
+      "never": ["generic Feed art", "everyday card decoration", "navigation"],
+      "motion": "Rare ceremonial animation only; sequential rank channels."
+    },
+    {
+      "file": "assets/badge-verified-128.webp",
+      "label": "Verified hardware 128",
+      "concept": "verified",
+      "tier": "micro",
+      "status": "approved-runtime",
+      "use": ["larger inline verification state where the small SVG is insufficient"],
+      "never": ["rank", "creator/founder", "generic badge decoration"],
+      "motion": "One restrained rim/specular sweep on reveal."
+    },
+    {
+      "file": "assets/badge-verified-256.webp",
+      "label": "Verified hardware 256",
+      "concept": "verified",
+      "tier": "control",
+      "status": "approved-runtime",
+      "use": ["verification detail sheet", "approved-member ceremonial state"],
+      "never": ["rank", "Feed filler art", "challenge badge"],
+      "motion": "One restrained gold/specular sweep then settle."
+    },
+    {
+      "file": "assets/crest-breakthrough-256.webp",
+      "label": "Challenge / breakthrough crest 256",
+      "concept": "challenge",
+      "tier": "control",
+      "status": "approved-derivative",
+      "use": ["compact challenge card", "daily challenge visual"],
+      "never": ["streak stat", "rank", "Brothers", "generic brand mark"],
+      "motion": "Energy may travel through fracture/detail channels; base metal remains stable."
+    },
+    {
+      "file": "assets/crest-breakthrough-640.webp",
+      "label": "Challenge / breakthrough crest 640",
+      "concept": "challenge",
+      "tier": "hero",
+      "status": "approved-derivative",
+      "use": ["principal Daily Challenge hero", "major challenge completion moment"],
+      "never": ["navigation", "Feed filler", "rank art"],
+      "motion": "Crack/detail emission only; no whole-raster pulse."
+    },
+    {
+      "file": "assets/crest-brotherhood-256.webp",
+      "label": "Brotherhood crest 256",
+      "concept": "brotherhood",
+      "tier": "control",
+      "status": "approved-runtime",
+      "use": ["Brothers/community module", "chapter card", "Brotherhood section accent"],
+      "never": ["challenge", "rank", "prayer", "generic brand watermark"],
+      "motion": "Gold/specular or handshake/detail channel only."
+    },
+    {
+      "file": "assets/crest-brotherhood-512.webp",
+      "label": "Brotherhood crest 512",
+      "concept": "brotherhood",
+      "tier": "hero",
+      "status": "approved-runtime",
+      "use": ["Brothers screen hero", "chapter/community ceremonial moment"],
+      "never": ["Feed background", "rank art", "challenge hero"],
+      "motion": "Restrained material reveal only."
+    },
+    {
+      "file": "assets/crest-streak-256.webp",
+      "label": "Streak crest 256",
+      "concept": "streak",
+      "tier": "control",
+      "status": "approved-runtime",
+      "use": ["streak stat", "compact streak card", "challenge streak state"],
+      "never": ["generic Challenges nav", "rank", "Feed decoration"],
+      "motion": "Heat travels only through flame/emissive channels."
+    },
+    {
+      "file": "assets/crest-streak-640.webp",
+      "label": "Streak crest 640",
+      "concept": "streak",
+      "tier": "hero",
+      "status": "approved-runtime",
+      "use": ["major streak milestone", "7 Days of Iron hero only when the hero is explicitly about streak continuity"],
+      "never": ["all challenge cards", "rank", "Feed hero"],
+      "motion": "Flame/emissive mask animation only; base remains physically stable."
+    },
+    {
+      "file": "assets/emblem-shield-128.webp",
+      "label": "Secondary MOG shield emblem",
+      "concept": "secondary-brand-emblem",
+      "tier": "micro",
+      "status": "secondary",
+      "use": ["small ornamental header identity", "chapter/ceremonial accent where a shield is specifically desired"],
+      "never": ["replace primary MOG mark everywhere", "bottom navigation", "Faith glyph", "Verified"],
+      "motion": "Static or single specular catch only."
+    },
+    {
+      "file": "assets/lockup-horizontal-720.webp",
+      "label": "MEN OF GOD horizontal wordmark",
+      "concept": "horizontal-wordmark",
+      "tier": "lockup",
+      "status": "approved-concept-runtime",
+      "use": ["install card", "wide brand header", "share/brand panel", "controlled onboarding moment"],
+      "never": ["button icon", "bottom navigation", "status badge"],
+      "motion": "Optional restrained material reveal; no looping pulse."
+    },
+    {
+      "file": "assets/lockup-stacked-960.webp",
+      "label": "MEN OF GOD stacked wordmark",
+      "concept": "stacked-wordmark",
+      "tier": "lockup",
+      "status": "approved-concept-runtime",
+      "use": ["splash", "launch/onboarding", "ceremonial brand moment"],
+      "never": ["persistent navigation", "small header icon", "Feed decoration"],
+      "motion": "Launch reveal only; settle completely after entrance."
+    },
+    {
+      "file": "assets/mark-gold-256.webp",
+      "label": "Gold MOG brand mark",
+      "concept": "primary-mark-gold-render",
+      "tier": "control",
+      "status": "approved-runtime",
+      "use": ["premium watermark", "controlled hero brand mark", "dark-surface brand identity"],
+      "never": ["replace semantic glyphs", "every card", "navigation for unrelated concepts"],
+      "motion": "Specular sweep across gold region only."
+    },
+    {
+      "file": "assets/mark-silver-256.webp",
+      "label": "Silver/monochrome MOG brand mark",
+      "concept": "monochrome-mark-render",
+      "tier": "control",
+      "status": "approved-runtime",
+      "use": ["low-contrast watermark", "reduced-detail brand identity", "cool-metal fallback"],
+      "never": ["replace semantic glyphs", "generic nav icon"],
+      "motion": "Tiny specular catch only."
+    },
+    {
+      "file": "assets/mog-mark.svg",
+      "label": "Canonical compact MOG mark",
+      "concept": "primary-mark",
+      "tier": "micro",
+      "status": "canonical",
+      "use": ["header brand identity", "small brand mark", "masking", "fallback identity"],
+      "never": ["Talents", "Verified", "Rank", "generic action icon"],
+      "motion": "May drive SVG gold/specular/engraving channels when grouped semantically."
+    },
+    {
+      "file": "assets/talent.svg",
+      "label": "Talents currency/reputation glyph",
+      "concept": "talents",
+      "tier": "micro",
+      "status": "canonical",
+      "use": ["Talents balances", "rewards", "challenge reward labels", "Talents ledger UI"],
+      "never": ["cash/payment icon", "rank", "generic points icon for unrelated systems"],
+      "motion": "Rim catches light; core glyph stays readable. Future GLB coin may replace only where physical 3D earns the cost."
+    },
+    {
+      "file": "assets/verified.svg",
+      "label": "Canonical verified inline glyph",
+      "concept": "verified",
+      "tier": "micro",
+      "status": "canonical",
+      "use": ["inline verified names", "compact verification state"],
+      "never": ["rank", "creator/founder", "challenge completion"],
+      "motion": "Single restrained gold/specular sweep on reveal, then static."
+    }
+  ],
+  "missing_runtime_slots": [
+    {
+      "concept": "faith",
+      "required_use": "Today/Word/devotional semantic glyph",
+      "instruction": "Approved concept exists in the design manifest but no dedicated runtime file is present in the donor asset folder. Do not substitute home/heart/cross/emoji ad hoc. Source the approved Faith glyph."
+    },
+    {
+      "concept": "discipline",
+      "required_use": "discipline/accountability context",
+      "instruction": "Approved concept exists but no dedicated runtime file is present. Do not treat streak or challenge art as the Discipline glyph."
+    },
+    {
+      "concept": "study",
+      "required_use": "Bible/study/learning context",
+      "instruction": "Approved concept exists but no dedicated runtime file is present. Do not substitute a generic book if the approved Study glyph can be sourced."
+    },
+    {
+      "concept": "serve",
+      "required_use": "service/community-action context",
+      "instruction": "Approved concept exists but no dedicated runtime file is present. Do not invent a hand/heart icon as a replacement."
+    },
+    {
+      "concept": "challenge-glyph",
+      "required_use": "small navigation/control representation of Challenges",
+      "instruction": "The breakthrough crest is hero/control artwork, not automatically the small canonical Challenge glyph. Source the approved Challenge glyph for micro navigation use."
+    },
+    {
+      "concept": "brotherhood-glyph",
+      "required_use": "small Brothers/community navigation/control",
+      "instruction": "The Brotherhood crest is rendered artwork. Source the approved Brotherhood glyph for micro navigation rather than shrinking the crest into a tiny icon."
+    },
+    {
+      "concept": "streak-glyph",
+      "required_use": "small streak status/control",
+      "instruction": "The crest can support control/hero tiers; source the approved Streak glyph for very small UI where needed."
+    },
+    {
+      "concept": "rank-glyph",
+      "required_use": "small rank/status control",
+      "instruction": "Use badge-rank-128 where appropriate; if a simpler approved glyph exists, prefer it below 24px."
+    },
+    {
+      "concept": "prayer-glyph",
+      "required_use": "small prayer control",
+      "instruction": "Prayer artwork is not a micro nav glyph. Source the approved Prayer glyph for compact controls."
+    },
+    {
+      "concept": "legacy-glyph",
+      "required_use": "small Legacy/heritage control",
+      "instruction": "Canonical concept is the forged signet ring. If a micro glyph is needed, derive from the approved ring, never the hourglass."
+    }
+  ]
+}
