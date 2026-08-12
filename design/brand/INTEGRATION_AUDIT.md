@@ -1,55 +1,50 @@
 # MOG Asset Integration Audit
 
-Branch: `claude/mog-asset-integration-v2` — asset integration / reskin only.
+Branch: `claude/mog-asset-integration-v2`. Asset integration and reskin only.
 
-Tables below are generated from `MOG.audit()` at runtime, not written by hand.
+Tables are generated from `MOG.audit()` at runtime, not written by hand.
 Regenerate by loading the app and calling `MOG.audit()` in the console.
 
 
 ## Branded concepts mounted through the registry
 
 Every row was resolved by `assets/registry.js`. No component selects an asset
-itself: markup declares `data-mog="concept:tier"` and the registry decides which
-file, which material channel, and which motion.
+itself: markup declares `data-mog="concept:tier"` and the registry decides the
+file, the material channel and the motion. There are no hardcoded asset paths
+left in `index.html`.
 
 
 | Concept | Tier | Runtime asset | Where it appears | Material channel | Motion |
 |---|---|---|---|---|---|
+| `bible-study` | micro | `assets/bible-study.svg` | Bible · header | — | none |
+| `bible-study` | micro | `assets/bible-study.svg` | Today · Word card | — | none |
 | `brotherhood` | control | `assets/crest-brotherhood-256.webp` | Brothers · chapter card | gold | sweep |
 | `challenge` | hero | `assets/crest-breakthrough-640.webp` | Today · daily challenge | detail | sweep |
 | `horizontal-wordmark` | lockup | `assets/lockup-horizontal-720.webp` | Today · install card | specular | sweep |
-| `legacy` | control | `assets/art-ring-256.webp` | Me · founding brother | specular | sweep |
+| `mantras` | micro | `assets/mirror-mantra.svg` | Today · Mirror Time · Mantras mode | — | none |
+| `mirror-prayer` | micro | `assets/mirror-prayer.svg` | Mirror Time · live session | — | none |
+| `mirror-time` | control | `assets/mirror-time.svg` | Me · private practice summary | — | none |
+| `mirror-time` | control | `assets/mirror-time.svg` | Mirror Time · camera fallback | — | none |
+| `mirror-time` | control | `assets/mirror-time.svg` | Today · Mirror Time hub | — | none |
+| `prayer` | control | `assets/art-prayer-256.webp` | Today · Mirror Time · Prayer mode | — | none |
 | `primary-mark` | control | `assets/mark-gold-256.webp` | Feed · brand watermark | gold | sweep |
 | `primary-mark` | micro | `assets/mog-mark.svg` | Me · profile watermark | — | none |
 | `primary-mark` | micro | `assets/mog-mark.svg` | Today · header | — | none |
 | `rank` | control | `assets/badge-rank-256.webp` | Today · rank stat | gold | sweep |
-| `streak` | hero | `assets/crest-streak-640.webp` | Challenges · 7 Days of Iron | emissive | pulse |
-| `streak` | control | `assets/crest-streak-256.webp` | Me · streak stat | emissive | pulse |
+| `self-forgiveness` | micro | `assets/mirror-forgive.svg` | Today · Mirror Time · Forgive mode | — | none |
 | `streak` | control | `assets/crest-streak-256.webp` | Today · streak stat | emissive | pulse |
 | `talents` | micro | `assets/talent.svg` | Challenges · Talents pill | — | none |
-| `talents` | micro | `assets/talent.svg` | Me · Talents stat | — | none |
 | `talents` | micro | `assets/talent.svg` | Today · Talents stat | — | none |
-| `verified` | micro | `assets/verified.svg` | Me · proofs stat | — | sweep |
+| `verified` | micro | `assets/verified.svg` | Brothers · verified name | — | sweep |
+| `verified` | micro | `assets/verified.svg` | Feed · verified name | — | sweep |
 | `verified` | micro | `assets/verified.svg` | Today · proof chip | — | sweep |
-| `verified` | micro | `assets/verified.svg` | verified name | — | sweep |
-| `verified` | micro | `assets/verified.svg` | verified name | — | sweep |
-| `verified` | micro | `assets/verified.svg` | verified name | — | sweep |
-
-## Slots awaiting an approved asset
-
-Rendered as a neutral pending marker. No substitute glyph was invented, and no
-lookalike asset was promoted into the slot.
-
-
-| Concept | Where | Why it is empty |
-|---|---|---|
-| `faith:micro` | Today · Word card | Faith/Word/devotional glyph. No runtime file in any branch. |
+| `verified` | micro | `assets/verified.svg` | Today · verified name | — | sweep |
 
 ## Generic substitutes still present
 
-MOG-owned concepts still standing on the pre-existing generic glyph because the
-approved micro-tier glyph does not exist. Declared in markup via
-`data-mog-generic` so they cannot be quietly forgotten.
+MOG-owned concepts still standing on the pre-existing generic glyph, because no
+approved micro-tier glyph exists. Declared in markup via `data-mog-generic` so
+they cannot be quietly forgotten.
 
 
 | Concept | Where | Blocked on |
@@ -57,18 +52,26 @@ approved micro-tier glyph does not exist. Declared in markup via
 | `challenge:micro` | Bottom nav · Challenges | Small Challenges nav glyph. The breakthrough crest is hero art, not a micro glyph. |
 | `brotherhood:micro` | Bottom nav · Brothers | Small Brothers nav glyph. Do not shrink the brotherhood crest. |
 
-## Registered but not yet mounted
+## Manifest concepts with no runtime file
 
-Approved assets the registry governs that have no surface in the current app.
+Approved in `asset-manifest.json`, absent from every branch, and currently
+unmounted. No substitute was invented for any of them.
 
+
+| Concept | Status |
+|---|---|
+| `faith` | No runtime file. The Today Word card now uses the approved `bible-study` glyph, so no Faith slot is rendered. |
+| `discipline` | No runtime file. Streak and challenge art are explicitly not the Discipline glyph. |
+| `serve` | No runtime file and no service surface in the app. |
+| `prayer:micro` | Prayer artwork is control/hero tier. `mirror-prayer.svg` is a candidate but was authored for Mirror Time; promoting it is a brand decision. |
+
+## Registered but not currently mounted
 
 | Concept | Asset | Note |
 |---|---|---|
-| `study` | `assets/bible-study.svg` | Fills a manifest concept that previously had no runtime file. No study surface exists yet. |
-| `prayer` | `assets/art-prayer-256/512.webp` | Approved, but the Today Word module is scripture, not prayer content, so mounting it there is disallowed. |
-| `mirror-time`, `mirror-prayer`, `mirror-forgive`, `mirror-mantra` | `assets/mirror-*.svg` | Landed with the in-flight Mirror Time feature. See below. |
-| `secondary-brand-emblem` | `assets/emblem-shield-128.webp` | Secondary. No surface currently calls for a shield. |
-| `stacked-wordmark` | `assets/lockup-stacked-960.webp` | Approved for splash/launch. The app has no launch surface, and inventing one is a redesign, not a reskin. |
+| `secondary-brand-emblem` | `emblem-shield-128.webp` | Secondary. No surface currently calls for a shield. |
+| `stacked-wordmark` | `lockup-stacked-960.webp` | Approved for splash/launch. The app has no launch surface; inventing one is a redesign, not a reskin. |
+| `monochrome-mark` | `mark-silver-256.webp` | Approved low-contrast watermark. The profile watermark uses the canonical vector mark instead. |
 
 ## Withheld from the runtime on purpose
 
@@ -78,25 +81,11 @@ Approved assets the registry governs that have no surface in the current app.
 | `badge-creator` | Conditional. No explicit creator/founder product state is defined yet. |
 | `app-icon` | System tier. PWA install identity only, never an in-app icon. |
 
-## In-flight feature on this branch
-
-`feature-mirror-bible.js` / `.css` are present but not referenced by any script
-tag, and none of the DOM they query (`#mirrorExperience`, `#bibleReader`,
-`#todayWordText`, `#dailyWordCard`) exists in `index.html`. They are staged work,
-left untouched by this pass. Wiring them would add a sixth screen, which is a
-redesign rather than a reskin.
-
-When that feature is wired, it should stop selecting icons from its own hardcoded
-`MIRROR` map (`icon:'assets/mirror-prayer.svg'`) and resolve through
-`MOG.resolve('mirror-prayer', 'micro')` instead, so the registry stays the single
-authority.
-
-
 ## Mechanical controls left generic (allowed)
 
-Close, share, reply, like, search, edit, add, and the Today/Feed/Me navigation are
-ordinary mechanical actions with no MOG-owned semantic glyph in the manifest, so
-they keep their existing symbols.
+Close, share, reply, like, search, edit, add, back, and the Today/Feed/Me
+navigation are ordinary mechanical actions with no MOG-owned semantic glyph in
+the manifest, so they keep their existing symbols.
 
 
 ## Size tiers
@@ -109,23 +98,28 @@ they keep their existing symbols.
 | hero | 96px+ art, used sparingly for a principal or ceremonial moment. |
 | lockup | Brand wordmark composition. Never a button icon. |
 
-`MOG.verifyTiers()` measures every mount after layout and reports anything that
-renders outside its band. Current violations: **none**.
+`MOG.verifyTiers()` measures every mount after layout and reports anything
+rendering outside its band. Current violations: **none**.
 
 Vector marks are exempt from the px bands; they carry no resolution penalty.
+
+
+During this pass the check caught ten violations, including a hero crest at 78px,
+the legacy ring below its own tier floor, a 256px challenge crest rendering at
+132px, and the brotherhood crest shrunk to a 22px inline accent inside a proof
+chip. All are resolved.
 
 
 ## Known material gaps
 
 - `crest-breakthrough` animates through `detail-mask`, an edge extraction covering
   22% of the frame. That is not crack geometry, so it takes one restrained sweep
-  rather than a fracture pulse. A hand-authored `cracks-mask` is required before
-  the intended crack-only pulse can ship.
+  rather than a fracture pulse. A hand-authored `cracks-mask` is required first.
 
-- `badge-rank` animates through `gold-mask`, which covers chevrons, crown and rim
+- `badge-rank` animates through `gold-mask`, covering chevrons, crown and rim
   together. Sequential chevron illumination needs a hand-authored `chevrons-mask`.
 
-- `crest-streak` uses `emissive-mask`, reviewed: it isolates the flame and the lit
+- `crest-streak` uses `emissive-mask`, reviewed: it isolates the flame and lit
   day-marks and excludes the calendar body, so a pulse is sanctioned.
 
 - `crest-brotherhood` uses `gold-mask`, reviewed: it excludes the hands, matching

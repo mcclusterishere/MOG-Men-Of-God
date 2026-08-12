@@ -44,7 +44,7 @@
 .mog-asset.installLockup>.mog-base{height:auto}
 .mog-asset.crestGlyph{width:24px;height:24px}
 .mog-asset.verified{width:16px;height:16px;vertical-align:-3px}
-.mog-asset.proofMark{width:16px;height:16px;vertical-align:-4px;margin-left:5px}
+.mog-asset.proofMark{width:16px;height:16px;vertical-align:-4px;margin-right:6px}
 
 .stats div{position:relative;overflow:hidden}
 .mog-asset.statGlyph{position:absolute;right:-6px;top:-4px;width:34px;height:34px;opacity:.9}
