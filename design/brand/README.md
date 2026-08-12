@@ -6,8 +6,11 @@ This folder is the handoff point for the approved Men of God identity and UI-gly
 
 Before placing, replacing, animating, resizing, or repurposing **any MOG asset**, read:
 
+- `ASSET_IDENTITY_CORRECTIONS.json` — highest-precedence user-confirmed corrections for assets that were mislabeled when uploaded.
 - `RUNTIME_ASSET_REGISTRY.json` — all previously uploaded runtime assets.
 - `FEATURE_ASSET_REGISTRY.json` — new feature-family assets, currently Mirror Time and Bible.
+
+If a correction file conflicts with an older runtime label for the exact same file, **the correction file wins**.
 
 The registries control:
 - semantic meaning
@@ -18,6 +21,9 @@ The registries control:
 - whether the asset is canonical, secondary, conditional, derivative, or quarantined
 
 **Filename appearance is not authority. The registries are authority.**
+
+Important confirmed correction:
+- `assets/emblem-shield-128.webp` is **FAITH**. It is the forged black/silver/antique-gold MOG shield/monogram with a central cross and gold north-star/compass point. The old `secondary-brand-emblem` label is wrong. Do not create a replacement Faith image while this asset exists.
 
 Examples:
 - `art-ring-256.webp` is the canonical Legacy signet-ring treatment.
@@ -31,7 +37,7 @@ Examples:
 - PWA/app icons are install-system assets only, never normal in-app icons.
 - Hero rasters must not be shrunk into tiny navigation glyphs.
 
-If the canonical semantic glyph is missing from the runtime folder, source the approved glyph from the design system. **Do not invent a generic replacement just to finish the screen.**
+If the canonical semantic glyph is missing from the runtime folder, source the approved glyph from the design system. **Do not invent a generic replacement just to finish the screen.** First check `ASSET_IDENTITY_CORRECTIONS.json` so an already-uploaded asset is not accidentally recreated.
 
 ## Identity assets
 Canonical names:
@@ -43,7 +49,7 @@ Canonical names:
 
 ## UI glyphs
 Canonical names:
-- `glyphs/faith.png`
+- `glyphs/faith.png` — runtime identity currently lives at `assets/emblem-shield-128.webp`; historical filename is misleading.
 - `glyphs/discipline.png`
 - `glyphs/brotherhood.png`
 - `glyphs/legacy.png`
@@ -80,4 +86,4 @@ Add hand-authored semantic masks for exact animation targets, e.g. `cracks-mask.
 ## Brand rule
 The artwork is intended to feel physically manufactured: forged metal, blackened steel, antique gold, polished edges, engraving, seams and material wear. Motion should animate the material channels, not merely brighten or scale the whole image.
 
-See `/AGENTS.md`, both runtime registries, `asset-manifest.json`, and `MATERIAL_MOTION.md` before implementation.
+See `/AGENTS.md`, `ASSET_IDENTITY_CORRECTIONS.json`, both runtime registries, `asset-manifest.json`, and `MATERIAL_MOTION.md` before implementation.
