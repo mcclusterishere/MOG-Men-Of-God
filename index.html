@@ -1,1 +1,419 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#070707"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Men of God"><meta name="mobile-web-app-capable" content="yes"><link rel="apple-touch-icon" href="assets/mog-mark.svg"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/mog-mark.svg"><title>Men of God</title><link rel="stylesheet" href="styles.css"></head><body><main class="app"><section id="today" class="screen active"><header class="brandHeader"><div class="brandLock"><img src="assets/mog-mark.svg" alt="Men of God"><div><small>MEN OF GOD</small><h1 id="greeting">Good evening, Brother.</h1></div></div><button class="avatar profileJump">SB</button></header><div id="installCard" class="installCard"><div><small>MEN OF GOD ON YOUR PHONE</small><h3>Keep the Brotherhood one tap away.</h3><p>Install for the full-screen app experience.</p></div><div class="installActions"><button id="installBtn">Install</button><button id="installSkip" class="later">Not now</button></div></div><div class="verse crestCard"><div class="crestRow"><img src="assets/mog-mark.svg" alt=""><span>TODAY'S WORD</span></div><p>“As iron sharpens iron, so one person sharpens another.”</p><small>PROVERBS 27:17</small></div><div class="stats"><div><b id="streakStat">12</b><span>WEEK STREAK</span></div><div><b class="talentValue"><img src="assets/talent.svg" alt=""> <span id="talentStat">1,480</span></b><span>TALENTS</span></div><div><b>Builder</b><span>RANK</span></div></div><article class="challenge"><div class="tag">DAILY CHALLENGE · +25</div><h2>100 before noon.</h2><p>Complete 100 push-ups. Show the final set. Encourage one brother.</p><button id="completeChallenge">Complete challenge</button></article><div class="sectionHead"><h3>Brotherhood</h3><button data-go="feed">See all</button></div><div id="todayFeed"><article class="miniPost"><div class="postTop"><div class="avatar sm">D</div><div><b>Darius <img class="verified" src="assets/verified.svg" alt="verified"></b><small>Bridgeport Chapter · 18m</small></div></div><p>Discipline got me here. Grace kept me here.</p><div class="proof">DAY 18 · MORNING WORK COMPLETE ✓</div><div class="postActions"><button class="likeBtn">♡ <span>18</span></button><button class="commentBtn">◯ Reply</button></div></article></div></section><section id="feed" class="screen"><header class="brandHeader"><div><small>BROTHERHOOD</small><h1>The Feed</h1></div><button class="round" id="newPost">＋</button></header><div class="filters"><button class="selected" data-filter="all">For You</button><button data-filter="following">Following</button><button data-filter="discussion">Discussions</button></div><div id="feedList"><article class="videoPost feedItem" data-type="all"><div class="videoBg brandVideo"><div class="brandWatermark"><img src="assets/mog-mark.svg" alt=""></div><div class="videoCopy"><span>WEEKLY CHALLENGE</span><h2>Lead from the front.</h2><p>@silverback <img class="verified" src="assets/verified.svg" alt="verified"> · Atlanta Chapter</p></div><div class="actions"><button class="likeBtn">♡<small>84</small></button><button class="commentBtn">◯<small>12</small></button><button class="shareBtn">↗<small>Share</small></button></div></div></article><article class="textPost feedItem" data-type="discussion"><div class="postTop"><div class="avatar sm">M</div><div><b>Marcus</b><small>New Haven · 42m</small></div></div><h3>What does accountability actually look like between brothers?</h3><p>Not judgment. Not performance. What are we committing to when we tell another man “I got you”?</p><div class="postActions"><button class="likeBtn">♡ <span>31</span></button><button class="commentBtn">◯ <span>19</span> replies</button><button class="shareBtn">↗</button></div></article></div></section><section id="challenges" class="screen"><header><div><small>DISCIPLINE</small><h1>Challenges</h1></div><div class="talent"><img src="assets/talent.svg" alt=""> <span id="challengeTalents">1,480</span></div></header><div class="heroChallenge"><small>THIS WEEK</small><h2>7 Days of Iron</h2><p>Train your body. Read your word. Check on a brother. Seven straight days.</p><div class="progress"><i id="weekProgress" style="width:57%"></i></div><span id="weekProgressText">4 OF 7 DAYS</span></div><div class="challengeList"><article data-reward="25"><b>Body</b><h3>100 Push-ups</h3><span>+25 Talents</span><button class="challengeDone">Mark done</button></article><article data-reward="15"><b>Word</b><h3>Read Proverbs 27</h3><span>+15 Talents</span><button class="challengeDone">Mark done</button></article><article data-reward="20"><b>Brotherhood</b><h3>Call a brother</h3><span>+20 Talents</span><button class="challengeDone">Mark done</button></article></div></section><section id="brothers" class="screen"><header><div><small>COMMUNITY</small><h1>Brothers</h1></div><button class="round" id="searchBrothers">⌕</button></header><div class="chapter crestCard"><div class="chapterMark"><img src="assets/mog-mark.svg" alt=""></div><small>YOUR CHAPTER</small><h2>Atlanta</h2><p>Founding Chapter · 128 brothers</p><button id="enterChapter">Enter chapter</button></div><h3>Brothers building</h3><div class="people"><article><div class="avatar">SB</div><div><b>SilverBack <img class="verified" src="assets/verified.svg" alt="verified"></b><small>Trainer · Builder</small></div><button class="viewBrother" data-name="SilverBack">View</button></article><article><div class="avatar">JM</div><div><b>James M.</b><small>Father · Servant</small></div><button class="viewBrother" data-name="James M.">View</button></article></div></section><section id="me" class="screen"><header><div><small>PROFILE</small><h1 id="profileHeader">Your Profile</h1></div><button class="round" id="editProfile">✎</button></header><div class="profileHero"><div class="profileMark"><img src="assets/mog-mark.svg" alt=""></div><div class="avatar xl" id="profileAvatar">M</div><h2 id="profileName">Brother</h2><p id="profileMeta">Founding Chapter</p><span>FOUNDING BROTHER</span></div><div class="stats"><div><b id="profileStreak">0</b><span>STREAK</span></div><div><b id="profileTalents">0</b><span>TALENTS</span></div><div><b id="profileProofs">0</b><span>PROOFS</span></div></div><button class="platform" id="platformLink">Add my platform ↗</button><div class="tabs"><b>Proof</b><span>Challenges</span><span>Brotherhood</span></div><div class="grid" id="profileGrid"><i></i><i></i><i></i><i></i></div></section><nav><button class="active" data-target="today">⌂<span>Today</span></button><button data-target="feed">▣<span>Feed</span></button><button data-target="challenges">◆<span>Challenges</span></button><button data-target="brothers">♙<span>Brothers</span></button><button data-target="me">●<span>Me</span></button></nav></main><div id="composer" class="modal"><div class="sheet"><button class="close" data-close="composer">×</button><small>PROOF / POST</small><h2>Show the work.</h2><p>Photo, video, testimony, question, or proof. This is for your brothers.</p><label class="upload" for="proofFile">＋ Add photo or video<input id="proofFile" type="file" accept="image/*,video/*" hidden></label><div id="mediaPreview"></div><textarea id="postText" placeholder="What happened? What did you learn?"></textarea><button class="postBtn" id="publishPost">Post to Brotherhood</button></div></div><div id="commentsModal" class="modal"><div class="sheet"><button class="close" data-close="commentsModal">×</button><small>BROTHERHOOD</small><h2>Replies</h2><div id="commentList" class="commentList"></div><div class="replyRow"><input id="replyInput" placeholder="Say something useful"><button id="sendReply">Send</button></div></div></div><div id="profileModal" class="modal"><div class="sheet"><button class="close" data-close="profileModal">×</button><small>YOUR IDENTITY</small><h2>Build your profile.</h2><input id="nameInput" placeholder="Name or handle"><input id="chapterInput" placeholder="Chapter / city"><input id="roleInput" placeholder="What do you build?"><input id="platformInput" placeholder="Your website or platform URL"><button class="postBtn" id="saveProfile">Save profile</button></div></div><div id="iosInstall" class="modal"><div class="sheet"><button class="close" data-close="iosInstall">×</button><small>INSTALL ON IPHONE</small><h2>Add Men of God to your Home Screen.</h2><p>In Safari, tap Share, choose <b>Add to Home Screen</b>, then tap <b>Add</b>.</p><button class="postBtn" data-close="iosInstall">Got it</button></div></div><div id="toast" class="toast"></div><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#060605">
+<meta name="description" content="Men of God — Faith. Discipline. Brotherhood.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Men of God">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="assets/mog-mark.svg">
+<link rel="icon" href="assets/mog-mark.svg">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Men of God</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-feed" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="8" rx="2.5"/><rect x="3" y="13" width="18" height="8" rx="2.5"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 2c.6 4 3 4.6 3 8a3 3 0 0 1-6 0c0-1 .4-1.8.4-1.8S7 10 7 13a5 5 0 0 0 10 0c0-5-5-6.6-5-11z"/></symbol>
+  <symbol id="i-brothers" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><circle cx="17" cy="9.5" r="2.6"/><path d="M2.5 20c0-3.6 2.9-5.8 6.5-5.8s6.5 2.2 6.5 5.8z"/><path d="M17 13.4c2.7.2 4.5 2 4.5 4.4v.7h-4.3c0-1.9-.6-3.6-1.7-4.9z"/></symbol>
+  <symbol id="i-me" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M3.5 21c0-4.3 3.8-7 8.5-7s8.5 2.7 8.5 7z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><path d="M10.5 3a7.5 7.5 0 1 1-4.6 13.4l-3.2 3.2-1.4-1.4 3.2-3.2A7.5 7.5 0 0 1 10.5 3zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 16.6 15.7 4.9a2 2 0 0 1 2.8 0l.6.6a2 2 0 0 1 0 2.8L7.4 20H4z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5 4.3 13a4.8 4.8 0 0 1 6.8-6.8l.9.9.9-.9A4.8 4.8 0 0 1 19.7 13z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
+  <symbol id="i-comment" viewBox="0 0 24 24"><path d="M4 4.8h16a1 1 0 0 1 1 1v9.6a1 1 0 0 1-1 1h-8.6L7 21v-4.6H4a1 1 0 0 1-1-1V5.8a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 3.2 17 8.4l-1.4 1.4L13 7.2V15h-2V7.2L8.4 9.8 7 8.4z"/><path d="M4.5 13.5h2V19h11v-5.5h2V20a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m9.6 16.2-3.8-3.8-1.4 1.4 5.2 5.2L20 8.6l-1.4-1.4z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="m9 5.5 1.4-1.4 7.9 7.9-7.9 7.9L9 18.5l6.5-6.5z"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m12 10.6 5-5 1.4 1.4-5 5 5 5-1.4 1.4-5-5-5 5-1.4-1.4 5-5-5-5 1.4-1.4z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M9 3.5h6l1.4 2H20a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-12a1 1 0 0 1 1-1h3.6zM12 8.4a4.6 4.6 0 1 0 0 9.2 4.6 4.6 0 0 0 0-9.2zm0 2a2.6 2.6 0 1 1 0 5.2 2.6 2.6 0 0 1 0-5.2z"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M3 11.4 21 3l-8.4 18-2.3-7.3z"/></symbol>
+</defs></svg>
+
+<main class="app">
+
+  <!-- ============================ TODAY ============================ -->
+  <section id="today" class="screen active">
+    <header class="bar">
+      <div class="brandLock">
+        <img src="assets/mog-mark.svg" alt="">
+        <div class="grow">
+          <small class="eyebrow">Men of God</small>
+          <h1 id="greeting">Good evening, Brother.</h1>
+        </div>
+      </div>
+      <button class="avatar profileJump" id="navAvatar" aria-label="Your profile">SB</button>
+    </header>
+
+    <div id="installCard" class="installCard">
+      <div class="installTop">
+        <img src="assets/mog-mark.svg" alt="">
+        <div class="grow">
+          <b>Keep the Brotherhood close.</b>
+          <small>Install for the full-screen experience.</small>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="installBtn">Install</button>
+        <button id="installSkip" class="later">Later</button>
+      </div>
+    </div>
+
+    <section class="verse">
+      <header><img src="assets/mog-mark.svg" alt="">TODAY'S WORD</header>
+      <blockquote>“As iron sharpens iron, so one person sharpens another.”</blockquote>
+      <cite>PROVERBS 27:17</cite>
+    </section>
+
+    <div class="stats">
+      <div class="stat">
+        <img class="statIcon" src="assets/crest-streak-256.webp" alt="" width="26" height="26">
+        <b id="streakStat">12</b>
+        <span>Week streak</span>
+      </div>
+      <div class="stat">
+        <img class="statIcon" src="assets/talent.svg" alt="" width="26" height="26">
+        <b id="talentStat">1,480</b>
+        <span>Talents</span>
+      </div>
+      <div class="stat">
+        <img class="statIcon" src="assets/badge-rank-128.webp" alt="" width="26" height="26">
+        <b id="rankStat">Builder</b>
+        <span>Rank</span>
+      </div>
+    </div>
+
+    <article class="hero">
+      <img class="heroArt" src="assets/crest-breakthrough-640.webp" alt="" width="210" height="210">
+      <div class="heroBody">
+        <span class="chip">Daily challenge · +25</span>
+        <h2>100 before noon.</h2>
+        <p>Complete 100 push-ups. Show the final set. Encourage one brother.</p>
+      </div>
+      <button class="btn" id="completeChallenge">
+        <svg><use href="#i-check"/></svg>Complete challenge
+      </button>
+    </article>
+
+    <div class="sectionHead">
+      <h3>Brotherhood</h3>
+      <button data-go="feed">See all</button>
+    </div>
+
+    <div id="todayFeed">
+      <article class="post">
+        <div class="postTop">
+          <div class="avatar sm">D</div>
+          <div class="grow">
+            <b>Darius <img class="verified" src="assets/verified.svg" alt="Verified"></b>
+            <small>Bridgeport Chapter · 18m</small>
+          </div>
+        </div>
+        <p>Discipline got me here. Grace kept me here.</p>
+        <div class="proof">
+          <img src="assets/verified.svg" alt="">DAY 18 · MORNING WORK COMPLETE
+        </div>
+        <div class="postActions">
+          <button class="likeBtn"><svg><use href="#i-heart"/></svg><span>18</span></button>
+          <button class="commentBtn"><svg><use href="#i-comment"/></svg><span>4</span></button>
+          <button class="shareBtn"><svg><use href="#i-share"/></svg></button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ FEED ============================ -->
+  <section id="feed" class="screen">
+    <header class="bar">
+      <div class="grow">
+        <small class="eyebrow">Brotherhood</small>
+        <h1>The Feed</h1>
+      </div>
+      <button class="iconBtn gold" id="newPost" aria-label="New post"><svg><use href="#i-plus"/></svg></button>
+    </header>
+
+    <div class="segmented" id="feedFilters">
+      <i class="thumb"></i>
+      <button class="selected" data-filter="all">For You</button>
+      <button data-filter="following">Following</button>
+      <button data-filter="discussion">Discussions</button>
+    </div>
+
+    <div id="feedList">
+      <article class="videoPost feedItem" data-type="all">
+        <div class="watermark"><img src="assets/mog-mark.svg" alt=""></div>
+        <img class="videoArt" src="assets/badge-rank-512.webp" alt="" width="300" height="300">
+        <div class="videoCopy">
+          <span class="chip">Weekly challenge</span>
+          <h2>Lead from the front.</h2>
+          <p class="byline">@silverback <img class="verified" src="assets/verified.svg" alt="Verified"> · Atlanta Chapter</p>
+        </div>
+        <div class="railActions">
+          <button class="likeBtn"><svg><use href="#i-heart"/></svg><span>84</span></button>
+          <button class="commentBtn"><svg><use href="#i-comment"/></svg><span>12</span></button>
+          <button class="shareBtn"><svg><use href="#i-share"/></svg><span>Share</span></button>
+        </div>
+      </article>
+
+      <article class="post feedItem" data-type="discussion">
+        <div class="postTop">
+          <div class="avatar sm">M</div>
+          <div class="grow">
+            <b>Marcus</b>
+            <small>New Haven · 42m</small>
+          </div>
+        </div>
+        <h3>What does accountability actually look like between brothers?</h3>
+        <p>Not judgment. Not performance. What are we committing to when we tell another man “I got you”?</p>
+        <div class="postActions">
+          <button class="likeBtn"><svg><use href="#i-heart"/></svg><span>31</span></button>
+          <button class="commentBtn"><svg><use href="#i-comment"/></svg><span>19</span></button>
+          <button class="shareBtn"><svg><use href="#i-share"/></svg></button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========================= CHALLENGES ========================= -->
+  <section id="challenges" class="screen">
+    <header class="bar">
+      <div class="grow">
+        <small class="eyebrow">Discipline</small>
+        <h1>Challenges</h1>
+      </div>
+      <div class="talent"><img src="assets/talent.svg" alt="Talents"><span id="challengeTalents">1,480</span></div>
+    </header>
+
+    <article class="weekHero">
+      <img class="heroArt" src="assets/crest-streak-640.webp" alt="" width="220" height="220">
+      <span class="chip">This week</span>
+      <h2>7 Days of Iron</h2>
+      <p>Train your body. Read your word. Check on a brother. Seven straight days.</p>
+      <div class="week" id="weekDots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <span class="weekLabel" id="weekProgressText">4 OF 7 DAYS</span>
+    </article>
+
+    <div class="taskList">
+      <article class="task" data-reward="25">
+        <div class="grow">
+          <b>Body</b>
+          <h3>100 Push-ups</h3>
+          <span>+25 Talents</span>
+        </div>
+        <button class="taskDone" aria-label="Mark done"><svg><use href="#i-check"/></svg></button>
+      </article>
+      <article class="task" data-reward="15">
+        <div class="grow">
+          <b>Word</b>
+          <h3>Read Proverbs 27</h3>
+          <span>+15 Talents</span>
+        </div>
+        <button class="taskDone" aria-label="Mark done"><svg><use href="#i-check"/></svg></button>
+      </article>
+      <article class="task" data-reward="20">
+        <div class="grow">
+          <b>Brotherhood</b>
+          <h3>Call a brother</h3>
+          <span>+20 Talents</span>
+        </div>
+        <button class="taskDone" aria-label="Mark done"><svg><use href="#i-check"/></svg></button>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========================== BROTHERS ========================== -->
+  <section id="brothers" class="screen">
+    <header class="bar">
+      <div class="grow">
+        <small class="eyebrow">Community</small>
+        <h1>Brothers</h1>
+      </div>
+      <button class="iconBtn" id="searchBrothers" aria-label="Search brothers"><svg><use href="#i-search"/></svg></button>
+    </header>
+
+    <article class="chapter">
+      <img class="chapterMark" src="assets/mog-mark.svg" alt="">
+      <span class="chip">Your chapter</span>
+      <h2>Atlanta</h2>
+      <p>Founding Chapter · 128 brothers</p>
+      <button class="btn" id="enterChapter">Enter chapter<svg><use href="#i-arrow"/></svg></button>
+    </article>
+
+    <div class="sectionHead"><h3>Brothers building</h3></div>
+
+    <div class="people">
+      <article class="person">
+        <div class="avatar">SB</div>
+        <div class="grow">
+          <b>SilverBack <img class="verified" src="assets/verified.svg" alt="Verified"></b>
+          <small>Trainer · Builder</small>
+        </div>
+        <button class="viewBrother" data-name="SilverBack">View</button>
+      </article>
+      <article class="person">
+        <div class="avatar">JM</div>
+        <div class="grow">
+          <b>James M.</b>
+          <small>Father · Servant</small>
+        </div>
+        <button class="viewBrother" data-name="James M.">View</button>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================= ME ============================= -->
+  <section id="me" class="screen">
+    <header class="bar">
+      <div class="grow">
+        <small class="eyebrow">Profile</small>
+        <h1 id="profileHeader">Your Profile</h1>
+      </div>
+      <button class="iconBtn" id="editProfile" aria-label="Edit profile"><svg><use href="#i-edit"/></svg></button>
+    </header>
+
+    <div class="profileHero">
+      <img class="watermarkArt" src="assets/badge-rank-512.webp" alt="">
+      <div class="avatarRing">
+        <div class="avatar xl" id="profileAvatar">M</div>
+        <img class="verifiedSeal" src="assets/badge-verified-256.webp" alt="Verified brother">
+      </div>
+      <h2 id="profileName">Brother</h2>
+      <p id="profileMeta">Founding Chapter</p>
+      <span class="rankChip"><img src="assets/badge-rank-128.webp" alt=""><span id="profileRank">Founding Brother</span></span>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <img class="statIcon" src="assets/crest-streak-256.webp" alt="" width="26" height="26">
+        <b id="profileStreak">0</b>
+        <span>Streak</span>
+      </div>
+      <div class="stat">
+        <img class="statIcon" src="assets/talent.svg" alt="" width="26" height="26">
+        <b id="profileTalents">0</b>
+        <span>Talents</span>
+      </div>
+      <div class="stat">
+        <img class="statIcon" src="assets/badge-verified-128.webp" alt="" width="26" height="26">
+        <b id="profileProofs">0</b>
+        <span>Proofs</span>
+      </div>
+    </div>
+
+    <button class="creatorCard" id="platformLink">
+      <img src="assets/badge-creator-256.webp" alt="">
+      <div class="grow">
+        <b id="platformTitle">Add my platform</b>
+        <small id="platformMeta">Music, media, ministry — show what you build.</small>
+      </div>
+      <svg><use href="#i-arrow"/></svg>
+    </button>
+
+    <div class="sectionHead">
+      <h3>Trophy case</h3>
+      <button id="trophyInfo">How to earn</button>
+    </div>
+
+    <div class="trophies">
+      <button class="trophy" data-trophy="Verified Brother">
+        <img src="assets/badge-verified-256.webp" alt="">
+        <span>Verified<br>Brother</span>
+      </button>
+      <button class="trophy" data-trophy="Rank: Builder">
+        <img src="assets/badge-rank-256.webp" alt="">
+        <span>Builder<br>Rank</span>
+      </button>
+      <button class="trophy locked" data-trophy="7 Days of Iron">
+        <img src="assets/crest-streak-256.webp" alt="">
+        <span>7 Days<br>of Iron</span>
+      </button>
+      <button class="trophy locked" data-trophy="Chain Breaker">
+        <img src="assets/crest-breakthrough-256.webp" alt="">
+        <span>Chain<br>Breaker</span>
+      </button>
+    </div>
+
+    <div class="tabs" id="profileTabs">
+      <button class="selected" data-tab="proof">Proof</button>
+      <button data-tab="challenges">Challenges</button>
+      <button data-tab="brotherhood">Brotherhood</button>
+    </div>
+    <div class="grid" id="profileGrid"><i></i><i></i><i></i><i></i></div>
+  </section>
+
+  <nav>
+    <button class="active" data-target="today"><svg><use href="#i-home"/></svg><span>Today</span></button>
+    <button data-target="feed"><svg><use href="#i-feed"/></svg><span>Feed</span></button>
+    <button data-target="challenges"><svg><use href="#i-flame"/></svg><span>Challenges</span></button>
+    <button data-target="brothers"><svg><use href="#i-brothers"/></svg><span>Brothers</span></button>
+    <button data-target="me"><svg><use href="#i-me"/></svg><span>Me</span></button>
+  </nav>
+</main>
+
+<!-- ============================ SHEETS ============================ -->
+<div id="composer" class="modal">
+  <div class="sheet">
+    <div class="grabber"></div>
+    <button class="close" data-close="composer" aria-label="Close"><svg><use href="#i-close"/></svg></button>
+    <small class="eyebrow">Proof / Post</small>
+    <h2>Show the work.</h2>
+    <p>Photo, video, testimony, question, or proof. This is for your brothers.</p>
+    <label class="upload" for="proofFile">
+      <svg><use href="#i-camera"/></svg>Add photo or video
+      <input id="proofFile" type="file" accept="image/*,video/*" hidden>
+    </label>
+    <div id="mediaPreview"></div>
+    <textarea id="postText" class="field" placeholder="What happened? What did you learn?"></textarea>
+    <button class="btn" id="publishPost">Post to Brotherhood</button>
+  </div>
+</div>
+
+<div id="commentsModal" class="modal">
+  <div class="sheet">
+    <div class="grabber"></div>
+    <button class="close" data-close="commentsModal" aria-label="Close"><svg><use href="#i-close"/></svg></button>
+    <small class="eyebrow">Brotherhood</small>
+    <h2>Replies</h2>
+    <div id="commentList" class="commentList"></div>
+    <div class="replyRow">
+      <input id="replyInput" class="field" placeholder="Say something useful">
+      <button id="sendReply" aria-label="Send reply"><svg><use href="#i-send"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<div id="profileModal" class="modal">
+  <div class="sheet">
+    <div class="grabber"></div>
+    <button class="close" data-close="profileModal" aria-label="Close"><svg><use href="#i-close"/></svg></button>
+    <small class="eyebrow">Your identity</small>
+    <h2>Build your profile.</h2>
+    <input id="nameInput" class="field" placeholder="Name or handle">
+    <input id="chapterInput" class="field" placeholder="Chapter / city">
+    <input id="roleInput" class="field" placeholder="What do you build?">
+    <input id="platformInput" class="field" placeholder="Your website or platform URL">
+    <button class="btn" id="saveProfile">Save profile</button>
+  </div>
+</div>
+
+<div id="iosInstall" class="modal">
+  <div class="sheet">
+    <div class="grabber"></div>
+    <button class="close" data-close="iosInstall" aria-label="Close"><svg><use href="#i-close"/></svg></button>
+    <small class="eyebrow">Install on iPhone</small>
+    <h2>Add Men of God to your Home Screen.</h2>
+    <p>In Safari, tap Share, choose <b>Add to Home Screen</b>, then tap <b>Add</b>.</p>
+    <button class="btn" data-close="iosInstall">Got it</button>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>

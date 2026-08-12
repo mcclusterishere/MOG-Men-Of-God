@@ -1,1 +1,435 @@
-const $=(s,r=document)=>r.querySelector(s);const $$=(s,r=document)=>[...r.querySelectorAll(s)];const state={profile:JSON.parse(localStorage.getItem('mogProfile')||'null')||{name:'Brother',chapter:'Founding Chapter',role:'',platform:'',talents:0,streak:0,proofs:0},posts:JSON.parse(localStorage.getItem('mogPosts')||'[]'),completed:JSON.parse(localStorage.getItem('mogCompleted')||'[]')};function save(){localStorage.setItem('mogProfile',JSON.stringify(state.profile));localStorage.setItem('mogPosts',JSON.stringify(state.posts));localStorage.setItem('mogCompleted',JSON.stringify(state.completed))}function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}function showScreen(id){$$('.screen').forEach(s=>s.classList.toggle('active',s.id===id));$$('nav button').forEach(b=>b.classList.toggle('active',b.dataset.target===id));window.scrollTo({top:0,behavior:'smooth'});if(id==='me')renderProfile()}$$('nav button').forEach(b=>b.addEventListener('click',()=>showScreen(b.dataset.target)));$$('[data-go]').forEach(b=>b.addEventListener('click',()=>showScreen(b.dataset.go)));$$('.profileJump').forEach(b=>b.addEventListener('click',()=>showScreen('me')));function openModal(id){$('#'+id).classList.add('open')}function closeModal(id){$('#'+id).classList.remove('open')}$$('[data-close]').forEach(b=>b.addEventListener('click',()=>closeModal(b.dataset.close)));$$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id)}));function renderProfile(){const p=state.profile;$('#profileName').textContent=p.name;$('#profileHeader').textContent=p.name;$('#profileMeta').textContent=[p.role,p.chapter].filter(Boolean).join(' · ')||'Founding Chapter';$('#profileAvatar').textContent=p.name.split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase()||'M';$('#profileStreak').textContent=p.streak;$('#profileTalents').textContent=p.talents;$('#profileProofs').textContent=p.proofs;$('#talentStat').textContent=p.talents.toLocaleString();$('#challengeTalents').textContent=p.talents.toLocaleString();const pl=$('#platformLink');pl.textContent=p.platform?'Visit my platform ↗':'Add my platform ↗';pl.onclick=()=>{if(p.platform)window.open(/^https?:\/\//.test(p.platform)?p.platform:'https://'+p.platform,'_blank');else openProfileEditor()}}function openProfileEditor(){const p=state.profile;$('#nameInput').value=p.name==='Brother'?'':p.name;$('#chapterInput').value=p.chapter==='Founding Chapter'?'':p.chapter;$('#roleInput').value=p.role;$('#platformInput').value=p.platform;openModal('profileModal')}$('#editProfile').addEventListener('click',openProfileEditor);$('#saveProfile').addEventListener('click',()=>{state.profile={...state.profile,name:$('#nameInput').value.trim()||'Brother',chapter:$('#chapterInput').value.trim()||'Founding Chapter',role:$('#roleInput').value.trim(),platform:$('#platformInput').value.trim()};save();renderProfile();closeModal('profileModal');toast('Profile saved')});let mediaData='';$('#proofFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;if(f.size>6*1024*1024){toast('Keep demo media under 6 MB');return}const r=new FileReader();r.onload=()=>{mediaData=r.result;$('#mediaPreview').innerHTML=f.type.startsWith('video')?'<div class="mediaReady">Video ready ✓</div>':`<img src="${mediaData}" alt="Post preview">`};r.readAsDataURL(f)});function openComposer(){mediaData='';$('#mediaPreview').innerHTML='';$('#postText').value='';openModal('composer')}$('#newPost').addEventListener('click',openComposer);$('#completeChallenge').addEventListener('click',openComposer);$('#publishPost').addEventListener('click',()=>{const text=$('#postText').value.trim();if(!text&&!mediaData){toast('Add a thought, photo, or video');return}state.posts.unshift({id:Date.now(),name:state.profile.name,text,media:mediaData,likes:0,comments:[],time:'now'});state.profile.proofs+=1;save();renderPosts();renderProfile();closeModal('composer');showScreen('feed');toast('Posted to Brotherhood')});function postHTML(p){const initials=(p.name||'B').split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase();const media=p.media?(p.media.startsWith('data:video')?'<div class="mediaReady">Video proof</div>':`<img class="userMedia" src="${p.media}" alt="Brotherhood post">`):'';return `<article class="textPost feedItem userPost" data-id="${p.id}"><div class="postTop"><div class="avatar sm">${initials}</div><div><b>${escapeHTML(p.name)}</b><small>Founding Chapter · ${p.time}</small></div></div>${media}<p>${escapeHTML(p.text)}</p><div class="postActions"><button class="likeBtn">♡ <span>${p.likes||0}</span></button><button class="commentBtn">◯ <span>${(p.comments||[]).length}</span> replies</button><button class="shareBtn">↗</button></div></article>`}function escapeHTML(s=''){return s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}function renderPosts(){const list=$('#feedList');$$('.userPost',list).forEach(x=>x.remove());state.posts.slice().reverse().forEach(p=>list.insertAdjacentHTML('afterbegin',postHTML(p)));wireActions()}let activePost=null;function wireActions(){$$('.likeBtn').forEach(btn=>{if(btn.dataset.wired)return;btn.dataset.wired=1;btn.addEventListener('click',()=>{btn.classList.toggle('liked');const span=$('span',btn)||$('small',btn);let n=parseInt((span?.textContent||'0').replace(/\D/g,''))||0;n+=btn.classList.contains('liked')?1:-1;if(span)span.textContent=n;btn.firstChild.textContent=btn.classList.contains('liked')?'♥ ':'♡ ';const post=btn.closest('[data-id]');if(post){const p=state.posts.find(x=>x.id==post.dataset.id);if(p){p.likes=n;save()}}})});$$('.commentBtn').forEach(btn=>{if(btn.dataset.wired)return;btn.dataset.wired=1;btn.addEventListener('click',()=>{activePost=btn.closest('[data-id]')?.dataset.id||null;renderComments();openModal('commentsModal')})});$$('.shareBtn').forEach(btn=>{if(btn.dataset.wired)return;btn.dataset.wired=1;btn.addEventListener('click',async()=>{try{if(navigator.share)await navigator.share({title:'Men of God',text:'Come build with the Brotherhood.',url:location.href});else toast('Share this page from your browser')}catch{}})})}function renderComments(){const p=state.posts.find(x=>x.id==activePost);$('#commentList').innerHTML=p?(p.comments||[]).map(c=>`<div class="comment"><b>${escapeHTML(c.name)}</b><p>${escapeHTML(c.text)}</p></div>`).join(''):'<div class="comment"><b>Brotherhood</b><p>Start the conversation.</p></div>'}$('#sendReply').addEventListener('click',()=>{const text=$('#replyInput').value.trim();if(!text)return;const p=state.posts.find(x=>x.id==activePost);if(p){p.comments=p.comments||[];p.comments.push({name:state.profile.name,text});save();renderPosts()}$('#replyInput').value='';renderComments();toast('Reply posted')});$$('.filters button').forEach(b=>b.addEventListener('click',()=>{$$('.filters button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');const f=b.dataset.filter;$$('.feedItem').forEach(x=>x.style.display=f==='all'||x.dataset.type===f||x.classList.contains('userPost')?'':'none')}));$$('.challengeDone').forEach((b,i)=>b.addEventListener('click',()=>{const item=b.closest('article');const key=item.querySelector('h3').textContent;if(state.completed.includes(key)){toast('Already completed');return}const reward=Number(item.dataset.reward||0);state.completed.push(key);state.profile.talents+=reward;state.profile.streak=Math.max(1,state.profile.streak);b.textContent='Completed ✓';b.disabled=true;save();renderProfile();toast(`+${reward} Talents`)}));$('#enterChapter').addEventListener('click',()=>{showScreen('feed');toast('Atlanta Chapter feed opened')});$('#searchBrothers').addEventListener('click',()=>toast('Brother search is next'));$$('.viewBrother').forEach(b=>b.addEventListener('click',()=>toast(`${b.dataset.name} profile preview`)));if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}const ua=navigator.userAgent,isIOS=/iPhone|iPad|iPod/i.test(ua),isAndroid=/Android/i.test(ua),isStandalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;const hour=new Date().getHours();$('#greeting').textContent=hour<5?'Still up, Brother?':hour<12?'Good morning, Brother.':hour<17?'Good afternoon, Brother.':hour<21?'Good evening, Brother.':'Night check-in, Brother.';let deferredPrompt=null;const installCard=$('#installCard');function hideInstall(hours=24){installCard.style.display='none';localStorage.setItem('mogInstallUntil',String(Date.now()+hours*3600000))}function setupInstall(){if(isStandalone||Number(localStorage.getItem('mogInstallUntil')||0)>Date.now()){installCard.style.display='none';return}$('#installSkip').addEventListener('click',()=>hideInstall());$('#installBtn').addEventListener('click',async()=>{if(isIOS){openModal('iosInstall');return}if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;hideInstall(720);return}toast(isAndroid?'Chrome menu → Add to Home screen':'Use your browser menu → Install app')})}window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e});window.addEventListener('appinstalled',()=>hideInstall(8760));setupInstall();renderPosts();renderProfile();wireActions();if(!localStorage.getItem('mogProfile'))setTimeout(openProfileEditor,700);
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+const DEFAULT_PROFILE = {
+  name: 'Brother', chapter: 'Founding Chapter', role: '', platform: '',
+  talents: 0, streak: 0, proofs: 0
+};
+
+const state = {
+  profile: { ...DEFAULT_PROFILE, ...JSON.parse(localStorage.getItem('mogProfile') || 'null') },
+  posts: JSON.parse(localStorage.getItem('mogPosts') || '[]'),
+  completed: JSON.parse(localStorage.getItem('mogCompleted') || '[]')
+};
+
+function save() {
+  localStorage.setItem('mogProfile', JSON.stringify(state.profile));
+  localStorage.setItem('mogPosts', JSON.stringify(state.posts));
+  localStorage.setItem('mogCompleted', JSON.stringify(state.completed));
+}
+
+const escapeHTML = (s = '') =>
+  s.replace(/[&<>'"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[c]));
+
+const initials = (name = 'B') =>
+  name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'M';
+
+const icon = id => `<svg><use href="#${id}"/></svg>`;
+
+/* Rank ladder — earned with Talents. */
+const RANKS = [
+  [3000, 'Elder'], [1500, 'Watchman'], [750, 'Builder'], [250, 'Servant'], [0, 'Seeker']
+];
+const rankFor = talents => RANKS.find(([floor]) => talents >= floor)[1];
+
+/* ------------------------------------------------------------------
+   Navigation
+   ------------------------------------------------------------------ */
+function showScreen(id) {
+  $$('.screen').forEach(s => s.classList.toggle('active', s.id === id));
+  $$('nav button').forEach(b => b.classList.toggle('active', b.dataset.target === id));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (id === 'me') renderProfile();
+  if (id === 'feed') positionThumb();
+}
+
+$$('nav button').forEach(b => b.addEventListener('click', () => showScreen(b.dataset.target)));
+$$('[data-go]').forEach(b => b.addEventListener('click', () => showScreen(b.dataset.go)));
+$$('.profileJump').forEach(b => b.addEventListener('click', () => showScreen('me')));
+
+/* Hairline appears under the app bar once the screen scrolls. */
+addEventListener('scroll', () => {
+  const stuck = scrollY > 8;
+  $$('.bar').forEach(bar => bar.classList.toggle('stuck', stuck));
+}, { passive: true });
+
+/* ------------------------------------------------------------------
+   Sheets
+   ------------------------------------------------------------------ */
+const openModal = id => $('#' + id).classList.add('open');
+const closeModal = id => $('#' + id).classList.remove('open');
+
+$$('[data-close]').forEach(b => b.addEventListener('click', () => closeModal(b.dataset.close)));
+$$('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); }));
+
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => t.classList.remove('show'), 1900);
+}
+
+/* ------------------------------------------------------------------
+   Segmented control
+   ------------------------------------------------------------------ */
+const filters = $('#feedFilters');
+const thumb = $('.thumb', filters);
+
+function positionThumb() {
+  const active = $('button.selected', filters);
+  if (!active || !active.offsetWidth) return;
+  thumb.style.width = active.offsetWidth + 'px';
+  thumb.style.transform = `translateX(${active.offsetLeft - 4}px)`;
+}
+
+$$('button', filters).forEach(b => b.addEventListener('click', () => {
+  $$('button', filters).forEach(x => x.classList.toggle('selected', x === b));
+  positionThumb();
+  const f = b.dataset.filter;
+  $$('.feedItem').forEach(item => {
+    const match = f === 'all' || item.dataset.type === f || item.classList.contains('userPost');
+    item.style.display = match ? '' : 'none';
+  });
+}));
+
+addEventListener('resize', positionThumb);
+
+/* ------------------------------------------------------------------
+   Profile
+   ------------------------------------------------------------------ */
+function renderProfile() {
+  const p = state.profile;
+  const rank = rankFor(p.talents);
+
+  $('#profileName').textContent = p.name;
+  $('#profileHeader').textContent = p.name;
+  $('#profileMeta').textContent = [p.role, p.chapter].filter(Boolean).join(' · ') || 'Founding Chapter';
+  $('#profileAvatar').textContent = initials(p.name);
+  $('#navAvatar').textContent = initials(p.name);
+  $('#profileRank').textContent = rank;
+  $('#rankStat').textContent = rank;
+
+  $('#profileStreak').textContent = p.streak;
+  $('#profileTalents').textContent = p.talents;
+  $('#profileProofs').textContent = p.proofs;
+  $('#streakStat').textContent = p.streak;
+  $('#talentStat').textContent = p.talents.toLocaleString();
+  $('#challengeTalents').textContent = p.talents.toLocaleString();
+
+  $('#platformTitle').textContent = p.platform ? 'Visit my platform' : 'Add my platform';
+  $('#platformMeta').textContent = p.platform || 'Music, media, ministry — show what you build.';
+
+  renderWeek();
+  renderTrophies();
+}
+
+$('#platformLink').addEventListener('click', () => {
+  const url = state.profile.platform;
+  if (!url) return openProfileEditor();
+  open(/^https?:\/\//.test(url) ? url : 'https://' + url, '_blank');
+});
+
+function openProfileEditor() {
+  const p = state.profile;
+  $('#nameInput').value = p.name === 'Brother' ? '' : p.name;
+  $('#chapterInput').value = p.chapter === 'Founding Chapter' ? '' : p.chapter;
+  $('#roleInput').value = p.role;
+  $('#platformInput').value = p.platform;
+  openModal('profileModal');
+}
+
+$('#editProfile').addEventListener('click', openProfileEditor);
+
+$('#saveProfile').addEventListener('click', () => {
+  state.profile = {
+    ...state.profile,
+    name: $('#nameInput').value.trim() || 'Brother',
+    chapter: $('#chapterInput').value.trim() || 'Founding Chapter',
+    role: $('#roleInput').value.trim(),
+    platform: $('#platformInput').value.trim()
+  };
+  save();
+  renderProfile();
+  closeModal('profileModal');
+  toast('Profile saved');
+});
+
+$$('#profileTabs button').forEach(b => b.addEventListener('click', () => {
+  $$('#profileTabs button').forEach(x => x.classList.toggle('selected', x === b));
+  toast(`${b.textContent} coming next`);
+}));
+
+/* ------------------------------------------------------------------
+   Trophy case — unlocks track real progress
+   ------------------------------------------------------------------ */
+function renderTrophies() {
+  const p = state.profile;
+  const earned = {
+    'Verified Brother': p.proofs >= 1,
+    'Rank: Builder': p.talents >= 750,
+    '7 Days of Iron': p.streak >= 7,
+    'Chain Breaker': state.completed.length >= 3
+  };
+  $$('.trophy').forEach(t => t.classList.toggle('locked', !earned[t.dataset.trophy]));
+}
+
+$$('.trophy').forEach(t => t.addEventListener('click', () => {
+  toast(t.classList.contains('locked') ? `${t.dataset.trophy} — still locked` : `${t.dataset.trophy} earned`);
+}));
+
+$('#trophyInfo').addEventListener('click', () =>
+  toast('Post proof, hold your streak, earn Talents'));
+
+/* ------------------------------------------------------------------
+   Weekly progress
+   ------------------------------------------------------------------ */
+function renderWeek() {
+  const days = Math.min(7, state.completed.length);
+  $$('#weekDots i').forEach((dot, i) => dot.classList.toggle('on', i < days));
+  $('#weekProgressText').textContent = `${days} OF 7 DAYS`;
+}
+
+/* ------------------------------------------------------------------
+   Challenges
+   ------------------------------------------------------------------ */
+$$('.task').forEach(task => {
+  const key = $('h3', task).textContent;
+  if (state.completed.includes(key)) task.classList.add('done');
+
+  $('.taskDone', task).addEventListener('click', () => {
+    if (state.completed.includes(key)) return toast('Already completed');
+    const reward = Number(task.dataset.reward || 0);
+    state.completed.push(key);
+    state.profile.talents += reward;
+    state.profile.streak = Math.max(1, state.profile.streak);
+    task.classList.add('done');
+    save();
+    renderProfile();
+    toast(`+${reward} Talents`);
+  });
+});
+
+/* ------------------------------------------------------------------
+   Composer
+   ------------------------------------------------------------------ */
+let mediaData = '';
+
+$('#proofFile').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 6 * 1024 * 1024) return toast('Keep demo media under 6 MB');
+  const reader = new FileReader();
+  reader.onload = () => {
+    mediaData = reader.result;
+    $('#mediaPreview').innerHTML = file.type.startsWith('video')
+      ? '<div class="mediaReady">Video ready</div>'
+      : `<img src="${mediaData}" alt="Post preview">`;
+  };
+  reader.readAsDataURL(file);
+});
+
+function openComposer() {
+  mediaData = '';
+  $('#mediaPreview').innerHTML = '';
+  $('#postText').value = '';
+  openModal('composer');
+}
+
+$('#newPost').addEventListener('click', openComposer);
+$('#completeChallenge').addEventListener('click', openComposer);
+
+$('#publishPost').addEventListener('click', () => {
+  const text = $('#postText').value.trim();
+  if (!text && !mediaData) return toast('Add a thought, photo, or video');
+  state.posts.unshift({
+    id: Date.now(), name: state.profile.name, text,
+    media: mediaData, likes: 0, comments: [], time: 'now'
+  });
+  state.profile.proofs += 1;
+  save();
+  renderPosts();
+  renderProfile();
+  closeModal('composer');
+  showScreen('feed');
+  toast('Posted to Brotherhood');
+});
+
+/* ------------------------------------------------------------------
+   Posts
+   ------------------------------------------------------------------ */
+function postHTML(p) {
+  const media = !p.media ? ''
+    : p.media.startsWith('data:video')
+      ? '<div class="mediaReady">Video proof</div>'
+      : `<img class="userMedia" src="${p.media}" alt="Brotherhood post">`;
+
+  return `<article class="post feedItem userPost" data-id="${p.id}">
+    <div class="postTop">
+      <div class="avatar sm">${initials(p.name)}</div>
+      <div class="grow">
+        <b>${escapeHTML(p.name)}</b>
+        <small>${escapeHTML(state.profile.chapter)} · ${p.time}</small>
+      </div>
+    </div>
+    ${media}
+    <p>${escapeHTML(p.text)}</p>
+    <div class="postActions">
+      <button class="likeBtn">${icon('i-heart')}<span>${p.likes || 0}</span></button>
+      <button class="commentBtn">${icon('i-comment')}<span>${(p.comments || []).length}</span></button>
+      <button class="shareBtn">${icon('i-share')}</button>
+    </div>
+  </article>`;
+}
+
+function renderPosts() {
+  const list = $('#feedList');
+  $$('.userPost', list).forEach(x => x.remove());
+  state.posts.slice().reverse().forEach(p => list.insertAdjacentHTML('afterbegin', postHTML(p)));
+  wireActions();
+}
+
+let activePost = null;
+
+function wireActions() {
+  $$('.likeBtn').forEach(btn => {
+    if (btn.dataset.wired) return;
+    btn.dataset.wired = 1;
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('liked');
+      const span = $('span', btn);
+      if (span) {
+        const n = (parseInt(span.textContent, 10) || 0) + (btn.classList.contains('liked') ? 1 : -1);
+        span.textContent = Math.max(0, n);
+        const post = btn.closest('[data-id]');
+        const stored = post && state.posts.find(x => x.id == post.dataset.id);
+        if (stored) { stored.likes = Math.max(0, n); save(); }
+      }
+    });
+  });
+
+  $$('.commentBtn').forEach(btn => {
+    if (btn.dataset.wired) return;
+    btn.dataset.wired = 1;
+    btn.addEventListener('click', () => {
+      activePost = btn.closest('[data-id]')?.dataset.id || null;
+      renderComments();
+      openModal('commentsModal');
+    });
+  });
+
+  $$('.shareBtn').forEach(btn => {
+    if (btn.dataset.wired) return;
+    btn.dataset.wired = 1;
+    btn.addEventListener('click', async () => {
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: 'Men of God',
+            text: 'Come build with the Brotherhood.',
+            url: location.href
+          });
+        } else {
+          toast('Share this page from your browser');
+        }
+      } catch { /* dismissed */ }
+    });
+  });
+}
+
+function renderComments() {
+  const p = state.posts.find(x => x.id == activePost);
+  const comments = p?.comments || [];
+  $('#commentList').innerHTML = comments.length
+    ? comments.map(c => `<div class="comment"><b>${escapeHTML(c.name)}</b><p>${escapeHTML(c.text)}</p></div>`).join('')
+    : '<div class="comment"><b>Brotherhood</b><p>Start the conversation.</p></div>';
+}
+
+$('#sendReply').addEventListener('click', () => {
+  const input = $('#replyInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const p = state.posts.find(x => x.id == activePost);
+  if (p) {
+    p.comments = p.comments || [];
+    p.comments.push({ name: state.profile.name, text });
+    save();
+    renderPosts();
+  }
+  input.value = '';
+  renderComments();
+  toast('Reply posted');
+});
+
+/* ------------------------------------------------------------------
+   Brothers
+   ------------------------------------------------------------------ */
+$('#enterChapter').addEventListener('click', () => {
+  showScreen('feed');
+  toast('Atlanta Chapter feed opened');
+});
+$('#searchBrothers').addEventListener('click', () => toast('Brother search is next'));
+$$('.viewBrother').forEach(b =>
+  b.addEventListener('click', () => toast(`${b.dataset.name} profile preview`)));
+
+/* ------------------------------------------------------------------
+   Greeting
+   ------------------------------------------------------------------ */
+const hour = new Date().getHours();
+$('#greeting').textContent =
+  hour < 5 ? 'Still up, Brother?' :
+  hour < 12 ? 'Good morning, Brother.' :
+  hour < 17 ? 'Good afternoon, Brother.' :
+  hour < 21 ? 'Good evening, Brother.' :
+  'Night check-in, Brother.';
+
+/* ------------------------------------------------------------------
+   Install / service worker
+   ------------------------------------------------------------------ */
+const ua = navigator.userAgent;
+const isIOS = /iPhone|iPad|iPod/i.test(ua);
+const isAndroid = /Android/i.test(ua);
+const isStandalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+
+let deferredPrompt = null;
+const installCard = $('#installCard');
+
+function hideInstall(hours = 24) {
+  installCard.style.display = 'none';
+  localStorage.setItem('mogInstallUntil', String(Date.now() + hours * 3600000));
+}
+
+function setupInstall() {
+  if (isStandalone || Number(localStorage.getItem('mogInstallUntil') || 0) > Date.now()) {
+    installCard.style.display = 'none';
+    return;
+  }
+  $('#installSkip').addEventListener('click', () => hideInstall());
+  $('#installBtn').addEventListener('click', async () => {
+    if (isIOS) return openModal('iosInstall');
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      return hideInstall(720);
+    }
+    toast(isAndroid ? 'Chrome menu → Add to Home screen' : 'Browser menu → Install app');
+  });
+}
+
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; });
+addEventListener('appinstalled', () => hideInstall(8760));
+
+if ('serviceWorker' in navigator) {
+  addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+}
+
+/* ------------------------------------------------------------------
+   Boot
+   ------------------------------------------------------------------ */
+setupInstall();
+renderPosts();
+renderProfile();
+wireActions();
+positionThumb();
+if (!localStorage.getItem('mogProfile')) setTimeout(openProfileEditor, 700);
