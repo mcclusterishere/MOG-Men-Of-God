@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "authority": "user-confirmed visual identity correction",
+  "precedence": "This file overrides any older semantic label for the exact runtime asset named below.",
+  "corrections": [
+    {
+      "file": "assets/emblem-shield-128.webp",
+      "previous_label": "Secondary MOG shield emblem",
+      "previous_concept": "secondary-brand-emblem",
+      "canonical_label": "Faith glyph",
+      "canonical_concept": "faith",
+      "status": "canonical-user-confirmed",
+      "visual_signature": "Forged black, silver and antique-gold MOG shield/monogram with a central cross and gold north-star/compass point above it.",
+      "approved_use": [
+        "Faith core-value identity",
+        "Today / Word / devotional Faith contexts",
+        "compact Faith status or Faith-focused control where this asset remains legible"
+      ],
+      "never": [
+        "generic secondary brand decoration",
+        "Verified",
+        "Rank",
+        "Talents",
+        "Brotherhood",
+        "Challenge",
+        "random ornamental shield"
+      ],
+      "notes": "The filename is historical and misleading. Do not infer semantics from 'emblem-shield'. The user explicitly confirmed that the pictured shield/cross/star glyph is FAITH. Do not create or source a replacement Faith image while this asset exists."
+    }
+  ]
+}
