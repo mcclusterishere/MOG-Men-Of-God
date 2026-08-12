@@ -2,17 +2,19 @@
 
 Branch: `claude/mog-asset-integration-v2`. Asset integration and reskin only.
 
-Tables are generated from `MOG.audit()` at runtime, not written by hand.
-Regenerate by loading the app and calling `MOG.audit()` in the console.
+Tables are generated from `MOG.audit()` at runtime unless marked as a user-confirmed design-system correction. `design/brand/ASSET_IDENTITY_CORRECTIONS.json` has highest semantic precedence over historical filenames and older audit language.
 
+## User-confirmed design-system corrections
+
+| Existing runtime file | Canonical concept | Correction |
+|---|---|---|
+| `assets/emblem-shield-128.webp` | `faith` | The forged MOG shield/monogram with central cross and gold star/compass point is **FAITH**, not a generic secondary emblem. |
+| `assets/badge-verified-128.webp` / `assets/badge-verified-256.webp` | `verified` | The scalloped black-and-gold seal with dimensional checkmark is **VERIFIED**. |
+| `assets/badge-creator-256.webp` | `talents` | The circular crest containing headphones, studio microphone, paint brush, camera lens and piano keys is **TALENTS**, not creator/founder status. `assets/talent.svg` remains the compact inline Talents mark. |
 
 ## Branded concepts mounted through the registry
 
-Every row was resolved by `assets/registry.js`. No component selects an asset
-itself: markup declares `data-mog="concept:tier"` and the registry decides the
-file, the material channel and the motion. There are no hardcoded asset paths
-left in `index.html`.
-
+Every row is resolved by `assets/registry.js`. No component selects an asset itself: markup declares `data-mog="concept:tier"` and the registry decides the file, material channel and motion.
 
 | Concept | Tier | Runtime asset | Where it appears | Material channel | Motion |
 |---|---|---|---|---|---|
@@ -42,11 +44,6 @@ left in `index.html`.
 
 ## Generic substitutes still present
 
-MOG-owned concepts still standing on the pre-existing generic glyph, because no
-approved micro-tier glyph exists. Declared in markup via `data-mog-generic` so
-they cannot be quietly forgotten.
-
-
 | Concept | Where | Blocked on |
 |---|---|---|
 | `challenge:micro` | Bottom nav · Challenges | Small Challenges nav glyph. The breakthrough crest is hero art, not a micro glyph. |
@@ -54,39 +51,31 @@ they cannot be quietly forgotten.
 
 ## Manifest concepts with no runtime file
 
-Approved in `asset-manifest.json`, absent from every branch, and currently
-unmounted. No substitute was invented for any of them.
-
-
 | Concept | Status |
 |---|---|
-| `faith` | No runtime file. The Today Word card now uses the approved `bible-study` glyph, so no Faith slot is rendered. |
-| `discipline` | No runtime file. Streak and challenge art are explicitly not the Discipline glyph. |
-| `serve` | No runtime file and no service surface in the app. |
-| `prayer:micro` | Prayer artwork is control/hero tier. `mirror-prayer.svg` is a candidate but was authored for Mirror Time; promoting it is a brand decision. |
+| `discipline` | No confirmed runtime file yet. Streak and challenge art are explicitly not the Discipline glyph. |
+| `serve` | No confirmed runtime file yet and no service surface is currently mounted. |
+| `prayer:micro` | Prayer artwork is control/hero tier. `mirror-prayer.svg` is specific to Mirror Time until the brand canon says otherwise. |
 
-## Registered but not currently mounted
+## Confirmed assets registered but not currently mounted
 
 | Concept | Asset | Note |
 |---|---|---|
-| `secondary-brand-emblem` | `emblem-shield-128.webp` | Secondary. No surface currently calls for a shield. |
-| `stacked-wordmark` | `lockup-stacked-960.webp` | Approved for splash/launch. The app has no launch surface; inventing one is a redesign, not a reskin. |
-| `monochrome-mark` | `mark-silver-256.webp` | Approved low-contrast watermark. The profile watermark uses the canonical vector mark instead. |
+| `faith` | `assets/emblem-shield-128.webp` | Canonical user-confirmed Faith glyph; available to replace incorrect/missing Faith treatment when the corresponding UI mount is wired. |
+| `talents` | `assets/badge-creator-256.webp` | Canonical user-confirmed detailed Talents crest; `talent.svg` remains the micro treatment already mounted in balances/rewards. |
+| `stacked-wordmark` | `lockup-stacked-960.webp` | Approved for splash/launch. |
+| `monochrome-mark` | `mark-silver-256.webp` | Approved low-contrast watermark. |
 
 ## Withheld from the runtime on purpose
 
 | Asset | Reason |
 |---|---|
 | `art-hourglass` | Quarantined. Legacy is canonically the forged signet ring. |
-| `badge-creator` | Conditional. No explicit creator/founder product state is defined yet. |
 | `app-icon` | System tier. PWA install identity only, never an in-app icon. |
 
 ## Mechanical controls left generic (allowed)
 
-Close, share, reply, like, search, edit, add, back, and the Today/Feed/Me
-navigation are ordinary mechanical actions with no MOG-owned semantic glyph in
-the manifest, so they keep their existing symbols.
-
+Close, share, reply, like, search, edit, add, and back are ordinary mechanical actions with no MOG-owned semantic glyph in the current canon.
 
 ## Size tiers
 
@@ -95,33 +84,15 @@ the manifest, so they keep their existing symbols.
 | system | PWA/browser install identity. Never in-app content. |
 | micro | 16-28px inline glyph or status mark. |
 | control | 32-72px branded glyph inside an existing control or compact card. |
-| hero | 96px+ art, used sparingly for a principal or ceremonial moment. |
+| hero | 96px+ art used sparingly for a principal section or ceremonial moment. |
 | lockup | Brand wordmark composition. Never a button icon. |
 
-`MOG.verifyTiers()` measures every mount after layout and reports anything
-rendering outside its band. Current violations: **none**.
-
-Vector marks are exempt from the px bands; they carry no resolution penalty.
-
-
-During this pass the check caught ten violations, including a hero crest at 78px,
-the legacy ring below its own tier floor, a 256px challenge crest rendering at
-132px, and the brotherhood crest shrunk to a 22px inline accent inside a proof
-chip. All are resolved.
-
+`MOG.verifyTiers()` measures mounts after layout and reports anything rendering outside its allowed band. Vector marks are exempt from raster resolution constraints.
 
 ## Known material gaps
 
-- `crest-breakthrough` animates through `detail-mask`, an edge extraction covering
-  22% of the frame. That is not crack geometry, so it takes one restrained sweep
-  rather than a fracture pulse. A hand-authored `cracks-mask` is required first.
-
-- `badge-rank` animates through `gold-mask`, covering chevrons, crown and rim
-  together. Sequential chevron illumination needs a hand-authored `chevrons-mask`.
-
-- `crest-streak` uses `emissive-mask`, reviewed: it isolates the flame and lit
-  day-marks and excludes the calendar body, so a pulse is sanctioned.
-
-- `crest-brotherhood` uses `gold-mask`, reviewed: it excludes the hands, matching
-  the requirement that hands stay physically stable.
-
+- `crest-breakthrough` still needs a hand-authored `cracks-mask` for true fracture emission.
+- `badge-rank` still needs a hand-authored `chevrons-mask` for sequential rank illumination.
+- `crest-streak` uses a reviewed emissive mask that isolates the flame/lit day marks.
+- `crest-brotherhood` uses a reviewed gold mask that excludes the hands.
+- The newly corrected detailed Talents crest should not receive semantic motion until its own gold/specular/detail masks are reviewed.
