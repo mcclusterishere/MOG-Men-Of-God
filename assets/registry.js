@@ -123,25 +123,22 @@ const MOG = (() => {
     'stacked-wordmark': {
       lockup: { file: A + 'lockup-stacked-960.webp', status: 'approved-concept-runtime', motion: 'none' }
     },
-    /* Bible/study. Fills a manifest concept that had no runtime file. */
-    study: {
-      micro: { file: A + 'bible-study.svg', status: 'approved-runtime', scalable: true, motion: 'none' }
+    /* Concepts declared in design/brand/FEATURE_ASSET_REGISTRY.json. Names and
+       tiers follow that file exactly; it is the semantic authority for them. */
+    'bible-study': {
+      micro: { file: A + 'bible-study.svg', status: 'canonical-new', scalable: true, motion: 'none' }
     },
-
-    /* Mirror Time glyphs, landed with the in-flight Mirror/Bible feature.
-       Registered so that feature resolves through here instead of its own
-       hardcoded icon map when it is wired up. */
     'mirror-time': {
-      micro: { file: A + 'mirror-time.svg', status: 'approved-runtime', scalable: true, motion: 'none' }
+      control: { file: A + 'mirror-time.svg', status: 'canonical-new', scalable: true, motion: 'none' }
     },
     'mirror-prayer': {
-      micro: { file: A + 'mirror-prayer.svg', status: 'approved-runtime', scalable: true, motion: 'none' }
+      micro: { file: A + 'mirror-prayer.svg', status: 'canonical-new', scalable: true, motion: 'none' }
     },
-    'mirror-forgive': {
-      micro: { file: A + 'mirror-forgive.svg', status: 'approved-runtime', scalable: true, motion: 'none' }
+    'self-forgiveness': {
+      micro: { file: A + 'mirror-forgive.svg', status: 'canonical-new', scalable: true, motion: 'none' }
     },
-    'mirror-mantra': {
-      micro: { file: A + 'mirror-mantra.svg', status: 'approved-runtime', scalable: true, motion: 'none' }
+    mantras: {
+      micro: { file: A + 'mirror-mantra.svg', status: 'canonical-new', scalable: true, motion: 'none' }
     },
 
     'app-identity': {
@@ -239,6 +236,15 @@ const MOG = (() => {
     });
   }
 
+  /* Lets a live control change which concept it shows without ever touching a
+     file path. Used by the Mirror Time session header. */
+  function remount(el, concept, tier = 'micro') {
+    if (!el) return;
+    el.dataset.mog = `${concept}:${tier}`;
+    delete el.dataset.mogReady;
+    hydrate(el.parentNode || document);
+  }
+
   /* Enforces the tier contract instead of merely documenting it: if a mount
      renders outside its tier's px band, that is a defect, not a style choice. */
   function verifyTiers(root = document) {
@@ -274,5 +280,5 @@ const MOG = (() => {
     return { mounted, unresolved, generic, tierViolations, withheld: WITHHELD, tiers: TIERS };
   }
 
-  return { resolve, hydrate, reveal, verifyTiers, audit, CONCEPTS, MISSING, WITHHELD, TIERS };
+  return { resolve, hydrate, remount, reveal, verifyTiers, audit, CONCEPTS, MISSING, WITHHELD, TIERS };
 })();

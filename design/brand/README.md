@@ -2,13 +2,14 @@
 
 This folder is the handoff point for the approved Men of God identity and UI-glyph system created during concept development.
 
-## MANDATORY RUNTIME REGISTRY
+## MANDATORY RUNTIME REGISTRIES
 
 Before placing, replacing, animating, resizing, or repurposing **any MOG asset**, read:
 
-- `RUNTIME_ASSET_REGISTRY.json`
+- `RUNTIME_ASSET_REGISTRY.json` — all previously uploaded runtime assets.
+- `FEATURE_ASSET_REGISTRY.json` — new feature-family assets, currently Mirror Time and Bible.
 
-That registry labels every currently uploaded runtime asset by exact filename and controls:
+The registries control:
 - semantic meaning
 - approved use
 - prohibited use
@@ -16,7 +17,7 @@ That registry labels every currently uploaded runtime asset by exact filename an
 - motion behavior
 - whether the asset is canonical, secondary, conditional, derivative, or quarantined
 
-**Filename appearance is not authority. The runtime registry is authority.**
+**Filename appearance is not authority. The registries are authority.**
 
 Examples:
 - `art-ring-256.webp` is the canonical Legacy signet-ring treatment.
@@ -24,6 +25,9 @@ Examples:
 - `badge-rank-*` is Rank hardware and must not be used as generic Feed artwork.
 - `crest-streak-*` is Streak artwork and must not be used as a generic Challenge icon.
 - `crest-brotherhood-*` is Brotherhood artwork, not generic brand decoration.
+- `mirror-time.svg` is the parent identity for private Mirror Time practice.
+- `mirror-prayer.svg`, `mirror-forgive.svg`, and `mirror-mantra.svg` are semantic Mirror Time controls, not generic decoration.
+- `bible-study.svg` belongs to Scripture/Bible reading contexts.
 - PWA/app icons are install-system assets only, never normal in-app icons.
 - Hero rasters must not be shrunk into tiny navigation glyphs.
 
@@ -76,4 +80,4 @@ Add hand-authored semantic masks for exact animation targets, e.g. `cracks-mask.
 ## Brand rule
 The artwork is intended to feel physically manufactured: forged metal, blackened steel, antique gold, polished edges, engraving, seams and material wear. Motion should animate the material channels, not merely brighten or scale the whole image.
 
-See `/AGENTS.md`, `RUNTIME_ASSET_REGISTRY.json`, `asset-manifest.json`, and `MATERIAL_MOTION.md` before implementation.
+See `/AGENTS.md`, both runtime registries, `asset-manifest.json`, and `MATERIAL_MOTION.md` before implementation.
