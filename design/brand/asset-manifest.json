@@ -1,0 +1,38 @@
+{
+  "version": "0.1.0-staging",
+  "brand": "Men of God",
+  "tagline": "One brotherhood. Many churches. One God.",
+  "core_values": ["Faith", "Discipline", "Brotherhood"],
+  "identity": [
+    {"name":"primary-mark","target":"identity/primary-mark.png","status":"approved"},
+    {"name":"horizontal-wordmark","target":"identity/horizontal-wordmark.png","status":"approved-concept","production_note":"Create clean transparent/vector master before final shipping."},
+    {"name":"stacked-wordmark","target":"identity/stacked-wordmark.png","status":"approved-concept","production_note":"Create clean transparent/vector master before final shipping."},
+    {"name":"monochrome-mark","target":"identity/monochrome-mark.png","status":"approved"},
+    {"name":"app-icon","target":"identity/app-icon.png","status":"approved"}
+  ],
+  "glyphs": [
+    {"name":"faith","target":"glyphs/faith.png","status":"approved"},
+    {"name":"discipline","target":"glyphs/discipline.png","status":"approved"},
+    {"name":"brotherhood","target":"glyphs/brotherhood.png","status":"approved","note":"Use the final darker-hands version."},
+    {"name":"legacy","target":"glyphs/legacy.png","status":"approved","note":"Forged signet ring. Do not replace with lion/hourglass/globe composition."},
+    {"name":"prayer","target":"glyphs/prayer.png","status":"approved"},
+    {"name":"study","target":"glyphs/study.png","status":"approved"},
+    {"name":"serve","target":"glyphs/serve.png","status":"approved"},
+    {"name":"challenge","target":"glyphs/challenge.png","status":"approved"},
+    {"name":"streak","target":"glyphs/streak.png","status":"approved"},
+    {"name":"rank","target":"glyphs/rank.png","status":"approved"},
+    {"name":"verified","target":"glyphs/verified.png","status":"approved"},
+    {"name":"talents","target":"glyphs/talents.png","status":"approved"}
+  ],
+  "mask_contract": {
+    "folder": "material-masks/<asset-name>/",
+    "staging_channels": ["alpha-mask.png", "gold-mask.png", "dark-metal-mask.png", "specular-mask.png", "detail-mask.png"],
+    "semantic_channels_on_demand": ["cracks-mask.png", "engraving-mask.png", "cross-mask.png", "glyph-mask.png", "rim-mask.png", "flame-mask.png", "chevrons-mask.png"]
+  },
+  "rules": [
+    "Do not substitute generic icons or emoji for approved glyphs.",
+    "Do not animate whole rasters when the intended animation belongs to one material channel.",
+    "Preserve source masters; place all derived files in separate staging/derivative paths.",
+    "Automatically derived detail masks are provisional and must be reviewed before claiming semantic precision."
+  ]
+}
