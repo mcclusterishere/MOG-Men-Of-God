@@ -123,6 +123,27 @@ const MOG = (() => {
     'stacked-wordmark': {
       lockup: { file: A + 'lockup-stacked-960.webp', status: 'approved-concept-runtime', motion: 'none' }
     },
+    /* Bible/study. Fills a manifest concept that had no runtime file. */
+    study: {
+      micro: { file: A + 'bible-study.svg', status: 'approved-runtime', scalable: true, motion: 'none' }
+    },
+
+    /* Mirror Time glyphs, landed with the in-flight Mirror/Bible feature.
+       Registered so that feature resolves through here instead of its own
+       hardcoded icon map when it is wired up. */
+    'mirror-time': {
+      micro: { file: A + 'mirror-time.svg', status: 'approved-runtime', scalable: true, motion: 'none' }
+    },
+    'mirror-prayer': {
+      micro: { file: A + 'mirror-prayer.svg', status: 'approved-runtime', scalable: true, motion: 'none' }
+    },
+    'mirror-forgive': {
+      micro: { file: A + 'mirror-forgive.svg', status: 'approved-runtime', scalable: true, motion: 'none' }
+    },
+    'mirror-mantra': {
+      micro: { file: A + 'mirror-mantra.svg', status: 'approved-runtime', scalable: true, motion: 'none' }
+    },
+
     'app-identity': {
       system: { file: A + 'app-icon-512.png', status: 'approved-runtime', motion: 'none' }
     }
@@ -133,12 +154,13 @@ const MOG = (() => {
   const MISSING = {
     faith: 'Faith/Word/devotional glyph. No runtime file in any branch.',
     discipline: 'Discipline/accountability glyph. Streak and challenge art are NOT the Discipline glyph.',
-    study: 'Bible/study glyph. No runtime file in any branch.',
     serve: 'Service/community-action glyph. No runtime file in any branch.',
     'challenge:micro': 'Small Challenges nav glyph. The breakthrough crest is hero art, not a micro glyph.',
     'brotherhood:micro': 'Small Brothers nav glyph. Do not shrink the brotherhood crest.',
     'streak:micro': 'Small streak status glyph.',
-    'prayer:micro': 'Small prayer control glyph. Prayer artwork is not a micro glyph.',
+    'prayer:micro': 'Small prayer control glyph. Prayer artwork is not a micro glyph. '
+      + 'mirror-prayer.svg is a candidate but was authored for Mirror Time; '
+      + 'confirm with brand before promoting it to the canonical Prayer glyph.',
     'legacy:micro': 'Small Legacy control glyph. Must derive from the ring, never an hourglass.'
   };
 
