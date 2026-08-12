@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "authority": "user-confirmed visual identity correction",
   "precedence": "This file overrides any older semantic label for the exact runtime asset named below.",
   "corrections": [
@@ -52,6 +52,31 @@
         "generic success state unrelated to MOG verification"
       ],
       "notes": "The user explicitly confirmed that this scalloped black-and-gold checkmark seal is the VERIFIED glyph. The 128 and 256 WebP files are size variants of the same verified identity. Keep verified.svg as the compact inline micro treatment; do not reinterpret these badge rasters as rank, completion, challenge, or generic success artwork."
+    },
+    {
+      "file": "assets/badge-creator-256.webp",
+      "previous_label": "Creator/founding badge",
+      "previous_concept": "creator-founder-status",
+      "canonical_label": "Talents glyph / gifts-and-skills crest",
+      "canonical_concept": "talents",
+      "status": "canonical-user-confirmed",
+      "tier": "control",
+      "visual_signature": "Circular forged blackened-steel and antique-gold MOG crest containing headphones, a studio microphone, paint brush, camera lens and piano keys, with the MOG cross/monogram at the top.",
+      "approved_use": [
+        "Talents system identity",
+        "member gifts, skills and creative-capability surfaces",
+        "Talents feature cards or profile modules",
+        "larger Talents control where the compact talent.svg is too small"
+      ],
+      "never": [
+        "Creator or founder status",
+        "Founding Brother badge",
+        "Rank",
+        "Verified",
+        "Challenge",
+        "generic media or creator decoration"
+      ],
+      "notes": "The historical filename 'badge-creator-256.webp' is misleading. The user explicitly confirmed that the pictured headphones/microphone/paintbrush/camera/piano crest is the TALENTS glyph. Keep assets/talent.svg as the compact inline/micro treatment for Talents balances, rewards and ledger UI; this richer raster is the detailed Talents identity. Do not create a replacement Talents image while this asset exists."
     }
   ]
 }
