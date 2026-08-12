@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "authority": "user-confirmed visual identity correction",
   "precedence": "This file overrides any older semantic label for the exact runtime asset named below.",
   "corrections": [
@@ -26,6 +26,32 @@
         "random ornamental shield"
       ],
       "notes": "The filename is historical and misleading. Do not infer semantics from 'emblem-shield'. The user explicitly confirmed that the pictured shield/cross/star glyph is FAITH. Do not create or source a replacement Faith image while this asset exists."
+    },
+    {
+      "files": [
+        "assets/badge-verified-128.webp",
+        "assets/badge-verified-256.webp"
+      ],
+      "canonical_label": "Verified glyph / verification badge",
+      "canonical_concept": "verified",
+      "status": "canonical-user-confirmed",
+      "visual_signature": "Forged blackened-steel and antique-gold scalloped verification seal with a large dimensional gold checkmark centered in a circular inset and the MOG cross/monogram crest at the top.",
+      "approved_use": [
+        "verified member identity",
+        "verification status and verification detail surfaces",
+        "larger verification badge where the inline verified.svg is too small",
+        "verification approval or ceremonial verification moment"
+      ],
+      "never": [
+        "Rank",
+        "Creator or founder status",
+        "Faith",
+        "Challenge",
+        "Talents",
+        "generic decorative checkmark",
+        "generic success state unrelated to MOG verification"
+      ],
+      "notes": "The user explicitly confirmed that this scalloped black-and-gold checkmark seal is the VERIFIED glyph. The 128 and 256 WebP files are size variants of the same verified identity. Keep verified.svg as the compact inline micro treatment; do not reinterpret these badge rasters as rank, completion, challenge, or generic success artwork."
     }
   ]
 }
