@@ -5,6 +5,48 @@ Men of God (MOG) is an invite-only, cross-church fraternity/social platform for 
 
 The product is mobile-first and PWA-first. It should feel like a real phone app, not a responsive marketing site.
 
+## CURRENT IMPLEMENTATION MODE: RESKIN / ENHANCEMENT ONLY
+This is the most important instruction for the current visual pass.
+
+**Do not redesign the application. Enhance the application that already exists.**
+
+The current information architecture, primary navigation, feed behavior, challenge flow, membership flow, profile structure, screen hierarchy, and working interactions are the product. The supplied brand assets are a visual/material layer to make that same app feel premium, physical, metallic, and unmistakably MOG.
+
+Do **not** use the new art direction as permission to:
+- invent new screens just because an asset suggests one
+- replace the existing navigation model
+- move major content into different sections
+- turn the app into a fantasy dashboard, game HUD, or cinematic control room
+- replace working cards/controls with oversized decorative objects
+- bury ordinary app actions behind animations
+- introduce new product metaphors without an explicit product request
+- rewrite functioning application architecture merely to support the skin
+
+A correct implementation should still be recognizable as the same MOG app before and after the skin is applied.
+
+### Enhancement test
+Before changing a component, ask:
+1. Does this component already exist and work?
+2. Can the supplied asset/material enhance its existing geometry and behavior?
+3. Can the animation preserve the same user action while making the surface feel more physical?
+
+If yes, reskin it in place.
+
+If the change requires a new screen, new navigation behavior, new content model, or materially different workflow, **stop and treat that as a redesign proposal, not part of this visual pass.**
+
+### Motion-reskin rule
+Preserve the choreography/intent of existing interactions and improve the physical response.
+
+Examples:
+- existing fade/reveal -> restrained specular or material reveal
+- existing active state -> gold/emissive channel activates inside the same control
+- existing button press -> face depresses/recesses instead of generic scale bounce
+- existing badge reveal -> light travels through its approved metal/glyph channels
+- existing card hover -> surface normal/specular response changes without changing layout
+- existing navigation selection -> approved MOG glyph/material state changes; do not invent a new navigation paradigm
+
+The goal is **same app, dramatically better material realism and brand identity**.
+
 ## Non-negotiable visual direction
 The interface must feel physically manufactured from metal.
 
@@ -30,29 +72,37 @@ Core values: **Faith. Discipline. Brotherhood.**
 
 Do not redraw or casually reinterpret the supplied identity assets. Use supplied masters as the source of truth until a deliberate brand revision is approved.
 
-## Canonical asset inventory
-Core identity:
-- `primary-mark`
-- `horizontal-wordmark`
-- `stacked-wordmark`
-- `monochrome-mark`
-- `app-icon`
+## Canonical asset inventory and how to use it
+These are the current approved visual assets. They are not a list of screens or features. They are brand primitives to be inserted into the existing app where the semantic meaning already exists.
 
-UI glyphs:
-- `faith`
-- `discipline`
-- `brotherhood`
-- `legacy`
-- `prayer`
-- `study`
-- `serve`
-- `challenge`
-- `streak`
-- `rank`
-- `verified`
-- `talents`
+### Core identity
+- `primary-mark` — primary brand emblem; use for app identity, premium empty states, splash/launch moments, and controlled hero branding
+- `horizontal-wordmark` — header/brand lockup where horizontal space exists
+- `stacked-wordmark` — compact vertical identity use, onboarding/brand moments, merchandise/ceremonial layouts
+- `monochrome-mark` — small/low-contrast/reduced-detail use, masking, watermarking, system fallback
+- `app-icon` — PWA/install/app identity; do not use as a generic in-app icon
 
-The current approved Legacy concept is the forged signet ring. Do not use lions, hourglasses, globes, or over-composed heraldic scenes for Legacy.
+### UI glyphs
+Use these only where the matching product concept already exists.
+- `faith` — faith/Word/devotional context
+- `discipline` — discipline, accountability, habit or challenge context
+- `brotherhood` — Brothers/community/group context
+- `legacy` — legacy/heritage/long-term impact; approved concept is the forged signet ring
+- `prayer` — prayer activity/content
+- `study` — Bible/study/learning content
+- `serve` — service/community action
+- `challenge` — challenges
+- `streak` — streak state/progress
+- `rank` — member rank/status progression
+- `verified` — verification/approved identity
+- `talents` — Talents/reward/reputation point system
+
+Do not use lions, hourglasses, globes, or over-composed heraldic scenes for Legacy. The current approved Legacy concept is the forged signet ring.
+
+### Asset restraint
+Not every glyph belongs on every screen. Use the minimum number of identity assets necessary for clarity. Repetition makes premium assets feel cheap.
+
+If an existing screen already communicates clearly with typography and one canonical glyph, do not decorate it with three more.
 
 ## Spatial material architecture
 The long-term design target is not merely a "3D website." It is a **physical digital interface**: normal HTML remains the accessible/product layer while selected assets behave like real manufactured objects with physically plausible light, depth, roughness, reflections, and material-state transitions.
@@ -75,8 +125,9 @@ Use for objects that should physically exist in the interface:
 - Legacy signet ring
 - rank and verification hardware
 - collectible seals/badges
-- selected buttons or hero objects
-- future chapter artifacts
+- selected hero objects where real depth materially improves the experience
+
+Do **not** convert ordinary buttons, every card, every icon, or every feed element to GLB. Standard app UI remains DOM/SVG unless real 3D earns its performance cost.
 
 Preferred production materials are physically based rendering (PBR):
 - baseColor
@@ -91,6 +142,8 @@ A gold object should glisten because virtual light moves across actual surface n
 ### Gaussian splats
 Do **not** use Gaussian splats for ordinary glyphs, buttons, badges, or compact product UI. Reserve splats for photoreal captured spaces/objects where their strengths matter, such as a future chapter room, gym, church, studio, or environmental experience.
 
+Gaussian splats are a future environmental layer, not part of the current reskin requirement.
+
 ### WebGL / WebGPU presentation layer
 The core application should remain HTML/CSS/DOM for speed, accessibility, text, forms, feed content, and resilient fallbacks. A WebGL/WebGPU layer may sit above or within specific interface regions to render selected GLB assets and physically responsive materials.
 
@@ -98,6 +151,8 @@ Do not turn every screen into a canvas. 3D earns its place only where it improve
 
 ### WebXR future path
 When a 3D object is authored cleanly as GLB/glTF, preserve a path for optional spatial presentation later. The same Talent coin or rank object should be capable of appearing in normal mobile UI today and a future AR/VR scene without being rebuilt from scratch.
+
+Do not redesign today's mobile experience around hypothetical goggles.
 
 ## Material channel architecture
 The raster artwork must not be treated as a single flat image when motion is applied.
@@ -172,7 +227,7 @@ Primary navigation remains intentionally small:
 - Brothers
 - Me
 
-Today should be a command center, not a dashboard dump: one Word, one principal challenge, streak, Talents, and the next action.
+Today should be a command center in the product sense, not a decorative dashboard dump: one Word, one principal challenge, streak, Talents, and the next action.
 
 Feed should support visual proof posts and concise discussions without becoming a noisy general-purpose social network.
 
@@ -213,12 +268,23 @@ MOG social identity, membership, challenge proofs, Talents, and discussion data 
 Before changing the visual system:
 1. inspect `design/brand/`
 2. use the asset manifest
-3. preserve canonical files
-4. stage derivatives separately
-5. show a visual comp before broad UI rewrites when changing material language
+3. inspect the existing app screens and working interactions before writing visual code
+4. preserve canonical files
+5. stage derivatives separately
+6. identify whether each proposed change is a **reskin** or a **redesign**
+7. implement reskins in place
+8. stop and ask before implementing a redesign
+9. show a visual comp before broad UI rewrites when changing material language
 
 When implementing assets, do not substitute emoji, Lucide/FontAwesome icons, or generic symbols for supplied MOG glyphs.
 
 When a required semantic material mask is missing, create it as a separate derivative file and document how it was produced. Never destructively overwrite the source artwork.
 
 When introducing 3D, preserve the DOM application's behavior first. Treat 3D as a progressive enhancement layer, not a reason to rewrite functioning product architecture.
+
+### Final acceptance question
+Before considering the visual pass complete, compare the old and new app and answer:
+
+**Did we preserve the product and upgrade its material/brand experience, or did we accidentally design a different app?**
+
+If it feels like a different app, the pass went too far.
