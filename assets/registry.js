@@ -12,7 +12,8 @@
    mask, and the sanctioned motion. Changing what a concept looks like is a
    change to this file, never to a component.
 
-   Source of truth: design/brand/asset-manifest.json (semantics)
+   Source of truth: design/brand/ASSET_IDENTITY_CORRECTIONS.json (highest precedence)
+                    design/brand/asset-manifest.json (semantics)
                     design/brand/RUNTIME_ASSET_REGISTRY.json (runtime labels)
                     AGENTS.md (usage law)
 
@@ -41,12 +42,16 @@ const MOG = (() => {
     verified: {
       micro: { file: A + 'verified.svg', status: 'canonical', scalable: true, motion: 'sweep' },
       control: {
-        file: A + 'badge-verified-256.webp', status: 'approved-runtime',
+        file: A + 'badge-verified-256.webp', status: 'canonical-user-confirmed',
         mask: M + 'badge-verified-256/specular-mask.png', channel: 'specular', motion: 'sweep'
       }
     },
     talents: {
-      micro: { file: A + 'talent.svg', status: 'canonical', scalable: true, motion: 'none' }
+      micro: { file: A + 'talent.svg', status: 'canonical-micro', scalable: true, motion: 'none' },
+      control: { file: A + 'badge-creator-256.webp', status: 'canonical-user-confirmed', motion: 'none' }
+    },
+    faith: {
+      micro: { file: A + 'emblem-shield-128.webp', status: 'canonical-user-confirmed', motion: 'none' }
     },
     rank: {
       micro: {
@@ -111,9 +116,6 @@ const MOG = (() => {
     'monochrome-mark': {
       control: { file: A + 'mark-silver-256.webp', status: 'approved-runtime', motion: 'none' }
     },
-    'secondary-brand-emblem': {
-      micro: { file: A + 'emblem-shield-128.webp', status: 'secondary', motion: 'none' }
-    },
     'horizontal-wordmark': {
       lockup: {
         file: A + 'lockup-horizontal-720.webp', status: 'approved-concept-runtime',
@@ -149,7 +151,6 @@ const MOG = (() => {
   /* Concepts approved in the brand manifest with NO runtime file anywhere.
      These render a neutral placeholder and are reported by audit(). */
   const MISSING = {
-    faith: 'Faith/Word/devotional glyph. No runtime file in any branch.',
     discipline: 'Discipline/accountability glyph. Streak and challenge art are NOT the Discipline glyph.',
     serve: 'Service/community-action glyph. No runtime file in any branch.',
     'challenge:micro': 'Small Challenges nav glyph. The breakthrough crest is hero art, not a micro glyph.',
@@ -164,7 +165,6 @@ const MOG = (() => {
   /* Held out of the runtime on purpose. Never resolvable. */
   const WITHHELD = {
     'art-hourglass': 'Quarantined. Legacy is canonically the forged signet ring.',
-    'badge-creator': 'Conditional. No explicit creator/founder product state is defined yet.',
     'app-icon': 'System tier. PWA install identity only, never an in-app icon.'
   };
 
