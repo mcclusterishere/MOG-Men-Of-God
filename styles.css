@@ -83,3 +83,14 @@
 @media(prefers-reduced-motion:reduce){
   .mog-asset>.mog-fx{animation:none!important;opacity:0!important}
 }
+
+/* Registry mounts replaced the feature's bare <img> elements, so its
+   direct-child and fixed-size rules no longer reach them. Re-express those
+   sizes against the wrapper. Vector marks carry no tier px penalty. */
+.bibleHeader>.mog-asset{width:45px;height:45px}
+.featureKicker .mog-asset{width:26px;height:26px}
+.mirrorIdentity .mog-asset{width:43px;height:43px}
+.mirrorFallback .mog-asset{width:120px;height:120px}
+.privateSummary .mog-asset{width:36px;height:36px}
+.mirrorMode .modeArt .mog-asset{width:52px;height:52px}
+.mirrorMode .modeArt.prayerArt .mog-asset{width:64px;height:64px}
