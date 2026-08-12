@@ -1,9 +1,10 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "branch": "claude/mog-asset-integration-v2",
   "asset_source_branch": "claude/app-design-mobbin-overhaul-8vyyd3",
   "purpose": "Authoritative runtime labeling for every currently uploaded MOG asset. This file decides what each asset means, where it may appear, what size tier it belongs to, and what it must never be used for.",
   "global_rules": [
+    "User-confirmed entries in ASSET_IDENTITY_CORRECTIONS.json override historical filenames and older inferred labels.",
     "The screenshots/art direction are a reskin reference, not permission to redesign product structure.",
     "Use canonical MOG assets for MOG-owned concepts. Generic SVGs are allowed only for mechanical actions such as close, share, back, camera, edit, search, and add.",
     "Do not use a hero raster as a tiny navigation glyph.",
@@ -115,14 +116,14 @@
     },
     {
       "file": "assets/badge-creator-256.webp",
-      "label": "Creator/founding badge",
-      "concept": "creator-founder-status",
+      "label": "Talents glyph / gifts-and-skills crest",
+      "concept": "talents",
       "tier": "control",
-      "status": "conditional",
-      "use": ["Only if the product exposes an explicit creator/founder status that this badge represents"],
-      "never": ["generic rank", "verified", "Brothers nav", "decorative card filler"],
-      "reason": "Do not surface until the matching product state is explicitly defined.",
-      "motion": "One restrained gold/specular reveal on award; otherwise static."
+      "status": "canonical-user-confirmed",
+      "use": ["Talents system identity", "member gifts and skills", "Talents feature cards", "profile talent modules"],
+      "never": ["creator/founder status", "Founding Brother badge", "rank", "verified", "challenge", "generic media decoration"],
+      "reason": "Historical filename is misleading. User confirmed the headphones/microphone/paintbrush/camera/piano crest is TALENTS.",
+      "motion": "Animate only reviewed gold/specular/detail channels; base remains still."
     },
     {
       "file": "assets/badge-rank-128.webp",
@@ -156,22 +157,22 @@
     },
     {
       "file": "assets/badge-verified-128.webp",
-      "label": "Verified hardware 128",
+      "label": "Verified glyph / verification badge 128",
       "concept": "verified",
       "tier": "micro",
-      "status": "approved-runtime",
+      "status": "canonical-user-confirmed",
       "use": ["larger inline verification state where the small SVG is insufficient"],
-      "never": ["rank", "creator/founder", "generic badge decoration"],
+      "never": ["rank", "creator/founder", "generic badge decoration", "generic success state"],
       "motion": "One restrained rim/specular sweep on reveal."
     },
     {
       "file": "assets/badge-verified-256.webp",
-      "label": "Verified hardware 256",
+      "label": "Verified glyph / verification badge 256",
       "concept": "verified",
       "tier": "control",
-      "status": "approved-runtime",
+      "status": "canonical-user-confirmed",
       "use": ["verification detail sheet", "approved-member ceremonial state"],
-      "never": ["rank", "Feed filler art", "challenge badge"],
+      "never": ["rank", "Feed filler art", "challenge badge", "generic success state"],
       "motion": "One restrained gold/specular sweep then settle."
     },
     {
@@ -236,13 +237,13 @@
     },
     {
       "file": "assets/emblem-shield-128.webp",
-      "label": "Secondary MOG shield emblem",
-      "concept": "secondary-brand-emblem",
+      "label": "Faith glyph",
+      "concept": "faith",
       "tier": "micro",
-      "status": "secondary",
-      "use": ["small ornamental header identity", "chapter/ceremonial accent where a shield is specifically desired"],
-      "never": ["replace primary MOG mark everywhere", "bottom navigation", "Faith glyph", "Verified"],
-      "motion": "Static or single specular catch only."
+      "status": "canonical-user-confirmed",
+      "use": ["Faith core-value identity", "Today/Word/devotional Faith contexts", "compact Faith control"],
+      "never": ["generic secondary brand decoration", "Verified", "Rank", "Talents", "Brotherhood", "Challenge"],
+      "motion": "Static or single reviewed specular/gold catch only."
     },
     {
       "file": "assets/lockup-horizontal-720.webp",
@@ -296,13 +297,13 @@
     },
     {
       "file": "assets/talent.svg",
-      "label": "Talents currency/reputation glyph",
+      "label": "Talents compact inline glyph",
       "concept": "talents",
       "tier": "micro",
-      "status": "canonical",
+      "status": "canonical-micro",
       "use": ["Talents balances", "rewards", "challenge reward labels", "Talents ledger UI"],
-      "never": ["cash/payment icon", "rank", "generic points icon for unrelated systems"],
-      "motion": "Rim catches light; core glyph stays readable. Future GLB coin may replace only where physical 3D earns the cost."
+      "never": ["cash/payment icon", "rank", "generic points icon for unrelated systems", "replacement for the detailed Talents crest at control size"],
+      "motion": "Rim catches light; core glyph stays readable."
     },
     {
       "file": "assets/verified.svg",
@@ -316,11 +317,6 @@
     }
   ],
   "missing_runtime_slots": [
-    {
-      "concept": "faith",
-      "required_use": "Today/Word/devotional semantic glyph",
-      "instruction": "Approved concept exists in the design manifest but no dedicated runtime file is present in the donor asset folder. Do not substitute home/heart/cross/emoji ad hoc. Source the approved Faith glyph."
-    },
     {
       "concept": "discipline",
       "required_use": "discipline/accountability context",
