@@ -47,7 +47,7 @@ without being advertised. Neither implies the other.
 | `03_mog_talents` | `mog_talents_ledger`, `mog_talents_balance` view | Append-only, balance derived |
 | `04_mog_front_door` | `mog_front_door_links` | The front door itself |
 | `05_mog_here_bridge` | `mog_here_offerings` | One-way read mirror of HERE |
-| `06_mog_seed_founders` | Matthew McCluster + SilverBack Fitness | Founding profiles and admin grants |
+| `06_mog_seed_founders` | Matthew McCluster + SilverBack Fitness | Founding profiles, the single admin grant, staged brand |
 
 ### The admin model is the biggest change
 
@@ -97,21 +97,29 @@ integration boundary in AGENTS.md and needs an explicit decision first.
 
 ---
 
-## Two things I need from you before this can run
+## Who holds what
 
-**1. Which address is the administrator?** The existing predicate hardcodes
-`matthew@mccluster.org`. This session's account is `mattmccluster@gmail.com`.
-Those are different. The seed takes `:admin_email` so you state it rather than
-having me guess.
+`matthew@mccluster.org` is the **only** backend administrator.
 
-**2. Is SilverBack Fitness you, or its own account?** As written it is a
-separate front door owned by `:silverback_email`, flagged `is_org = true`, and
-granted `backend_admin` as you asked. If SilverBack is your own brand rather
-than a separate operator, point both variables at the same address and it
-becomes a second front door you control.
+SilverBack Fitness is **its own account, staged**. It is deliberately not
+granted `backend_admin`, because operating a brand front door is authority over
+that one profile and must never imply authority over the platform. Staging is
+expressed with `mog_profiles.managed_by`, which lets the administrator build and
+publish the door before the brand runs its own team.
 
-The seed never creates auth users. Sign the accounts up through Supabase Auth
-first; the lookups fail loudly rather than inventing an identity.
+When SilverBack gets its own repo and operators, one statement hands it over:
+
+```sql
+update public.mog_profiles set managed_by = null
+ where handle = 'silverback-fitness';
+```
+
+The profile keeps its handle, links, history and followers. That is the reason
+to stage it as a separate account rather than a sub-page of yours.
+
+The seed never creates auth users. Sign both accounts up through Supabase Auth
+first; the lookups fail loudly rather than inventing an identity. It also
+refuses to run if the two addresses are the same.
 
 ---
 
@@ -120,8 +128,9 @@ first; the lookups fail loudly rather than inventing an identity.
 Run against a throwaway local Postgres 16 with the Supabase auth surface stubbed.
 
 Migrations 01–05 applied cleanly. The seed produced both profiles, walked each
-through `invited → candidate → pending_approval → active`, granted both
-`backend_admin`, and created 2 and 4 front-door links.
+through `invited → candidate → pending_approval → active`, granted
+`backend_admin` to Matthew only, recorded SilverBack as a `member` staged under
+him, and created 2 and 4 front-door links.
 
 **Schema invariants**
 
@@ -148,7 +157,27 @@ through `invited → candidate → pending_approval → active`, granted both
 | Publish a front door with `verified = true` | inserted, but forced back to `false` |
 | Read an active member's front doors | 4 rows, as intended |
 
-As an administrator: role grants succeed and all ledgers are readable.
+**Staged brand account (SilverBack), signed in as itself**
+
+| Attempt | Result |
+|---|---|
+| Grant itself `backend_admin` | **blocked by RLS** |
+| Move itself through the membership state machine | **blocked by RLS** |
+| Read the administrator's ledger | 0 rows |
+| Edit its own front door | allowed, as its operator |
+
+**Unrelated member**
+
+| Attempt | Result |
+|---|---|
+| Edit SilverBack's front door | 0 rows affected |
+| Seize the staged profile by setting `managed_by` to themselves | 0 rows affected |
+| View SilverBack's public front door | 4 rows, as intended |
+
+As an administrator: role grants succeed, all ledgers are readable, and the
+staged brand's doors are editable.
+
+The seed is idempotent — running it twice produces no error and no duplicates.
 
 ---
 

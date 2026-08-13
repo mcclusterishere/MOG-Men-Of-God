@@ -60,7 +60,9 @@ security definer
 set search_path = public, pg_temp
 as $$
 begin
-  if not public.is_mog_admin() then
+  -- auth.uid() is null for a server-side caller; the guard defends against a
+  -- member asserting ownership, not against the sync job that proves it.
+  if auth.uid() is not null and not public.is_mog_admin() then
     if tg_op = 'INSERT' then
       new.verified := false;
     elsif new.verified is distinct from old.verified then
@@ -91,15 +93,33 @@ create policy "front doors of active members are public" on public.mog_front_doo
     or public.is_mog_admin()
   );
 
-create policy "you add your own doors" on public.mog_front_door_links
-  for insert with check (owner = auth.uid() or public.is_mog_admin());
+-- One predicate for "may act on this profile's doors", so the four policies
+-- below cannot drift apart. A manager operates a staged brand front door; that
+-- is authority over one profile, never over the platform.
+create or replace function public.mog_may_manage(profile_owner uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public, pg_temp
+as $$
+  select profile_owner = auth.uid()
+      or public.is_mog_admin()
+      or exists (
+           select 1 from public.mog_profiles p
+            where p.owner = profile_owner and p.managed_by = auth.uid()
+         );
+$$;
 
-create policy "you edit your own doors" on public.mog_front_door_links
-  for update using (owner = auth.uid() or public.is_mog_admin())
-  with check (owner = auth.uid() or public.is_mog_admin());
+create policy "you add doors you may manage" on public.mog_front_door_links
+  for insert with check (public.mog_may_manage(owner));
 
-create policy "you remove your own doors" on public.mog_front_door_links
-  for delete using (owner = auth.uid() or public.is_mog_admin());
+create policy "you edit doors you may manage" on public.mog_front_door_links
+  for update using (public.mog_may_manage(owner))
+  with check (public.mog_may_manage(owner));
+
+create policy "you remove doors you may manage" on public.mog_front_door_links
+  for delete using (public.mog_may_manage(owner));
 
 revoke all on public.mog_front_door_links from anon, authenticated;
 grant select, insert, update, delete on public.mog_front_door_links to authenticated;

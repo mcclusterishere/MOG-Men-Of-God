@@ -31,6 +31,10 @@ create table if not exists public.mog_profiles (
   membership_state  mog_membership_state not null default 'invited',
   invited_by        uuid references auth.users (id),
   is_org            boolean not null default false,  -- a brand front door, not a person
+  -- A staged brand front door is operated by a member until it gets its own
+  -- team. This is deliberately NOT an admin grant: operating one profile must
+  -- never imply authority over the platform.
+  managed_by        uuid references auth.users (id),
   created_at        timestamptz not null default now(),
   updated_at        timestamptz not null default now()
 );
@@ -39,6 +43,10 @@ comment on column public.mog_profiles.membership_state is
   'Derived cache of the latest mog_membership_events row. Never write directly.';
 comment on column public.mog_profiles.is_org is
   'True for a brand or business front door such as SilverBack Fitness, false for a person.';
+comment on column public.mog_profiles.managed_by is
+  'Who operates this front door while it is staged. Confers rights over THIS '
+  'profile only, never platform administration. Set to null once the brand '
+  'runs its own account.';
 
 create table if not exists public.mog_membership_events (
   id          bigint generated always as identity primary key,
@@ -106,12 +114,32 @@ create policy "active profiles are visible to members" on public.mog_profiles
   for select using (
     membership_state = 'active'
     or owner = auth.uid()
+    or managed_by = auth.uid()
     or public.is_mog_admin()
   );
 
-create policy "you edit your own profile" on public.mog_profiles
-  for update using (owner = auth.uid() or public.is_mog_admin())
-  with check (owner = auth.uid() or public.is_mog_admin());
+-- A manager can hand the profile on, but cannot seize one: they may only clear
+-- or reassign a profile they already manage, and can never grant themselves.
+create or replace function public.mog_profile_guard()
+returns trigger language plpgsql security definer set search_path = public, pg_temp as $$
+begin
+  if auth.uid() is not null
+     and not public.is_mog_admin()
+     and new.managed_by is distinct from old.managed_by
+     and old.managed_by is distinct from auth.uid() then
+    raise exception 'only the current manager or an administrator may reassign a profile';
+  end if;
+  new.updated_at := now();
+  return new;
+end;
+$$;
+
+create trigger mog_profiles_guard before update on public.mog_profiles
+  for each row execute function public.mog_profile_guard();
+
+create policy "you edit your own or managed profile" on public.mog_profiles
+  for update using (owner = auth.uid() or managed_by = auth.uid() or public.is_mog_admin())
+  with check (owner = auth.uid() or managed_by = auth.uid() or public.is_mog_admin());
 
 create policy "admins create profiles" on public.mog_profiles
   for insert with check (public.is_mog_admin());

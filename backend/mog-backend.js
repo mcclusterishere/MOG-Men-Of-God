@@ -28,10 +28,11 @@ const MOGBackend = (() => {
       role_line: 'Training · Discipline',
       bio: 'Strength work for men who show up. Programmes, coaching and proof of the work.',
       is_org: true,
+      staged: true,          // operated by the administrator until it runs its own team
       membership_state: 'active',
       talents: 1480,
       links: [
-        { platform: 'website',   label: 'Train with SilverBack', handle: 'silverback.fit',    verified: true },
+        { platform: 'website',   label: 'SilverBack Fitness',    handle: 'silverback.fit',     verified: true },
         { platform: 'instagram', label: 'Instagram',             handle: '@silverbackfitness', verified: true },
         { platform: 'youtube',   label: 'YouTube',               handle: '@silverbackfitness', verified: false },
         { platform: 'here',      label: 'Programmes on HERE',    handle: 'Commerce',           verified: true }
@@ -54,10 +55,14 @@ const MOGBackend = (() => {
   };
 
   /* Demo accounts. These sign you into a LOCAL session only — they are not
-     credentials, they grant nothing server-side, and the UI says so. */
+     credentials, they grant nothing server-side, and the UI says so.
+
+     matthew@mccluster.org is the only administrator. SilverBack operates its
+     own brand front door and holds no platform authority, which mirrors the
+     `managed_by` model in the schema. */
   const DEMO_ACCOUNTS = {
-    'matthew@mccluster.org':  { handle: 'matthew-mccluster',  admin: true },
-    'silverback@example.com': { handle: 'silverback-fitness', admin: true }
+    'matthew@mccluster.org':                 { handle: 'matthew-mccluster',  admin: true },
+    'silverback@silverbackfitness.com':      { handle: 'silverback-fitness', admin: false }
   };
 
   const readSession = () => { try { return JSON.parse(localStorage.getItem(SESSION_KEY)); } catch { return null; } };
@@ -136,7 +141,7 @@ const MOGBackend = (() => {
   async function frontDoor(handle) {
     if (!live) return DEMO[handle] || null;
     const rows = await rest(
-      `mog_profiles?select=handle,display_name,chapter,role_line,bio,is_org,membership_state,` +
+      `mog_profiles?select=handle,display_name,chapter,role_line,bio,is_org,managed_by,membership_state,` +
       `mog_front_door_links(platform,label,handle,url,verified,sort,visible)` +
       `&handle=eq.${encodeURIComponent(handle)}&limit=1`
     );
@@ -161,6 +166,7 @@ const MOGBackend = (() => {
         demo: true,
         members: Object.keys(DEMO).length,
         admins: Object.values(DEMO_ACCOUNTS).filter(a => a.admin).length,
+        staged: Object.values(DEMO).filter(p => p.staged).length,
         pending: 0,
         doors: Object.values(DEMO).reduce((n, p) => n + p.links.length, 0)
       };

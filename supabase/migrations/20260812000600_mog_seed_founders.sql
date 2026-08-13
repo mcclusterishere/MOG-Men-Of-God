@@ -1,28 +1,31 @@
 -- ============================================================================
 -- MOG 06 — founding profiles: Matthew McCluster and SilverBack Fitness
 -- ============================================================================
--- REVIEW ONLY. Not applied. Read the two decisions below before running it.
+-- REVIEW ONLY. Not applied.
 --
--- DECISION 1 — which address is the administrator?
---   The existing predicate hardcodes  matthew@mccluster.org
---   This session's account is         mattmccluster@gmail.com
---   They are different addresses. This script uses :admin_email so you state it
---   once rather than having me guess. Both can be granted; run the grant block
---   twice with different values if the same person holds both.
+-- matthew@mccluster.org is the ONLY backend administrator.
 --
--- DECISION 2 — is SilverBack Fitness you, or its own account?
---   As written it is a separate front door owned by :silverback_email, flagged
---   is_org = true, and granted backend_admin as requested. If SilverBack is your
---   own brand rather than a separate operator, set :silverback_email to the same
---   address as :admin_email and it becomes a second front door you control.
+-- SilverBack Fitness is its own account, staged for now. It is deliberately
+-- NOT granted backend_admin — operating a brand front door is authority over
+-- that one profile, never over the platform. It is staged by setting
+-- managed_by to the administrator, which lets the door be built and published
+-- before the brand runs its own team.
+--
+-- When SilverBack gets its own repo and operators, clear managed_by:
+--
+--   update public.mog_profiles set managed_by = null
+--    where handle = 'silverback-fitness';
+--
+-- and the profile keeps every link, every follower and its whole history. That
+-- is the point of staging it as a separate account rather than a sub-page.
 --
 -- This script never creates auth users. Sign both accounts up through Supabase
 -- Auth first; the lookups below fail loudly rather than inventing an identity.
 --
--- Run with, for example:
+-- Run with:
 --   psql "$DATABASE_URL" \
 --     -v admin_email=matthew@mccluster.org \
---     -v silverback_email=silverback@example.com \
+--     -v silverback_email=<the SilverBack account> \
 --     -f 20260812000600_mog_seed_founders.sql
 -- ============================================================================
 
@@ -35,10 +38,10 @@ select set_config('mog.admin_email',      :'admin_email',      true),
 
 do $$
 declare
-  admin_id       uuid;
-  silverback_id  uuid;
-  subject_id     uuid;
-  admin_mail     text := current_setting('mog.admin_email');
+  admin_id        uuid;
+  silverback_id   uuid;
+  subject_id      uuid;
+  admin_mail      text := current_setting('mog.admin_email');
   silverback_mail text := current_setting('mog.silverback_email');
 begin
   select id into admin_id      from auth.users where email = admin_mail;
@@ -50,38 +53,41 @@ begin
   if silverback_id is null then
     raise exception 'No auth user for %. Create the account first.', silverback_mail;
   end if;
+  if admin_id = silverback_id then
+    raise exception 'SilverBack is its own account; it cannot share the administrator login';
+  end if;
 
-  -- ---- Matthew McCluster ---------------------------------------------------
+  -- ---- Matthew McCluster: founder, and the only administrator -------------
   insert into public.mog_profiles
     (owner, handle, display_name, chapter, role_line, bio, entry_door,
-     membership_state, is_org)
+     membership_state, is_org, managed_by)
   values
     (admin_id, 'matthew-mccluster', 'Matthew McCluster', 'Founding Chapter',
      'Founder · Builder',
      'Founding brother. Building the front door that leads back to everything you already run.',
-     'founding', 'invited', false)
+     'founding', 'invited', false, null)
   on conflict (owner) do update
     set display_name = excluded.display_name,
-        role_line    = excluded.role_line,
-        updated_at   = now();
+        role_line    = excluded.role_line;
 
-  -- ---- SilverBack Fitness --------------------------------------------------
+  -- ---- SilverBack Fitness: its own account, staged ------------------------
   insert into public.mog_profiles
     (owner, handle, display_name, chapter, role_line, bio, entry_door,
-     membership_state, is_org)
+     membership_state, is_org, managed_by)
   values
     (silverback_id, 'silverback-fitness', 'SilverBack Fitness', 'Atlanta',
      'Training · Discipline',
      'Strength work for men who show up. Programmes, coaching and proof of the work.',
-     'founding', 'invited', true)
+     'founding', 'invited', true, admin_id)
   on conflict (owner) do update
     set display_name = excluded.display_name,
         role_line    = excluded.role_line,
-        updated_at   = now();
+        managed_by   = excluded.managed_by;
 
   -- ---- Walk both through the state machine --------------------------------
   -- Founding entry still passes through every state, so the audit trail reads
-  -- the same for a founder as for anyone invited later.
+  -- the same for a founder as for anyone invited later. Both must reach
+  -- 'active' or their front doors stay private.
   foreach subject_id in array array[admin_id, silverback_id] loop
     if (select membership_state from public.mog_profiles where owner = subject_id) = 'invited' then
       insert into public.mog_membership_events (subject, to_state, actor, reason)
@@ -91,29 +97,37 @@ begin
     end if;
   end loop;
 
-  -- ---- Backend administrator grants ---------------------------------------
+  -- ---- The single administrator grant -------------------------------------
   insert into public.mog_roles (owner, role, granted_by, note)
-  values (admin_id,      'backend_admin', admin_id, 'Founding administrator'),
-         (silverback_id, 'backend_admin', admin_id, 'SilverBack Fitness operator')
+  values (admin_id, 'backend_admin', admin_id, 'Sole backend administrator')
   on conflict (owner, role) do update set revoked_at = null;
 
-  raise notice 'Seeded Matthew McCluster (%) and SilverBack Fitness (%)', admin_id, silverback_id;
+  -- SilverBack is a member, not an administrator.
+  insert into public.mog_roles (owner, role, granted_by, note)
+  values (silverback_id, 'member', admin_id, 'Staged brand account')
+  on conflict (owner, role) do update set revoked_at = null;
+
+  raise notice 'Administrator: % (%)', admin_mail, admin_id;
+  raise notice 'SilverBack staged under administrator, no admin rights: %', silverback_id;
 end $$;
 
 -- ---- Front doors -----------------------------------------------------------
--- Placeholders. Every URL here must be replaced with a real destination before
--- this runs; none of them are verified, because verification requires an OAuth
--- grant in member_oauth rather than an assertion in a seed file.
+-- The website link is sort 0 on purpose: the whole point is that a brother in
+-- the MOG feed can reach SilverBack's actual site from here.
+--
+-- Replace every URL below with the real destination before running this. None
+-- are verified, because verification requires an OAuth grant in member_oauth
+-- rather than an assertion in a seed file.
 insert into public.mog_front_door_links (owner, platform, label, url, handle, sort)
 select p.owner, v.platform::mog_platform, v.label, v.url, v.handle, v.sort
   from public.mog_profiles p
   join (values
-        ('silverback-fitness', 'website',   'Train with SilverBack', 'https://example.com/silverback',           null,          0),
-        ('silverback-fitness', 'instagram', 'Instagram',             'https://instagram.com/example',            '@example',    1),
-        ('silverback-fitness', 'youtube',   'YouTube',               'https://youtube.com/@example',             '@example',    2),
-        ('silverback-fitness', 'here',      'Programmes on HERE',    'https://example.com/here/silverback',      null,          3),
-        ('matthew-mccluster',  'website',   'mccluster.org',         'https://mccluster.org',                    null,          0),
-        ('matthew-mccluster',  'spotify',   'Spotify',               'https://open.spotify.com/artist/example',  null,          1)
+        ('silverback-fitness', 'website',   'SilverBack Fitness',  'https://example.com/silverback',          null,       0),
+        ('silverback-fitness', 'instagram', 'Instagram',           'https://instagram.com/example',           '@example', 1),
+        ('silverback-fitness', 'youtube',   'YouTube',             'https://youtube.com/@example',            '@example', 2),
+        ('silverback-fitness', 'here',      'Programmes on HERE',  'https://example.com/here/silverback',     null,       3),
+        ('matthew-mccluster',  'website',   'mccluster.org',       'https://mccluster.org',                   null,       0),
+        ('matthew-mccluster',  'spotify',   'Spotify',             'https://open.spotify.com/artist/example', null,       1)
        ) as v(handle_ref, platform, label, url, handle, sort)
     on v.handle_ref = p.handle
 on conflict (owner, platform, url) do nothing;
