@@ -94,3 +94,52 @@
 .privateSummary .mog-asset{width:36px;height:36px}
 .mirrorMode .modeArt .mog-asset{width:52px;height:52px}
 .mirrorMode .modeArt.prayerArt .mog-asset{width:64px;height:64px}
+
+/* ==========================================================================
+   BACKEND: front door, session, administration
+   ========================================================================== */
+.backendPanel{margin-top:12px;border:1px solid #2e281d;border-radius:21px;background:#10100e;padding:14px}
+.backendTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sessionMode{font-size:8px;letter-spacing:.12em;border-radius:99px;padding:5px 9px;border:1px solid}
+.sessionMode.demo{color:#9a9086;border-color:#3a3428}
+.sessionMode.live{color:#8fd8a4;border-color:#2f5c3c}
+.backendRow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+  border:1px solid #2b2519;border-radius:15px;background:#16150f;color:#efe6d3;
+  padding:14px;margin-top:7px;font-weight:700}
+.backendRow>span{margin-left:auto;color:#c9a94f}
+.backendRow:active{transform:translateY(1px)}
+.backendRow.admin{border-color:#5a4822;color:#e8cf8b}
+.backendRow.signed{display:flex}
+.backendRow.signed .grow{flex:1;min-width:0}
+.backendRow.signed small{display:block;color:#8b857b;margin-top:2px;letter-spacing:0}
+.backendRow.signed button{border:1px solid #3a3120;background:none;color:#a9a298;border-radius:99px;padding:8px 12px;font-size:12px}
+.loginError{color:#e08b7a;font-size:12px;min-height:16px;margin:6px 0 0}
+
+/* front door */
+#frontdoor{padding-bottom:35px}
+.doorHero{display:grid;justify-items:center;text-align:center;gap:3px;padding:6px 0 4px}
+.doorHero h2{font-size:29px;margin:12px 0 0}
+.doorHero p{color:#8d887f}
+.doorKind{margin-top:10px;font-size:8px;letter-spacing:.14em;color:#dfbd64;
+  border:1px solid #66542a;border-radius:99px;padding:6px 10px}
+.doorBio{color:#b6b0a5;line-height:1.45;margin:16px 2px 0;text-align:center}
+.doorLinks{display:grid;gap:8px}
+.doorLink{display:flex;align-items:center;gap:11px;text-decoration:none;
+  border:1px solid #2b2519;border-radius:17px;background:linear-gradient(180deg,#17150f,#0f0f0d);
+  padding:14px;color:#f2ead9}
+.doorLink:active{transform:translateY(1px)}
+.doorPlatform{flex:none;min-width:74px;font-size:8px;letter-spacing:.13em;color:#c9a94f;text-transform:uppercase}
+.doorBody{flex:1;min-width:0}
+.doorBody b{display:block;font-size:15px}
+.doorBody small{display:block;color:#857f75;letter-spacing:0;margin-top:2px}
+.doorVerified.mog-asset{width:16px;height:16px;flex:none}
+.doorGo{flex:none;color:#8a8377}
+.doorEmpty,.doorFoot{color:#6f6a62;font-size:11px;line-height:1.45;margin-top:18px}
+
+/* administration */
+.adminStats{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:14px 0 12px}
+.adminStats div{border:1px solid #2b2519;border-radius:16px;background:#131210;padding:14px}
+.adminStats b{display:block;font-size:24px;letter-spacing:-.03em}
+.adminStats span{font-size:8px;letter-spacing:.11em;color:#857f75}
+.adminScope{color:#8b857b;font-size:11px;line-height:1.45}
+.people article .doorBtn{border:1px solid #5a4822;background:#17140e;color:#e8cf8b;border-radius:99px;padding:8px 13px}
