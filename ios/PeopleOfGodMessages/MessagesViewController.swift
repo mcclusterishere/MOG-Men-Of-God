@@ -4,17 +4,17 @@ import UIKit
 
 final class MessagesViewController: MSMessagesAppViewController {
     private var hostingController: UIHostingController<MessagesRootView>?
-    private weak var activeConversation: MSConversation?
+    private weak var currentConversation: MSConversation?
 
     override func willBecomeActive(with conversation: MSConversation) {
         super.willBecomeActive(with: conversation)
-        activeConversation = conversation
+        currentConversation = conversation
         installRoot(for: conversation)
     }
 
     override func didResignActive(with conversation: MSConversation) {
         super.didResignActive(with: conversation)
-        activeConversation = nil
+        currentConversation = nil
     }
 
     private func installRoot(for conversation: MSConversation) {
@@ -53,7 +53,7 @@ final class MessagesViewController: MSMessagesAppViewController {
         payload: MessagePayload,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        guard let conversation = activeConversation else {
+        guard let conversation = currentConversation else {
             completion(.failure(MessagesExtensionError.noActiveConversation))
             return
         }
