@@ -1,0 +1,631 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D00000000000000000000001 /* PeopleOfGodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000001 /* PeopleOfGodApp.swift */; };
+		D00000000000000000000002 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000002 /* AppRootView.swift */; };
+		D00000000000000000000003 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000003 /* WelcomeView.swift */; };
+		D00000000000000000000004 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000004 /* HomeView.swift */; };
+		D00000000000000000000005 /* PrivateCheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000005 /* PrivateCheckInView.swift */; };
+		D00000000000000000000006 /* PracticeViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000006 /* PracticeViews.swift */; };
+		D00000000000000000000007 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000007 /* AboutView.swift */; };
+		D00000000000000000000021 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000021 /* DesignSystem.swift */; };
+		D00000000000000000000022 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000022 /* Models.swift */; };
+		D00000000000000000000023 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000023 /* SharedStore.swift */; };
+		D00000000000000000000024 /* MessagePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000024 /* MessagePayload.swift */; };
+		D00000000000000000000025 /* SafetySupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000025 /* SafetySupportView.swift */; };
+		D00000000000000000000031 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000008 /* Assets.xcassets */; };
+		D00000000000000000000032 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000009 /* PrivacyInfo.xcprivacy */; };
+		D00000000000000000000101 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000101 /* MessagesViewController.swift */; };
+		D00000000000000000000102 /* MessageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000102 /* MessageFactory.swift */; };
+		D00000000000000000000103 /* MessagesRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000103 /* MessagesRootView.swift */; };
+		D00000000000000000000104 /* CircleCheckMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000104 /* CircleCheckMessageView.swift */; };
+		D00000000000000000000105 /* PrayerChainMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000105 /* PrayerChainMessageView.swift */; };
+		D00000000000000000000106 /* SpeakLifeMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000106 /* SpeakLifeMessageView.swift */; };
+		D00000000000000000000121 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000021 /* DesignSystem.swift */; };
+		D00000000000000000000122 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000022 /* Models.swift */; };
+		D00000000000000000000123 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000023 /* SharedStore.swift */; };
+		D00000000000000000000124 /* MessagePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000024 /* MessagePayload.swift */; };
+		D00000000000000000000125 /* SafetySupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000025 /* SafetySupportView.swift */; };
+		D00000000000000000000131 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000107 /* Assets.xcassets */; };
+		D00000000000000000000132 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000108 /* PrivacyInfo.xcprivacy */; };
+		D00000000000000000000201 /* MessagePayloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000301 /* MessagePayloadTests.swift */; };
+		D00000000000000000000202 /* SharedStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00000000000000000000302 /* SharedStoreTests.swift */; };
+		D00000000000000000000301 /* People of God Messages.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C00000000000000000000402 /* People of God Messages.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A20000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A00000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A10000000000000000000002;
+			remoteInfo = PeopleOfGodMessages;
+		};
+		A20000000000000000000002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A00000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A10000000000000000000001;
+			remoteInfo = PeopleOfGod;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E00000000000000000000004 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D00000000000000000000301 /* People of God Messages.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C00000000000000000000001 /* PeopleOfGodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleOfGodApp.swift; sourceTree = "<group>"; };
+		C00000000000000000000002 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
+		C00000000000000000000003 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		C00000000000000000000004 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		C00000000000000000000005 /* PrivateCheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateCheckInView.swift; sourceTree = "<group>"; };
+		C00000000000000000000006 /* PracticeViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViews.swift; sourceTree = "<group>"; };
+		C00000000000000000000007 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		C00000000000000000000008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C00000000000000000000009 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		C0000000000000000000000A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0000000000000000000000B /* PeopleOfGod.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeopleOfGod.entitlements; sourceTree = "<group>"; };
+		C00000000000000000000021 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		C00000000000000000000022 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		C00000000000000000000023 /* SharedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedStore.swift; sourceTree = "<group>"; };
+		C00000000000000000000024 /* MessagePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePayload.swift; sourceTree = "<group>"; };
+		C00000000000000000000025 /* SafetySupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetySupportView.swift; sourceTree = "<group>"; };
+		C00000000000000000000101 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		C00000000000000000000102 /* MessageFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFactory.swift; sourceTree = "<group>"; };
+		C00000000000000000000103 /* MessagesRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesRootView.swift; sourceTree = "<group>"; };
+		C00000000000000000000104 /* CircleCheckMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCheckMessageView.swift; sourceTree = "<group>"; };
+		C00000000000000000000105 /* PrayerChainMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerChainMessageView.swift; sourceTree = "<group>"; };
+		C00000000000000000000106 /* SpeakLifeMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakLifeMessageView.swift; sourceTree = "<group>"; };
+		C00000000000000000000107 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C00000000000000000000108 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		C00000000000000000000109 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0000000000000000000010A /* PeopleOfGodMessages.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeopleOfGodMessages.entitlements; sourceTree = "<group>"; };
+		C00000000000000000000301 /* MessagePayloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePayloadTests.swift; sourceTree = "<group>"; };
+		C00000000000000000000302 /* SharedStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedStoreTests.swift; sourceTree = "<group>"; };
+		C00000000000000000000401 /* People of God.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "People of God.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C00000000000000000000402 /* People of God Messages.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "People of God Messages.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C00000000000000000000403 /* PeopleOfGodTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeopleOfGodTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E00000000000000000000002 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		E00000000000000000000102 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		E00000000000000000000202 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B00000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				B00000000000000000000002 /* PeopleOfGod */,
+				B00000000000000000000005 /* PeopleOfGodMessages */,
+				B00000000000000000000007 /* Shared */,
+				B00000000000000000000008 /* PeopleOfGodTests */,
+				B00000000000000000000009 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B00000000000000000000002 /* PeopleOfGod */ = {
+			isa = PBXGroup;
+			children = (
+				C00000000000000000000001 /* PeopleOfGodApp.swift */,
+				C00000000000000000000002 /* AppRootView.swift */,
+				B00000000000000000000003 /* Views */,
+				C00000000000000000000008 /* Assets.xcassets */,
+				B00000000000000000000004 /* Resources */,
+			);
+			path = PeopleOfGod;
+			sourceTree = "<group>";
+		};
+		B00000000000000000000003 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C00000000000000000000003 /* WelcomeView.swift */,
+				C00000000000000000000004 /* HomeView.swift */,
+				C00000000000000000000005 /* PrivateCheckInView.swift */,
+				C00000000000000000000006 /* PracticeViews.swift */,
+				C00000000000000000000007 /* AboutView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B00000000000000000000004 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C0000000000000000000000A /* Info.plist */,
+				C0000000000000000000000B /* PeopleOfGod.entitlements */,
+				C00000000000000000000009 /* PrivacyInfo.xcprivacy */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B00000000000000000000005 /* PeopleOfGodMessages */ = {
+			isa = PBXGroup;
+			children = (
+				C00000000000000000000101 /* MessagesViewController.swift */,
+				C00000000000000000000102 /* MessageFactory.swift */,
+				C00000000000000000000103 /* MessagesRootView.swift */,
+				C00000000000000000000104 /* CircleCheckMessageView.swift */,
+				C00000000000000000000105 /* PrayerChainMessageView.swift */,
+				C00000000000000000000106 /* SpeakLifeMessageView.swift */,
+				C00000000000000000000107 /* Assets.xcassets */,
+				B00000000000000000000006 /* Resources */,
+			);
+			path = PeopleOfGodMessages;
+			sourceTree = "<group>";
+		};
+		B00000000000000000000006 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C00000000000000000000109 /* Info.plist */,
+				C0000000000000000000010A /* PeopleOfGodMessages.entitlements */,
+				C00000000000000000000108 /* PrivacyInfo.xcprivacy */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B00000000000000000000007 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				C00000000000000000000021 /* DesignSystem.swift */,
+				C00000000000000000000022 /* Models.swift */,
+				C00000000000000000000023 /* SharedStore.swift */,
+				C00000000000000000000024 /* MessagePayload.swift */,
+				C00000000000000000000025 /* SafetySupportView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		B00000000000000000000008 /* PeopleOfGodTests */ = {
+			isa = PBXGroup;
+			children = (
+				C00000000000000000000301 /* MessagePayloadTests.swift */,
+				C00000000000000000000302 /* SharedStoreTests.swift */,
+			);
+			path = PeopleOfGodTests;
+			sourceTree = "<group>";
+		};
+		B00000000000000000000009 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C00000000000000000000401 /* People of God.app */,
+				C00000000000000000000402 /* People of God Messages.appex */,
+				C00000000000000000000403 /* PeopleOfGodTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A10000000000000000000001 /* PeopleOfGod */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A40000000000000000000011 /* Build configuration list for PBXNativeTarget "PeopleOfGod" */;
+			buildPhases = (
+				E00000000000000000000001 /* Sources */,
+				E00000000000000000000002 /* Frameworks */,
+				E00000000000000000000003 /* Resources */,
+				E00000000000000000000004 /* Embed App Extensions */,
+			);
+			buildRules = ();
+			dependencies = (
+				A30000000000000000000001 /* PBXTargetDependency */,
+			);
+			name = PeopleOfGod;
+			productName = "People of God";
+			productReference = C00000000000000000000401 /* People of God.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A10000000000000000000002 /* PeopleOfGodMessages */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A40000000000000000000021 /* Build configuration list for PBXNativeTarget "PeopleOfGodMessages" */;
+			buildPhases = (
+				E00000000000000000000101 /* Sources */,
+				E00000000000000000000102 /* Frameworks */,
+				E00000000000000000000103 /* Resources */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = PeopleOfGodMessages;
+			productName = "People of God Messages";
+			productReference = C00000000000000000000402 /* People of God Messages.appex */;
+			productType = "com.apple.product-type.app-extension.messages";
+		};
+		A10000000000000000000003 /* PeopleOfGodTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A40000000000000000000031 /* Build configuration list for PBXNativeTarget "PeopleOfGodTests" */;
+			buildPhases = (
+				E00000000000000000000201 /* Sources */,
+				E00000000000000000000202 /* Frameworks */,
+				E00000000000000000000203 /* Resources */,
+			);
+			buildRules = ();
+			dependencies = (
+				A30000000000000000000002 /* PBXTargetDependency */,
+			);
+			name = PeopleOfGodTests;
+			productName = PeopleOfGodTests;
+			productReference = C00000000000000000000403 /* PeopleOfGodTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A00000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					A10000000000000000000001 = { CreatedOnToolsVersion = 16.0; };
+					A10000000000000000000002 = { CreatedOnToolsVersion = 16.0; };
+					A10000000000000000000003 = { CreatedOnToolsVersion = 16.0; TestTargetID = A10000000000000000000001; };
+				};
+			};
+			buildConfigurationList = A40000000000000000000001 /* Build configuration list for PBXProject "PeopleOfGod" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base, );
+			mainGroup = B00000000000000000000001;
+			productRefGroup = B00000000000000000000009 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A10000000000000000000001 /* PeopleOfGod */,
+				A10000000000000000000002 /* PeopleOfGodMessages */,
+				A10000000000000000000003 /* PeopleOfGodTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E00000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00000000000000000000031 /* Assets.xcassets in Resources */,
+				D00000000000000000000032 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E00000000000000000000103 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00000000000000000000131 /* Assets.xcassets in Resources */,
+				D00000000000000000000132 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E00000000000000000000203 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E00000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00000000000000000000001 /* PeopleOfGodApp.swift in Sources */,
+				D00000000000000000000002 /* AppRootView.swift in Sources */,
+				D00000000000000000000003 /* WelcomeView.swift in Sources */,
+				D00000000000000000000004 /* HomeView.swift in Sources */,
+				D00000000000000000000005 /* PrivateCheckInView.swift in Sources */,
+				D00000000000000000000006 /* PracticeViews.swift in Sources */,
+				D00000000000000000000007 /* AboutView.swift in Sources */,
+				D00000000000000000000021 /* DesignSystem.swift in Sources */,
+				D00000000000000000000022 /* Models.swift in Sources */,
+				D00000000000000000000023 /* SharedStore.swift in Sources */,
+				D00000000000000000000024 /* MessagePayload.swift in Sources */,
+				D00000000000000000000025 /* SafetySupportView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E00000000000000000000101 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00000000000000000000101 /* MessagesViewController.swift in Sources */,
+				D00000000000000000000102 /* MessageFactory.swift in Sources */,
+				D00000000000000000000103 /* MessagesRootView.swift in Sources */,
+				D00000000000000000000104 /* CircleCheckMessageView.swift in Sources */,
+				D00000000000000000000105 /* PrayerChainMessageView.swift in Sources */,
+				D00000000000000000000106 /* SpeakLifeMessageView.swift in Sources */,
+				D00000000000000000000121 /* DesignSystem.swift in Sources */,
+				D00000000000000000000122 /* Models.swift in Sources */,
+				D00000000000000000000123 /* SharedStore.swift in Sources */,
+				D00000000000000000000124 /* MessagePayload.swift in Sources */,
+				D00000000000000000000125 /* SafetySupportView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E00000000000000000000201 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00000000000000000000201 /* MessagePayloadTests.swift in Sources */,
+				D00000000000000000000202 /* SharedStoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A30000000000000000000001 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = A10000000000000000000002 /* PeopleOfGodMessages */; targetProxy = A20000000000000000000001 /* PBXContainerItemProxy */; };
+		A30000000000000000000002 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = A10000000000000000000001 /* PeopleOfGod */; targetProxy = A20000000000000000000002 /* PBXContainerItemProxy */; };
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F00000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("DEBUG=1", "$(inherited)", );
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F00000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F00000000000000000000011 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PeopleOfGod/Resources/PeopleOfGod.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PeopleOfGod/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", );
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mccluster.peopleofgod;
+				PRODUCT_MODULE_NAME = PeopleOfGod;
+				PRODUCT_NAME = "People of God";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F00000000000000000000012 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PeopleOfGod/Resources/PeopleOfGod.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PeopleOfGod/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", );
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mccluster.peopleofgod;
+				PRODUCT_MODULE_NAME = PeopleOfGod;
+				PRODUCT_NAME = "People of God";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		F00000000000000000000021 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CODE_SIGN_ENTITLEMENTS = PeopleOfGodMessages/Resources/PeopleOfGodMessages.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PeopleOfGodMessages/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@executable_path/../../Frameworks", );
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mccluster.peopleofgod.messages;
+				PRODUCT_MODULE_NAME = PeopleOfGodMessages;
+				PRODUCT_NAME = "People of God Messages";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F00000000000000000000022 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CODE_SIGN_ENTITLEMENTS = PeopleOfGodMessages/Resources/PeopleOfGodMessages.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PeopleOfGodMessages/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@executable_path/../../Frameworks", );
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mccluster.peopleofgod.messages;
+				PRODUCT_MODULE_NAME = PeopleOfGodMessages;
+				PRODUCT_NAME = "People of God Messages";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		F00000000000000000000031 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mccluster.peopleofgod.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/People of God.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/People of God";
+			};
+			name = Debug;
+		};
+		F00000000000000000000032 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mccluster.peopleofgod.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/People of God.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/People of God";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A40000000000000000000001 /* Build configuration list for PBXProject "PeopleOfGod" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (F00000000000000000000001 /* Debug */, F00000000000000000000002 /* Release */, );
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A40000000000000000000011 /* Build configuration list for PBXNativeTarget "PeopleOfGod" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (F00000000000000000000011 /* Debug */, F00000000000000000000012 /* Release */, );
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A40000000000000000000021 /* Build configuration list for PBXNativeTarget "PeopleOfGodMessages" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (F00000000000000000000021 /* Debug */, F00000000000000000000022 /* Release */, );
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A40000000000000000000031 /* Build configuration list for PBXNativeTarget "PeopleOfGodTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (F00000000000000000000031 /* Debug */, F00000000000000000000032 /* Release */, );
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A00000000000000000000001 /* Project object */;
+}

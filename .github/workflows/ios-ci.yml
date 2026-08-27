@@ -1,0 +1,50 @@
+name: iOS CI
+
+on:
+  push:
+    paths:
+      - "ios/**"
+      - ".github/workflows/ios-ci.yml"
+  pull_request:
+    paths:
+      - "ios/**"
+      - ".github/workflows/ios-ci.yml"
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Select an available iPhone simulator
+        id: simulator
+        shell: bash
+        run: |
+          device_id=$(python3 - <<'PY'
+          import json, subprocess
+          data = json.loads(subprocess.check_output(["xcrun", "simctl", "list", "devices", "available", "-j"]))
+          for runtime in sorted(data["devices"], reverse=True):
+              for device in data["devices"][runtime]:
+                  if device["name"].startswith("iPhone"):
+                      print(device["udid"])
+                      raise SystemExit
+          raise SystemExit("No available iPhone simulator")
+          PY
+          )
+          echo "id=$device_id" >> "$GITHUB_OUTPUT"
+
+      - name: Build and run unit tests
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project ios/PeopleOfGod.xcodeproj \
+            -scheme PeopleOfGod \
+            -destination "platform=iOS Simulator,id=${{ steps.simulator.outputs.id }}" \
+            CODE_SIGNING_ALLOWED=NO
