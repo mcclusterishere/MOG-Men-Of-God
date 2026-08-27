@@ -1,6 +1,6 @@
 import SwiftUI
 
-typealias MessageSendHandler = (MessagePayload, (Result<Void, Error>) -> Void) -> Void
+typealias MessageSendHandler = (MessagePayload) async throws -> Void
 
 struct MessagesRootView: View {
     enum Route {

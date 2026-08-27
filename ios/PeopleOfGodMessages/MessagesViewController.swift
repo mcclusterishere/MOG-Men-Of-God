@@ -28,14 +28,17 @@ final class MessagesViewController: MSMessagesAppViewController {
             onRequestExpanded: { [weak self] in
                 self?.requestPresentationStyle(.expanded)
             },
-            onSend: { [weak self] payload, completion in
-                self?.insert(payload: payload, completion: completion)
+            onSend: { [weak self] payload in
+                guard let self else {
+                    throw MessagesExtensionError.noActiveConversation
+                }
+                try await self.insert(payload: payload)
             }
         )
         .environmentObject(SharedStore.shared)
 
         let hosting = UIHostingController(rootView: root)
-        hosting.view.backgroundColor = .clear
+        hosting.view.backgroundColor = UIColor.clear
         addChild(hosting)
         view.addSubview(hosting.view)
         hosting.view.translatesAutoresizingMaskIntoConstraints = false
@@ -49,13 +52,10 @@ final class MessagesViewController: MSMessagesAppViewController {
         hostingController = hosting
     }
 
-    private func insert(
-        payload: MessagePayload,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
+    @MainActor
+    private func insert(payload: MessagePayload) async throws {
         guard let conversation = currentConversation else {
-            completion(.failure(MessagesExtensionError.noActiveConversation))
-            return
+            throw MessagesExtensionError.noActiveConversation
         }
 
         let session: MSSession
@@ -67,16 +67,16 @@ final class MessagesViewController: MSMessagesAppViewController {
         }
 
         let message = MessageFactory.makeMessage(payload: payload, session: session)
-        conversation.insert(message) { [weak self] error in
-            DispatchQueue.main.async {
+        let _: Void = try await withCheckedThrowingContinuation { continuation in
+            conversation.insert(message) { error in
                 if let error {
-                    completion(.failure(error))
+                    continuation.resume(throwing: error)
                 } else {
-                    completion(.success(()))
-                    self?.requestPresentationStyle(.compact)
+                    continuation.resume(returning: ())
                 }
             }
         }
+        requestPresentationStyle(.compact)
     }
 }
 

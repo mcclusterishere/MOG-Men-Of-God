@@ -116,11 +116,14 @@ struct PrayerChainMessageView: View {
     private func send(_ payload: MessagePayload) {
         isSending = true
         errorMessage = nil
-        onSend(payload) { result in
-            isSending = false
-            switch result {
-            case .success: sent = true
-            case .failure(let error): errorMessage = error.localizedDescription
+        Task { @MainActor in
+            do {
+                try await onSend(payload)
+                isSending = false
+                sent = true
+            } catch {
+                isSending = false
+                errorMessage = error.localizedDescription
             }
         }
     }
