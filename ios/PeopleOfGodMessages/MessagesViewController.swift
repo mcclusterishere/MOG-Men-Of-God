@@ -3,7 +3,7 @@ import SwiftUI
 import UIKit
 
 final class MessagesViewController: MSMessagesAppViewController {
-    private var hostingController: UIHostingController<MessagesRootView>?
+    private var hostingController: UIHostingController<AnyView>?
     private weak var currentConversation: MSConversation?
 
     override func willBecomeActive(with conversation: MSConversation) {
@@ -37,7 +37,7 @@ final class MessagesViewController: MSMessagesAppViewController {
         )
         .environmentObject(SharedStore.shared)
 
-        let hosting = UIHostingController(rootView: root)
+        let hosting = UIHostingController(rootView: AnyView(root))
         hosting.view.backgroundColor = UIColor.clear
         addChild(hosting)
         view.addSubview(hosting.view)
