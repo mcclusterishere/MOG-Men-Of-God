@@ -1,1 +1,294 @@
-const $=(s,r=document)=>r.querySelector(s);const $$=(s,r=document)=>[...r.querySelectorAll(s)];const state={profile:JSON.parse(localStorage.getItem('mogProfile')||'null')||{name:'Brother',chapter:'Founding Chapter',role:'',platform:'',talents:0,streak:0,proofs:0},posts:JSON.parse(localStorage.getItem('mogPosts')||'[]'),completed:JSON.parse(localStorage.getItem('mogCompleted')||'[]')};function save(){localStorage.setItem('mogProfile',JSON.stringify(state.profile));localStorage.setItem('mogPosts',JSON.stringify(state.posts));localStorage.setItem('mogCompleted',JSON.stringify(state.completed))}function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}function showScreen(id){$$('.screen').forEach(s=>s.classList.toggle('active',s.id===id));$$('nav button').forEach(b=>b.classList.toggle('active',b.dataset.target===id));window.scrollTo({top:0,behavior:'smooth'});if(id==='me')renderProfile()}$$('nav button').forEach(b=>b.addEventListener('click',()=>showScreen(b.dataset.target)));$$('[data-go]').forEach(b=>b.addEventListener('click',()=>showScreen(b.dataset.go)));$$('.profileJump').forEach(b=>b.addEventListener('click',()=>showScreen('me')));function openModal(id){$('#'+id).classList.add('open')}function closeModal(id){$('#'+id).classList.remove('open')}$$('[data-close]').forEach(b=>b.addEventListener('click',()=>closeModal(b.dataset.close)));$$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id)}));function renderProfile(){const p=state.profile;$('#profileName').textContent=p.name;$('#profileHeader').textContent=p.name;$('#profileMeta').textContent=[p.role,p.chapter].filter(Boolean).join(' · ')||'Founding Chapter';$('#profileAvatar').textContent=p.name.split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase()||'M';$('#profileStreak').textContent=p.streak;$('#profileTalents').textContent=p.talents;$('#profileProofs').textContent=p.proofs;$('#talentStat').textContent=p.talents.toLocaleString();$('#challengeTalents').textContent=p.talents.toLocaleString();const pl=$('#platformLink');pl.textContent=p.platform?'Visit my platform ↗':'Add my platform ↗';pl.onclick=()=>{if(p.platform)window.open(/^https?:\/\//.test(p.platform)?p.platform:'https://'+p.platform,'_blank');else openProfileEditor()}}function openProfileEditor(){const p=state.profile;$('#nameInput').value=p.name==='Brother'?'':p.name;$('#chapterInput').value=p.chapter==='Founding Chapter'?'':p.chapter;$('#roleInput').value=p.role;$('#platformInput').value=p.platform;openModal('profileModal')}$('#editProfile').addEventListener('click',openProfileEditor);$('#saveProfile').addEventListener('click',()=>{state.profile={...state.profile,name:$('#nameInput').value.trim()||'Brother',chapter:$('#chapterInput').value.trim()||'Founding Chapter',role:$('#roleInput').value.trim(),platform:$('#platformInput').value.trim()};save();renderProfile();closeModal('profileModal');toast('Profile saved')});let mediaData='';$('#proofFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;if(f.size>6*1024*1024){toast('Keep demo media under 6 MB');return}const r=new FileReader();r.onload=()=>{mediaData=r.result;$('#mediaPreview').innerHTML=f.type.startsWith('video')?'<div class="mediaReady">Video ready ✓</div>':`<img src="${mediaData}" alt="Post preview">`};r.readAsDataURL(f)});function openComposer(){mediaData='';$('#mediaPreview').innerHTML='';$('#postText').value='';openModal('composer')}$('#newPost').addEventListener('click',openComposer);$('#completeChallenge').addEventListener('click',openComposer);$('#publishPost').addEventListener('click',()=>{const text=$('#postText').value.trim();if(!text&&!mediaData){toast('Add a thought, photo, or video');return}state.posts.unshift({id:Date.now(),name:state.profile.name,text,media:mediaData,likes:0,comments:[],time:'now'});state.profile.proofs+=1;save();renderPosts();renderProfile();closeModal('composer');showScreen('feed');toast('Posted to Brotherhood')});function postHTML(p){const initials=(p.name||'B').split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase();const media=p.media?(p.media.startsWith('data:video')?'<div class="mediaReady">Video proof</div>':`<img class="userMedia" src="${p.media}" alt="Brotherhood post">`):'';return `<article class="textPost feedItem userPost" data-id="${p.id}"><div class="postTop"><div class="avatar sm">${initials}</div><div><b>${escapeHTML(p.name)}</b><small>Founding Chapter · ${p.time}</small></div></div>${media}<p>${escapeHTML(p.text)}</p><div class="postActions"><button class="likeBtn">♡ <span>${p.likes||0}</span></button><button class="commentBtn">◯ <span>${(p.comments||[]).length}</span> replies</button><button class="shareBtn">↗</button></div></article>`}function escapeHTML(s=''){return s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}function renderPosts(){const list=$('#feedList');$$('.userPost',list).forEach(x=>x.remove());state.posts.slice().reverse().forEach(p=>list.insertAdjacentHTML('afterbegin',postHTML(p)));wireActions()}let activePost=null;function wireActions(){$$('.likeBtn').forEach(btn=>{if(btn.dataset.wired)return;btn.dataset.wired=1;btn.addEventListener('click',()=>{btn.classList.toggle('liked');const span=$('span',btn)||$('small',btn);let n=parseInt((span?.textContent||'0').replace(/\D/g,''))||0;n+=btn.classList.contains('liked')?1:-1;if(span)span.textContent=n;btn.firstChild.textContent=btn.classList.contains('liked')?'♥ ':'♡ ';const post=btn.closest('[data-id]');if(post){const p=state.posts.find(x=>x.id==post.dataset.id);if(p){p.likes=n;save()}}})});$$('.commentBtn').forEach(btn=>{if(btn.dataset.wired)return;btn.dataset.wired=1;btn.addEventListener('click',()=>{activePost=btn.closest('[data-id]')?.dataset.id||null;renderComments();openModal('commentsModal')})});$$('.shareBtn').forEach(btn=>{if(btn.dataset.wired)return;btn.dataset.wired=1;btn.addEventListener('click',async()=>{try{if(navigator.share)await navigator.share({title:'Men of God',text:'Come build with the Brotherhood.',url:location.href});else toast('Share this page from your browser')}catch{}})})}function renderComments(){const p=state.posts.find(x=>x.id==activePost);$('#commentList').innerHTML=p?(p.comments||[]).map(c=>`<div class="comment"><b>${escapeHTML(c.name)}</b><p>${escapeHTML(c.text)}</p></div>`).join(''):'<div class="comment"><b>Brotherhood</b><p>Start the conversation.</p></div>'}$('#sendReply').addEventListener('click',()=>{const text=$('#replyInput').value.trim();if(!text)return;const p=state.posts.find(x=>x.id==activePost);if(p){p.comments=p.comments||[];p.comments.push({name:state.profile.name,text});save();renderPosts()}$('#replyInput').value='';renderComments();toast('Reply posted')});$$('.filters button').forEach(b=>b.addEventListener('click',()=>{$$('.filters button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');const f=b.dataset.filter;$$('.feedItem').forEach(x=>x.style.display=f==='all'||x.dataset.type===f||x.classList.contains('userPost')?'':'none')}));$$('.challengeDone').forEach((b,i)=>b.addEventListener('click',()=>{const item=b.closest('article');const key=item.querySelector('h3').textContent;if(state.completed.includes(key)){toast('Already completed');return}const reward=Number(item.dataset.reward||0);state.completed.push(key);state.profile.talents+=reward;state.profile.streak=Math.max(1,state.profile.streak);b.textContent='Completed ✓';b.disabled=true;save();renderProfile();toast(`+${reward} Talents`)}));$('#enterChapter').addEventListener('click',()=>{showScreen('feed');toast('Atlanta Chapter feed opened')});$('#searchBrothers').addEventListener('click',()=>toast('Brother search is next'));$$('.viewBrother').forEach(b=>b.addEventListener('click',()=>toast(`${b.dataset.name} profile preview`)));if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}const ua=navigator.userAgent,isIOS=/iPhone|iPad|iPod/i.test(ua),isAndroid=/Android/i.test(ua),isStandalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;const hour=new Date().getHours();$('#greeting').textContent=hour<5?'Still up, Brother?':hour<12?'Good morning, Brother.':hour<17?'Good afternoon, Brother.':hour<21?'Good evening, Brother.':'Night check-in, Brother.';let deferredPrompt=null;const installCard=$('#installCard');function hideInstall(hours=24){installCard.style.display='none';localStorage.setItem('mogInstallUntil',String(Date.now()+hours*3600000))}function setupInstall(){if(isStandalone||Number(localStorage.getItem('mogInstallUntil')||0)>Date.now()){installCard.style.display='none';return}$('#installSkip').addEventListener('click',()=>hideInstall());$('#installBtn').addEventListener('click',async()=>{if(isIOS){openModal('iosInstall');return}if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;hideInstall(720);return}toast(isAndroid?'Chrome menu → Add to Home screen':'Use your browser menu → Install app')})}window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e});window.addEventListener('appinstalled',()=>hideInstall(8760));setupInstall();renderPosts();renderProfile();wireActions();if(!localStorage.getItem('mogProfile'))setTimeout(openProfileEditor,700);
+(() => {
+  'use strict';
+
+  const STORAGE_KEY = 'peopleOfGod.care.v1';
+  const defaultCare = {
+    checkIns: 0,
+    prayerActs: 0,
+    supportActs: 0,
+    lastActivityAt: null,
+    didCompleteWelcome: false
+  };
+
+  const allowedRoutes = new Set(['welcome', 'today', 'checkin', 'prayer', 'speak', 'support']);
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+  function loadCare() {
+    try {
+      const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      return {
+        checkIns: Math.max(0, Number(value.checkIns) || 0),
+        prayerActs: Math.max(0, Number(value.prayerActs) || 0),
+        supportActs: Math.max(0, Number(value.supportActs) || 0),
+        lastActivityAt: typeof value.lastActivityAt === 'string' ? value.lastActivityAt : null,
+        didCompleteWelcome: value.didCompleteWelcome === true
+      };
+    } catch {
+      return { ...defaultCare };
+    }
+  }
+
+  let care = loadCare();
+  let currentRoute = care.didCompleteWelcome ? 'today' : 'welcome';
+  let selectedState = null;
+  let selectedSupport = new Set();
+  let checkInCounted = false;
+  let prayerCounted = false;
+  let wordsCounted = false;
+  let deferredInstallPrompt = null;
+
+  function saveCare() {
+    // Deliberately persist participation only. Feeling state, support choices,
+    // prayer text, and affirmations never enter localStorage or analytics.
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(POGPrivacy.sanitizeCareForStorage(care)));
+  }
+
+  function recordCare(kind) {
+    care[kind] += 1;
+    care.lastActivityAt = new Date().toISOString();
+    saveCare();
+    renderProgress();
+  }
+
+  function nextMilestone(total) {
+    return [5, 10, 25, 50, 100, 250].find(value => value > total)
+      || (Math.floor(total / 100) + 1) * 100;
+  }
+
+  function renderProgress() {
+    const total = care.checkIns + care.prayerActs + care.supportActs;
+    const milestone = nextMilestone(total);
+    const previous = [0, 5, 10, 25, 50, 100, 250].filter(value => value <= total).at(-1) || 0;
+    const span = Math.max(1, milestone - previous);
+    const progress = Math.min(1, Math.max(0, (total - previous) / span));
+
+    $('#careTotal').textContent = total;
+    $('#progressRing').style.setProperty('--progress', `${progress * 360}deg`);
+    $('#milestoneTitle').textContent = total === 0 ? 'Your first milestone' : `${milestone}-act milestone`;
+    $('#milestoneCopy').textContent = `${milestone - total} ${milestone - total === 1 ? 'act' : 'acts'} of care to go.`;
+  }
+
+  function routeTo(route, updateHistory = true) {
+    if (!allowedRoutes.has(route)) route = 'today';
+    if (!care.didCompleteWelcome && route !== 'welcome') route = 'welcome';
+    if (route === 'checkin' && currentRoute !== 'checkin') resetCheckInFlow();
+    currentRoute = route;
+
+    $$('.screen').forEach(screen => screen.classList.toggle('active', screen.id === route));
+    $$('[data-route]', $('#bottomNav')).forEach(button => {
+      button.classList.toggle('active', button.dataset.route === route);
+    });
+
+    const isWelcome = route === 'welcome';
+    $('#topbar').hidden = isWelcome;
+    $('#bottomNav').hidden = isWelcome;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (updateHistory && !isWelcome) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('screen', route);
+      history.replaceState({ route }, '', url);
+    }
+  }
+
+  let toastTimer;
+  function toast(message) {
+    const element = $('#toast');
+    element.textContent = message;
+    element.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => element.classList.remove('show'), 2400);
+  }
+
+  async function shareContent(title, text) {
+    try {
+      if (navigator.share) {
+        await navigator.share({ title, text });
+        return true;
+      }
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(text);
+        toast('Copied. Paste it into the conversation you choose.');
+        return true;
+      }
+      toast('Use your browser Share menu to send this message.');
+      return false;
+    } catch (error) {
+      if (error && error.name !== 'AbortError') toast('Sharing did not open. Try again.');
+      return false;
+    }
+  }
+
+  function updateConsent() {
+    $('#enterApp').disabled = !$('#adultConsent').checked || !$('#boundaryConsent').checked;
+  }
+
+  function resetCheckInFlow() {
+    selectedState = null;
+    selectedSupport = new Set();
+    checkInCounted = false;
+    $$('.choice-row[data-state], .choice-row[data-support]').forEach(row => row.classList.remove('selected'));
+    $('#supportStep').hidden = true;
+    $('#inlineSafety').hidden = true;
+    $('#checkinSuccess').hidden = true;
+    $('#saveCheckin').disabled = false;
+    const privateChoice = $('input[name="shareChoice"][value="private"]');
+    if (privateChoice) privateChoice.checked = true;
+    updateCheckInButton();
+  }
+
+  $('#adultConsent').addEventListener('change', updateConsent);
+  $('#boundaryConsent').addEventListener('change', updateConsent);
+  $('#enterApp').addEventListener('click', () => {
+    if ($('#enterApp').disabled) return;
+    care.didCompleteWelcome = true;
+    saveCare();
+    routeTo('today');
+  });
+
+  $$('[data-route]').forEach(button => {
+    button.addEventListener('click', () => routeTo(button.dataset.route));
+  });
+
+  $('#shareInvitation').addEventListener('click', () => {
+    shareContent(
+      'People of God — Circle Check',
+      'How are you, really? Take a private check-in with People of God. Share only what you choose.\n\n' + window.location.href.split('?')[0]
+    );
+  });
+
+  $$('.choice-row[data-state]').forEach(button => {
+    button.addEventListener('click', () => {
+      selectedState = button.dataset.state;
+      checkInCounted = false;
+      $('#checkinSuccess').hidden = true;
+      $$('.choice-row[data-state]').forEach(row => row.classList.toggle('selected', row === button));
+      $('#supportStep').hidden = false;
+      $('#inlineSafety').hidden = selectedState !== 'unsafe';
+      $('#saveCheckin').disabled = false;
+      updateCheckInButton();
+    });
+  });
+
+  $$('.choice-row[data-support]').forEach(button => {
+    button.addEventListener('click', () => {
+      const value = button.dataset.support;
+      if (selectedSupport.has(value)) selectedSupport.delete(value);
+      else selectedSupport.add(value);
+      button.classList.toggle('selected', selectedSupport.has(value));
+    });
+  });
+
+  function selectedShareChoice() {
+    return $('input[name="shareChoice"]:checked').value;
+  }
+
+  function updateCheckInButton() {
+    const labels = {
+      private: 'Save private check-in',
+      checked: 'Save and share that I checked in',
+      request: 'Save and share my support request'
+    };
+    $('#saveCheckin').textContent = checkInCounted ? 'Check-in saved' : labels[selectedShareChoice()];
+  }
+
+  $$('input[name="shareChoice"]').forEach(input => input.addEventListener('change', updateCheckInButton));
+
+  $('#saveCheckin').addEventListener('click', async () => {
+    if (!selectedState || checkInCounted) return;
+    const shareChoice = selectedShareChoice();
+    if (shareChoice === 'request' && selectedSupport.size === 0) {
+      toast('Choose the support you want to share—or keep the check-in private.');
+      return;
+    }
+
+    recordCare('checkIns');
+    checkInCounted = true;
+    $('#saveCheckin').disabled = true;
+    $('#checkinSuccess').hidden = false;
+    updateCheckInButton();
+
+    const outgoing = POGPrivacy.composeCheckInShare(shareChoice, [...selectedSupport]);
+    if (outgoing) {
+      await shareContent(outgoing.title, outgoing.text);
+    }
+  });
+
+  $('#recordPrayer').addEventListener('click', () => {
+    if (prayerCounted) return;
+    recordCare('prayerActs');
+    prayerCounted = true;
+    $('#recordPrayer').textContent = 'Prayer moment recorded';
+    $('#recordPrayer').disabled = true;
+    $('#prayerSuccess').hidden = false;
+  });
+
+  $('#sharePrayer').addEventListener('click', async () => {
+    const request = $('#prayerRequest').value.trim();
+    const text = request
+      ? `Please pray with me: ${request}`
+      : 'I have an unspoken prayer request. Please pray with me.';
+    await shareContent('People of God — Prayer Chain', text);
+  });
+
+  $('#sendWords').addEventListener('click', async () => {
+    const words = $('#speakWords').value.trim();
+    if (!words) {
+      toast('Write the words you want to send first.');
+      return;
+    }
+    const shared = await shareContent('People of God — Speak Life', words);
+    if (shared && !wordsCounted) {
+      recordCare('supportActs');
+      wordsCounted = true;
+      $('#speakSuccess').hidden = false;
+    }
+  });
+
+  function showInstallSheet(message) {
+    $('#installInstructions').textContent = message;
+    $('#installSheet').hidden = false;
+  }
+
+  function closeInstallSheet() {
+    $('#installSheet').hidden = true;
+  }
+
+  window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+  });
+
+  $('#installButton').addEventListener('click', async () => {
+    const isStandalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+    if (isStandalone) {
+      toast('People of God is already installed.');
+      return;
+    }
+
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      return;
+    }
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    showInstallSheet(isIOS
+      ? 'In Safari, tap Share, choose Add to Home Screen, then tap Add.'
+      : 'In Chrome, open the ⋮ menu and choose Install app or Add to Home screen.');
+  });
+
+  $('.sheet-backdrop').addEventListener('click', closeInstallSheet);
+  $('#closeInstall').addEventListener('click', closeInstallSheet);
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+  }
+
+  const requestedRoute = new URLSearchParams(window.location.search).get('screen');
+  renderProgress();
+  routeTo(care.didCompleteWelcome && allowedRoutes.has(requestedRoute) ? requestedRoute : currentRoute, false);
+  document.documentElement.dataset.appReady = 'true';
+})();
